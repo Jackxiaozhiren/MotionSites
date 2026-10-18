@@ -35,10 +35,13 @@ try {
     { name: 'guide-desktop', path: '/project.html?id=20', width: 1440, height: 900 },
     { name: 'guide-mobile', path: '/project.html?id=20', width: 390, height: 844 },
   ]) {
-    const page = await browser.newPage({
+    // axe creates temporary pages in the same context; browser.newPage()
+    // creates an owner-bound context where that operation is disallowed.
+    const context = await browser.newContext({
       viewport: { width: scenario.width, height: scenario.height },
       reducedMotion: 'reduce',
     });
+    const page = await context.newPage();
     try {
       // Do not depend on CI-created demo screenshots for the accessibility scan.
       await page.route('**/previews/manifest.json', route => route.fulfill({ status: 404, body: 'Not yet published' }));
@@ -71,7 +74,7 @@ try {
         console.log('  ' + violation.impact + ' ' + violation.id + ': ' + violation.nodes.length + ' affected nodes');
       }
     } finally {
-      await page.close();
+      await context.close();
     }
   }
 } finally {
