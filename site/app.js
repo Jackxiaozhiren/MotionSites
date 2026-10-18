@@ -101,7 +101,6 @@ function render() {
   grid.innerHTML = shown.map(project => {
     const capture = captures.get(project.id);
     const link = capture ? capture.demo : sourceURL(project);
-    const previewLabel = capture ? 'Open live demo' : 'View source';
     const cover = capture ? photoCover(project, capture) : conceptCover(project);
     const badge = capture
       ? '<span class="project-badge">Live demo</span>'
@@ -110,8 +109,7 @@ function render() {
       ? `<a class="open open--demo" target="_blank" rel="noopener noreferrer" href="${capture.demo}">Explore live demo ↗</a>`
       : '';
     return `<article class="card">
-      <a class="cover-link" target="_blank" rel="noopener noreferrer" href="${link}"
-        aria-label="${previewLabel} for ${escapeHTML(project.title)}">${cover}</a>
+      <a class="cover-link" target="_blank" rel="noopener noreferrer" href="${link}">${cover}</a>
       <div class="info">
         <div class="card-eyebrow"><span class="num">PROJECT ${pad(project.id)}</span>${badge}</div>
         <h3>${escapeHTML(project.title)}</h3>
@@ -119,7 +117,7 @@ function render() {
         <div class="card-actions">${demoAction}
           <a class="open" target="_blank" rel="noopener noreferrer"
             href="${sourceURL(project)}">View source ↗</a>
-          <a class="open open--guide" href="project.html?id=${project.id}" aria-label="Read source notes for ${escapeHTML(project.title)}">Code notes ↗</a>
+          <a class="open open--guide" href="project.html?id=${project.id}" aria-label="Code notes for ${escapeHTML(project.title)}">Code notes ↗</a>
         </div>
       </div>
     </article>`;
