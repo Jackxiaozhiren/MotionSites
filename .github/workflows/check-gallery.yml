@@ -2,7 +2,7 @@ name: Check Gallery
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'scripts/check_gallery.py', '.github/workflows/check-gallery.yml']
+    paths: ['site/**', 'scripts/check_gallery.py', 'scripts/*.mjs', '.github/workflows/check-gallery.yml']
   pull_request:
     paths: ['site/**', 'scripts/check_gallery.py', '.github/workflows/check-gallery.yml']
 permissions:
@@ -18,3 +18,7 @@ jobs:
         run: |
           node --check site/app.js
           node --check site/project.js
+          node --check scripts/smoke_gallery.mjs
+          node --check scripts/check_live_gallery.mjs
+          node --check scripts/render_social_card.mjs
+          node --check scripts/capture_previews.mjs
