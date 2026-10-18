@@ -24,7 +24,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="relative flex h-screen w-screen flex-col overflow-hidden bg-black font-[Inter]">
+    <div className="relative flex h-screen w-screen flex-col overflow-hidden font-[Inter]" style={{ background: 'radial-gradient(circle at 57% 35%, #453951 0%, #1b1929 40%, #07080c 100%)' }}>
       {/* Background video — fullscreen, fixed */}
       <video
         className="absolute inset-0 z-0 h-full w-full object-cover"

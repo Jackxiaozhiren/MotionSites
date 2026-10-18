@@ -1,0 +1,38 @@
+name: V3 Candidate Demo Review
+on:
+  pull_request:
+    paths:
+      - 'scripts/review_v3_candidate.mjs'
+      - '.github/workflows/v3-candidate-review.yml'
+      - 'docs/V3_CANDIDATE_REVIEW.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review:
+    name: Inspect ${{ matrix.candidate }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        candidate: [rivr, dot, hero-liquid-glass, mindloop, cinematic]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser and audit driver
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Build and audit independent demo
+        run: node scripts/review_v3_candidate.mjs ${{ matrix.candidate }}
+      - name: Keep actual screenshots and audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-candidate-${{ matrix.candidate }}
+          path: artifacts/v3-candidates/${{ matrix.candidate }}/
+          if-no-files-found: warn
+          retention-days: 21

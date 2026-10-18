@@ -7,7 +7,7 @@ import BottomRightCorner from './BottomRightCorner'
 export default function Hero() {
   return (
     <div className="w-full h-screen flex items-center justify-center p-3 md:p-5 bg-[#f0f0f0]">
-      <section className="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center bg-white/10 group">
+      <section className="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center group" style={{ background: 'linear-gradient(125deg, #dceaf1 0%, #bed8e3 48%, #c9e0e7 100%)' }}>
         {/* Video Background */}
         <video
           autoPlay
