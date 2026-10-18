@@ -48,6 +48,21 @@
 </table>
 
 
+
+### 🧠 从视觉效果走向源码学习
+
+画廊现在为全部作品提供[独立项目说明页](https://jackxiaozhiren.github.io/MotionSites/project.html?id=20)，包括源码目录、本地运行方法、真实 Demo 状态以及外部素材提醒。其中以下 **5 个精选案例经过对应源码检查**：
+
+| 项目 | 可学习的实现 | 说明页 |
+|---|---|---|
+| Jack · 3D Creator | 分阶段入场、磁吸交互、滚动跑马灯 | [查看 →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=1) |
+| Prisma | 文字入场与滚动触发卡片 | [查看 →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=3) |
+| Axion Studio | GSAP 鼠标视差、视频帧往返播放 | [查看 →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=20) |
+| Wanderful | 视频分层与指针视差 | [查看 →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=22) |
+| Foundation | Motion 入场、悬浮导航与跑马灯 | [查看 →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=28) |
+
+添加新技术说明请参见 [PROJECT_GUIDES.md](docs/PROJECT_GUIDES.md)。项目里引用的第三方图片、视频和品牌素材**不能因为仓库公开而直接复用**；请先查看[初步素材依赖审阅](docs/ASSET_PROVENANCE_AUDIT.md)及[素材来源登记](CREDITS.md)。当前内容是前端网页概念与实验，不代表完整生产系统，也不代表所有素材具有统一开源许可。
+
 ## 为什么是 MotionSites？
 
 MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立网页实验项目** 的灵感合集。你可以浏览不同风格的落地页，阅读实际源代码，学习动效实现思路，并在本地自行尝试。
