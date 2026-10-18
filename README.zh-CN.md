@@ -23,6 +23,31 @@
 
 > 画廊已为部分完成验证的项目提供**真实网页截图和在线 Demo**（Jack Portfolio、Prisma、Axion Studio、Wanderful、Foundation）。其余项目仍使用明确标注的概念封面与源码链接；这不代表全部 30 个项目都已部署。
 
+### ✨ 真实网页效果预览
+
+下列图片来自真实运行的项目页面，并非 AI 概念图。点击图片可以进入对应的在线 Demo。部分第三方素材依赖外部服务，实际效果可能受网络影响。
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/jack-portfolio.jpg" alt="从真实运行网页捕获的 Jack · 3D Creator" width="100%"></a><br>
+<strong>Jack · 3D Creator</strong><br>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio">源码 ↗</a>
+</td>
+<td width="33%" valign="top">
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/prisma-landing.jpg" alt="从真实运行网页捕获的 Prisma — Creative Studio" width="100%"></a><br>
+<strong>Prisma — Creative Studio</strong><br>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing">源码 ↗</a>
+</td>
+<td width="33%" valign="top">
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/foundation.jpg" alt="从真实运行网页捕获的 Foundation — New Digital Epoch" width="100%"></a><br>
+<strong>Foundation — New Digital Epoch</strong><br>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/29">源码 ↗</a>
+</td>
+</tr>
+</table>
+
+
 ## 为什么是 MotionSites？
 
 MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立网页实验项目** 的灵感合集。你可以浏览不同风格的落地页，阅读实际源代码，学习动效实现思路，并在本地自行尝试。
