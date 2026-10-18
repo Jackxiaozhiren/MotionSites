@@ -4,6 +4,12 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - '1/jack-portfolio/**'
+      - '3/prisma-landing/**'
+      - '21/**'
+      - '22/**'
+      - '29/**'
+      - 'scripts/capture_previews.mjs'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 permissions:
