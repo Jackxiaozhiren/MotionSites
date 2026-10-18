@@ -29,3 +29,9 @@ body {
 *::after {
   box-sizing: border-box;
 }
+
+/* Preserve a useful static composition when visitors request less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee { animation: none !important; transform: none !important; }
+  .will-change-transform { will-change: auto !important; }
+}

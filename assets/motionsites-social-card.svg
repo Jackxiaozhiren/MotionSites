@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+  <title id="title">MotionSites — Creative websites that move</title>
+  <desc id="desc">Original dark gradient typography and abstract geometric motion motifs with a description of an open source creative frontend collection. No website screenshots or third-party logos are used.</desc>
+  <defs>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0c0b15"/><stop offset=".56" stop-color="#181122"/><stop offset="1" stop-color="#342044"/>
+    </linearGradient>
+    <linearGradient id="titleFill" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#c9b1ff"/><stop offset=".52" stop-color="#f1bded"/><stop offset="1" stop-color="#8fe7ef"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#c9a8fa"/><stop offset=".42" stop-color="#7dc9ed"/><stop offset=".72" stop-color="#e18acc"/><stop offset="1" stop-color="#c9a8fa"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#b45eef" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#b45eef" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="21"/></filter>
+    <clipPath id="bounds"><rect width="1280" height="640" rx="32"/></clipPath>
+  </defs>
+  <g clip-path="url(#bounds)">
+    <rect width="1280" height="640" fill="url(#night)"/>
+    <circle cx="1032" cy="252" r="340" fill="url(#glow)"/>
+    <path d="M-80 520C160 400 282 710 538 550S946 428 1390 556" fill="none" stroke="#7d64b0" stroke-width="1.5" opacity=".45"/>
+    <path d="M-80 554C160 434 282 744 538 584S946 462 1390 590" fill="none" stroke="#7d64b0" stroke-width="1" opacity=".23"/>
+    <path d="M-80 484C160 364 282 674 538 514S946 392 1390 520" fill="none" stroke="#6cc3d5" stroke-width="1" opacity=".22"/>
+    <rect x="52" y="52" width="163" height="30" rx="15" fill="#382849" stroke="#5f4978"/>
+    <circle cx="71" cy="67" r="4" fill="#8ae3da"/>
+    <text x="86" y="72" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="700" letter-spacing="2.4" fill="#e2d7f5">OPEN SOURCE</text>
+    <text x="69" y="228" font-family="Arial,Helvetica,sans-serif" font-size="93" font-weight="800" letter-spacing="-5" fill="#fff">Motion<tspan fill="url(#titleFill)">Sites</tspan></text>
+    <text x="75" y="279" font-family="Arial,Helvetica,sans-serif" font-size="29" font-weight="500" fill="#e8dbf5">Beautiful websites. Better motion.</text>
+    <text x="75" y="334" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#b8aac9">Explore the design. Learn the code.</text>
+    <rect x="73" y="401" width="215" height="46" rx="23" fill="#d8c7ff"/>
+    <text x="102" y="431" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#25162e">30 FRONTEND IDEAS</text>
+    <text x="75" y="519" font-family="Arial,Helvetica,sans-serif" font-size="15" letter-spacing="1.5" fill="#bdb0ce">REACT   /   GSAP   /   MOTION   /   TYPESCRIPT</text>
+    <text x="75" y="586" font-family="Arial,Helvetica,sans-serif" font-size="14" letter-spacing="1" fill="#9283a5">github.com/Jackxiaozhiren/MotionSites</text>
+    <g transform="translate(920 290) rotate(-22)">
+      <circle r="192" fill="none" stroke="#ad6ffa" stroke-width="55" opacity=".13" filter="url(#soft)"/>
+      <circle r="176" fill="none" stroke="url(#ring)" stroke-width="36" opacity=".98"/>
+      <circle r="119" fill="none" stroke="#d2b6ff" stroke-width="1.5" opacity=".6"/>
+      <circle r="69" fill="none" stroke="#e9dfff" stroke-width="1.5" opacity=".33"/>
+      <circle r="11" fill="#c1a8fa"/>
+    </g>
+    <g transform="translate(968 305) rotate(12)" opacity=".72">
+      <rect x="-195" y="-135" width="358" height="233" rx="25" fill="#18121f" fill-opacity=".44" stroke="#ead8ff" stroke-opacity=".4"/>
+      <rect x="-175" y="-115" width="317" height="18" rx="9" fill="#e5d3ff" fill-opacity=".16"/>
+      <circle cx="-163" cy="-106" r="4" fill="#b29aed"/>
+      <circle cx="-149" cy="-106" r="4" fill="#92d4e8"/>
+      <circle cx="-135" cy="-106" r="4" fill="#f7b8d9"/>
+      <path d="M-163 -22 Q-88 -90 -22 -12 T130 -15" stroke="#8dddde" stroke-width="4" fill="none" opacity=".8"/>
+      <rect x="-163" y="37" width="155" height="11" rx="5" fill="#d7c5f2" fill-opacity=".42"/>
+      <rect x="-163" y="55" width="116" height="7" rx="3" fill="#d7c5f2" fill-opacity=".25"/>
+    </g>
+    <rect x=".5" y=".5" width="1279" height="639" rx="31.5" fill="none" stroke="#6f4f8a" stroke-opacity=".55"/>
+  </g>
+</svg>

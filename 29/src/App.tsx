@@ -1,8 +1,10 @@
 import { ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import Marquee from './components/Marquee';
 
 function App() {
+  const reducedMotion = useReducedMotion();
+
   return (
     <div className="min-h-screen w-full flex flex-col items-center px-4 py-8">
       {/* Hero Container */}
@@ -10,8 +12,8 @@ function App() {
         {/* Video Background */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
           {/* Gradient fallback for when video fails to load */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a1b33] via-[#1e3a5f] to-[#0f2b4a]" />
-          <video
+          <div className="absolute inset-0 bg-gradient-to-br from-[#e6eef8] via-[#d2e1f1] to-[#c4d5e9]" />
+          {!reducedMotion && <video
             autoPlay
             loop
             muted
@@ -22,13 +24,13 @@ function App() {
               src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260505_101331_74f9b798-3f00-4e86-8a01-377aa16ffeaa.mp4"
               type="video/mp4"
             />
-          </video>
+          </video>}
         </div>
 
         {/* Text Content */}
         <div className="relative z-20 flex-1 px-8 md:px-16 pt-12 md:pt-16 flex flex-col items-start">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="flex flex-col items-start gap-5 max-w-2xl"
@@ -43,8 +45,8 @@ function App() {
 
             <motion.button
               type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={reducedMotion ? undefined : { scale: 1.05 }}
+              whileTap={reducedMotion ? undefined : { scale: 0.95 }}
               className="bg-[#0a152d] text-white rounded-full px-8 py-3 font-semibold font-sans tracking-wide text-sm cursor-pointer"
             >
               Contact Us
@@ -55,7 +57,7 @@ function App() {
         {/* Floating Bottom Navbar */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30">
           <motion.nav
-            initial={{ opacity: 0, y: 20 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
             className="flex items-center bg-white/90 backdrop-blur-2xl px-1.5 py-1.5 rounded-full shadow-[0_12px_40px_rgba(0,0,0,0.08)] border border-slate-200/40"

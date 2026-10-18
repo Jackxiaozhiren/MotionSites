@@ -1,0 +1,61 @@
+name: Browser Smoke and Featured Demo Builds
+
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - '21/**'
+      - '22/**'
+      - '29/**'
+      - 'scripts/smoke_gallery.mjs'
+      - 'scripts/render_social_card.mjs'
+      - 'assets/motionsites-social-card.svg'
+      - '.github/workflows/browser-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gallery-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Run gallery and guide smoke tests
+        run: node scripts/smoke_gallery.mjs
+      - name: Render rights-independent social preview JPG
+        run: node scripts/render_social_card.mjs
+      - name: Upload social preview for GitHub Settings
+        uses: actions/upload-artifact@v4
+        with:
+          name: motionsites-social-preview
+          path: artifacts/motionsites-social-preview.jpg
+          retention-days: 30
+
+  featured-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        demo: ['21', '22', '29']
+    defaults:
+      run:
+        working-directory: ${{ matrix.demo }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install demo dependencies
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Typecheck and build demo
+        run: npm run build
