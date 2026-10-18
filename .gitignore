@@ -40,3 +40,6 @@ desktop.ini
 
 # Lockfiles are auto-generated; not tracked in this collection
 package-lock.json
+
+# Local workspace data (agent memory, task data)
+.workbuddy/
