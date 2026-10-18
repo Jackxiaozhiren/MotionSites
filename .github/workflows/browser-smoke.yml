@@ -8,6 +8,8 @@ on:
       - '22/**'
       - '29/**'
       - 'scripts/smoke_gallery.mjs'
+      - 'scripts/render_social_card.mjs'
+      - 'assets/motionsites-social-card.svg'
       - '.github/workflows/browser-smoke.yml'
   workflow_dispatch:
 
@@ -29,6 +31,14 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Run gallery and guide smoke tests
         run: node scripts/smoke_gallery.mjs
+      - name: Render rights-independent social preview JPG
+        run: node scripts/render_social_card.mjs
+      - name: Upload social preview for GitHub Settings
+        uses: actions/upload-artifact@v4
+        with:
+          name: motionsites-social-preview
+          path: artifacts/motionsites-social-preview.jpg
+          retention-days: 30
 
   featured-build:
     runs-on: ubuntu-latest
