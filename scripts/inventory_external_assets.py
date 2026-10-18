@@ -57,7 +57,7 @@ def scan():
                     except ValueError:
                         continue
                     host = (parsed.hostname or "").lower()
-                    if not host or host in {"localhost", "127.0.0.1", "example.com"}:
+                    if not host or host in {"localhost", "127.0.0.1", "example.com", "www.w3.org", "w3.org"}:
                         continue
                     rows.append({
                         "source": rel,
@@ -69,7 +69,7 @@ def scan():
     categories = Counter(row["category"] for row in rows)
     return {
         "scope": "All 30 catalog entries; duplicate nested source files scanned once",
-        "disclaimer": "An occurrence is not an asset ownership/permission determination.",
+        "disclaimer": "An occurrence is a literal source URL reference, not a network request, asset ownership, or permission determination. SVG XML namespace identifiers are excluded.",
         "scanned_source_files": scanned,
         "total_external_references": len(rows),
         "domains": dict(sorted(domains.items())),
