@@ -87,6 +87,18 @@ function renderVisual(project, capture) {
     image.height = 600;
     image.alt = 'Real browser screenshot of the running ' + project.title + ' project';
     image.decoding = 'async';
+    image.addEventListener('error', () => {
+      // Keep the page navigable without pretending a broken URL is a capture.
+      target.replaceChildren();
+      const fallback = document.createElement('div');
+      fallback.className = 'detail-concept';
+      const title = document.createElement('strong');
+      title.textContent = project.title;
+      const label = document.createElement('span');
+      label.textContent = 'Screenshot unavailable · Live demo link may still work';
+      fallback.append(title, label);
+      target.append(fallback);
+    }, { once: true });
     target.append(image);
     const note = document.createElement('p');
     note.className = 'detail-visual-note';
