@@ -17,6 +17,9 @@
 
 ## 🌐 可交互作品画廊
 
+> **源码目录已规范化：** 30 个独立项目统一放在 [`projects/`](projects/) 中，使用网页名称命名，如 [`projects/axion-studio/`](projects/axion-studio/) 和 [`projects/mindloop/`](projects/mindloop/)。原数字目录的对应关系请查阅 [旧路径 → 新路径对照表](docs/PROJECT_DIRECTORY_MIGRATION.md)。
+
+
 新版本包含 [`site/`](site/) 中的**可搜索、可按技术栈筛选的在线作品目录**：用更直观的卡片浏览全部 30 个项目，并一键打开对应 GitHub 源码。
 
 **[🌐 访问已上线的作品画廊](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
@@ -32,17 +35,17 @@
 <td width="33%" valign="top">
 <a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/jack-portfolio.jpg" alt="从真实运行网页捕获的 Jack · 3D Creator" width="100%"></a><br>
 <strong>Jack · 3D Creator</strong><br>
-<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio">源码 ↗</a>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator">源码 ↗</a>
 </td>
 <td width="33%" valign="top">
 <a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/prisma-landing.jpg" alt="从真实运行网页捕获的 Prisma — Creative Studio" width="100%"></a><br>
 <strong>Prisma — Creative Studio</strong><br>
-<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing">源码 ↗</a>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio">源码 ↗</a>
 </td>
 <td width="33%" valign="top">
 <a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/foundation.jpg" alt="从真实运行网页捕获的 Foundation — New Digital Epoch" width="100%"></a><br>
 <strong>Foundation — New Digital Epoch</strong><br>
-<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/29">源码 ↗</a>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/">在线体验 ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch">源码 ↗</a>
 </td>
 </tr>
 </table>
@@ -78,12 +81,12 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 
 | 项目 | 特色 | 源码 |
 |---|---|---|
-| **Jack · 3D Creator** | Framer Motion 创意作品集概念 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) |
-| **Prisma — Creative Studio** | 创意工作室落地页 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) |
-| **Axion Studio** | GSAP 动效网页 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) |
-| **Wanderful** | GSAP 旅行风格网页 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22) |
-| **Foundation — New Digital Epoch** | Motion 动效体验 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
-| **Hero Liquid Glass** | 液态玻璃风格 Hero | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
+| **Jack · 3D Creator** | Framer Motion 创意作品集概念 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator) |
+| **Prisma — Creative Studio** | 创意工作室落地页 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio) |
+| **Axion Studio** | GSAP 动效网页 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) |
+| **Wanderful** | GSAP 旅行风格网页 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/wanderful) |
+| **Foundation — New Digital Epoch** | Motion 动效体验 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) |
+| **Hero Liquid Glass** | 液态玻璃风格 Hero | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/hero-liquid-glass) |
 
 **动效预览：** 已验证的精选项目可在在线画廊直接体验；其余项目可按照「快速开始」在本地运行。后续会逐步补充更多真实截图和动图，参见 [展示素材制作指南](docs/SHOWCASE_GUIDE.md)。
 
@@ -96,36 +99,36 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 
 | # | 项目 | 技术栈 | 源码 |
 |:--:|---|---|:--:|
-| 01 | **Jack · 3D Creator** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) |
-| 02 | **Mainframe** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/2) |
-| 03 | **Prisma — Creative Studio** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) |
-| 04 | **Velorah** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/4) |
-| 05 | **Password Manager** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/5) |
-| 06 | **Aethera** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/6) |
-| 07 | **Venture — Space Travel** | Standalone HTML · CDN | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) |
-| 08 | **VEX** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/8) |
-| 09 | **Forma** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/10) |
-| 10 | **Asme** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/11) |
-| 11 | **Orbis.Nft** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/12) |
-| 12 | **VaultShield** | React · Framer Motion · Tailwind · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/13) |
-| 13 | **Asme (Motion)** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/14) |
-| 14 | **securify** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/15) |
-| 15 | **CINEMATIC** | React · Tailwind · Vite | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/16) |
-| 16 | **LinkFlow** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/17) |
-| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/18) |
-| 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/19) |
-| 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/20) |
-| 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) |
-| 21 | **Axion Studio (subproject)** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21/9) |
-| 22 | **Wanderful** | React · GSAP · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22) |
-| 23 | **Mindloop** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/24/mindloop) |
-| 24 | **Equilibrium** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/25) |
-| 25 | **Xero** | React · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/26) |
-| 26 | **Duolingo — Style Guide** | Standalone HTML | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27) |
-| 27 | **Newsletter Design** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/28/newsletter-design) |
-| 28 | **Foundation — New Digital Epoch** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
-| 29 | **dot.** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/30) |
-| 30 | **Hero Liquid Glass** | React · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
+| 01 | **Jack · 3D Creator** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator) |
+| 02 | **Mainframe** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/mainframe) |
+| 03 | **Prisma — Creative Studio** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio) |
+| 04 | **Velorah** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/velorah) |
+| 05 | **Password Manager** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/password-manager) |
+| 06 | **Aethera** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/aethera) |
+| 07 | **Venture — Space Travel** | Standalone HTML · CDN | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/venture-space-travel) |
+| 08 | **VEX** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/vex) |
+| 09 | **Forma** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/forma) |
+| 10 | **Asme** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/asme) |
+| 11 | **Orbis.Nft** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/orbis-nft) |
+| 12 | **VaultShield** | React · Framer Motion · Tailwind · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/vaultshield) |
+| 13 | **Asme (Motion)** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/asme-motion) |
+| 14 | **securify** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/securify) |
+| 15 | **CINEMATIC** | React · Tailwind · Vite | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/cinematic) |
+| 16 | **LinkFlow** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/linkflow) |
+| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/motion-sites-18) |
+| 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/rivr) |
+| 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/nexora) |
+| 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) |
+| 21 | **Axion Studio (subproject)** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio-subproject) |
+| 22 | **Wanderful** | React · GSAP · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/wanderful) |
+| 23 | **Mindloop** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/mindloop) |
+| 24 | **Equilibrium** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/equilibrium) |
+| 25 | **Xero** | React · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/xero) |
+| 26 | **Duolingo — Style Guide** | Standalone HTML | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/duolingo-style-guide) |
+| 27 | **Newsletter Design** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/newsletter-design) |
+| 28 | **Foundation — New Digital Epoch** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) |
+| 29 | **dot.** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/dot) |
+| 30 | **Hero Liquid Glass** | React · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/hero-liquid-glass) |
 
 </details>
 
@@ -157,7 +160,7 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 
 ```bash
 git clone https://github.com/Jackxiaozhiren/MotionSites.git
-cd MotionSites/21
+cd MotionSites/projects/axion-studio
 npm install
 npm run dev
 ```

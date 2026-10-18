@@ -5,6 +5,11 @@ on:
       - 'scripts/review_v3_candidate.mjs'
       - '.github/workflows/v3-candidate-review.yml'
       - 'docs/V3_CANDIDATE_REVIEW.md'
+      - 'projects/rivr/**'
+      - 'projects/dot/**'
+      - 'projects/hero-liquid-glass/**'
+      - 'projects/mindloop/**'
+      - 'projects/cinematic/**'
   workflow_dispatch:
 permissions:
   contents: read

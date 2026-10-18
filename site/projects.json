@@ -1,181 +1,181 @@
 [
   {
     "id": 1,
-    "path": "1/jack-portfolio",
+    "path": "projects/jack-3d-creator",
     "title": "Jack · 3D Creator",
     "tag": "Framer Motion"
   },
   {
     "id": 2,
-    "path": "2",
+    "path": "projects/mainframe",
     "title": "Mainframe",
     "tag": "React"
   },
   {
     "id": 3,
-    "path": "3/prisma-landing",
+    "path": "projects/prisma-creative-studio",
     "title": "Prisma — Creative Studio",
     "tag": "Framer Motion"
   },
   {
     "id": 4,
-    "path": "4",
+    "path": "projects/velorah",
     "title": "Velorah",
     "tag": "React"
   },
   {
     "id": 5,
-    "path": "5",
+    "path": "projects/password-manager",
     "title": "Password Manager",
     "tag": "Framer Motion"
   },
   {
     "id": 6,
-    "path": "6",
+    "path": "projects/aethera",
     "title": "Aethera",
     "tag": "React"
   },
   {
     "id": 7,
-    "path": "7",
+    "path": "projects/venture-space-travel",
     "title": "Venture — Space Travel",
     "tag": "HTML"
   },
   {
     "id": 8,
-    "path": "8",
+    "path": "projects/vex",
     "title": "VEX",
     "tag": "React"
   },
   {
     "id": 9,
-    "path": "10",
+    "path": "projects/forma",
     "title": "Forma",
     "tag": "React"
   },
   {
     "id": 10,
-    "path": "11",
+    "path": "projects/asme",
     "title": "Asme",
     "tag": "React"
   },
   {
     "id": 11,
-    "path": "12",
+    "path": "projects/orbis-nft",
     "title": "Orbis.Nft",
     "tag": "React"
   },
   {
     "id": 12,
-    "path": "13",
+    "path": "projects/vaultshield",
     "title": "VaultShield",
     "tag": "Framer Motion"
   },
   {
     "id": 13,
-    "path": "14",
+    "path": "projects/asme-motion",
     "title": "Asme (Motion)",
     "tag": "Framer Motion"
   },
   {
     "id": 14,
-    "path": "15",
+    "path": "projects/securify",
     "title": "securify",
     "tag": "React"
   },
   {
     "id": 15,
-    "path": "16",
+    "path": "projects/cinematic",
     "title": "CINEMATIC",
     "tag": "React"
   },
   {
     "id": 16,
-    "path": "17",
+    "path": "projects/linkflow",
     "title": "LinkFlow",
     "tag": "React"
   },
   {
     "id": 17,
-    "path": "18",
+    "path": "projects/motion-sites-18",
     "title": "Motion Sites 18",
     "tag": "React"
   },
   {
     "id": 18,
-    "path": "19",
+    "path": "projects/rivr",
     "title": "RIVR",
     "tag": "Motion"
   },
   {
     "id": 19,
-    "path": "20",
+    "path": "projects/nexora",
     "title": "Nexora",
     "tag": "Framer Motion"
   },
   {
     "id": 20,
-    "path": "21",
+    "path": "projects/axion-studio",
     "title": "Axion Studio",
     "tag": "GSAP"
   },
   {
     "id": 21,
-    "path": "21/9",
+    "path": "projects/axion-studio-subproject",
     "title": "Axion Studio (subproject)",
     "tag": "React"
   },
   {
     "id": 22,
-    "path": "22",
+    "path": "projects/wanderful",
     "title": "Wanderful",
     "tag": "GSAP"
   },
   {
     "id": 23,
-    "path": "24/mindloop",
+    "path": "projects/mindloop",
     "title": "Mindloop",
     "tag": "Framer Motion"
   },
   {
     "id": 24,
-    "path": "25",
+    "path": "projects/equilibrium",
     "title": "Equilibrium",
     "tag": "React"
   },
   {
     "id": 25,
-    "path": "26",
+    "path": "projects/xero",
     "title": "Xero",
     "tag": "React"
   },
   {
     "id": 26,
-    "path": "27",
+    "path": "projects/duolingo-style-guide",
     "title": "Duolingo — Style Guide",
     "tag": "HTML"
   },
   {
     "id": 27,
-    "path": "28/newsletter-design",
+    "path": "projects/newsletter-design",
     "title": "Newsletter Design",
     "tag": "React"
   },
   {
     "id": 28,
-    "path": "29",
+    "path": "projects/foundation-new-digital-epoch",
     "title": "Foundation — New Digital Epoch",
     "tag": "Motion"
   },
   {
     "id": 29,
-    "path": "30",
+    "path": "projects/dot",
     "title": "dot.",
     "tag": "Motion"
   },
   {
     "id": 30,
-    "path": "hero-liquid-glass",
+    "path": "projects/hero-liquid-glass",
     "title": "Hero Liquid Glass",
     "tag": "React"
   }

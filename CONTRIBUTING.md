@@ -5,7 +5,7 @@ Thanks for helping make this collection more useful.
 ## Before you open a PR
 
 1. Check existing [issues](https://github.com/Jackxiaozhiren/MotionSites/issues) to avoid duplicates.
-2. Mention the **exact project path** you are changing, such as `21/` or `24/mindloop/`.
+2. Mention the **exact project path** you are changing, such as `projects/axion-studio/` or `projects/mindloop/`.
 3. Keep changes inside the relevant project where possible. Projects are independent; don't assume shared tooling.
 4. Test from that project's own directory. For Vite projects, run `npm install`, `npm run build` when available, and `npm run dev` to verify the page. For HTML-only projects, check in a browser.
 5. Include before/after screenshots or a short recording for visual changes.

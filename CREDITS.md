@@ -6,9 +6,9 @@ MotionSites contains multiple independent website experiments. This file is a **
 
 | Project path | Original design / inspiration link | External code / libraries | Image, video, icons & fonts (source/license) | Verified by / date |
 |---|---|---|---|---|
-| `1/jack-portfolio/` | To verify | See project package files | To verify | Pending |
-| `21/` | To verify | See project package files | To verify | Pending |
-| `22/` | To verify | See project package files | To verify | Pending |
-| `27/` | To verify | Standalone HTML | To verify (includes brand-style references) | Pending |
+| `projects/jack-3d-creator/` | To verify | See project package files | To verify | Pending |
+| `projects/axion-studio/` | To verify | See project package files | To verify | Pending |
+| `projects/wanderful/` | To verify | See project package files | To verify | Pending |
+| `projects/duolingo-style-guide/` | To verify | Standalone HTML | To verify (includes brand-style references) | Pending |
 
 Add a row for every project before a major public launch. Record direct URLs and the specific license/usage grant when available. If reuse rights are unclear, replace the material or obtain permission. Projects referencing real brands are independent explorations unless explicitly indicated otherwise.

@@ -2,9 +2,9 @@ name: Check Gallery
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'scripts/check_gallery.py', 'scripts/*.mjs', '.github/workflows/check-gallery.yml']
+    paths: ['site/**', 'scripts/check_gallery.py', 'scripts/check_project_paths.py', 'scripts/*.mjs', 'projects/**', '.github/workflows/check-gallery.yml']
   pull_request:
-    paths: ['site/**', 'scripts/check_gallery.py', '.github/workflows/check-gallery.yml']
+    paths: ['site/**', 'scripts/check_gallery.py', 'scripts/check_project_paths.py', 'projects/**', '.github/workflows/check-gallery.yml']
 permissions:
   contents: read
 jobs:
@@ -18,6 +18,8 @@ jobs:
         run: |
           python3 scripts/build_editorial_pages.py
           python3 scripts/build_editorial_pages.py --check
+      - name: Validate descriptive project directories
+        run: python3 scripts/check_project_paths.py
       - name: Check JavaScript syntax
         run: |
           node --check site/app.js

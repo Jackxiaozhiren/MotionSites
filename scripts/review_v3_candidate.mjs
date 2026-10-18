@@ -8,11 +8,11 @@ import { chromium } from 'playwright';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const targets = Object.freeze({
-  rivr: { dir: '19', id: 18 },
-  dot: { dir: '30', id: 29 },
-  'hero-liquid-glass': { dir: 'hero-liquid-glass', id: 30 },
-  mindloop: { dir: '24/mindloop', id: 23 },
-  cinematic: { dir: '16', id: 15 }
+  rivr: { dir: 'projects/rivr', id: 18 },
+  dot: { dir: 'projects/dot', id: 29 },
+  'hero-liquid-glass': { dir: 'projects/hero-liquid-glass', id: 30 },
+  mindloop: { dir: 'projects/mindloop', id: 23 },
+  cinematic: { dir: 'projects/cinematic', id: 15 }
 });
 const slug = process.argv[2];
 if (!Object.hasOwn(targets, slug)) {
