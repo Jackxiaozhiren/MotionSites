@@ -35,7 +35,8 @@ for item in ["README.md", "README.zh-CN.md"]:
     for project in CATALOG:
         assert "/tree/main/" + project["path"] in data, (item, project["path"])
 readme = (ROOT / "docs/PROJECT_DIRECTORY_MIGRATION.md").read_text(encoding="utf-8")
-assert readme.count("| `projects/") == 0  # table includes IDs before destination
+for project in CATALOG:
+    assert "`" + project["path"] + "/`" in readme
 for path in ["scripts/capture_previews.mjs", "scripts/review_v3_candidate.mjs"]:
     data = (ROOT / path).read_text(encoding="utf-8")
     assert "dir: \"21\"" not in data

@@ -17,6 +17,9 @@
 
 ## 🌐 可交互作品画廊
 
+> **源码目录已规范化：** 30 个独立项目统一放在 [`projects/`](projects/) 中，使用网页名称命名，如 [`projects/axion-studio/`](projects/axion-studio/) 和 [`projects/mindloop/`](projects/mindloop/)。原数字目录的对应关系请查阅 [旧路径 → 新路径对照表](docs/PROJECT_DIRECTORY_MIGRATION.md)。
+
+
 新版本包含 [`site/`](site/) 中的**可搜索、可按技术栈筛选的在线作品目录**：用更直观的卡片浏览全部 30 个项目，并一键打开对应 GitHub 源码。
 
 **[🌐 访问已上线的作品画廊](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
