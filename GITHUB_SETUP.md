@@ -22,7 +22,7 @@ Do not run these commands blindly. They assume you have merged the files into yo
 Repository page → **About** gear icon:
 
 - **Description:** `30 creative animated websites and landing pages built with React, GSAP, Motion and Tailwind CSS. Explore source code, motion UI and frontend inspiration.`
-- **Website:** after publishing and verifying the gallery, set `https://jackxiaozhiren.github.io/MotionSites/`. Leave empty until then.
+- **Website:** set `https://jackxiaozhiren.github.io/MotionSites/` (the GitHub Pages deployment workflow succeeded on 2026-10-18).
 - **Topics:** `animated-website`, `creative-coding`, `web-animation`, `landing-page`, `react`, `vite`, `tailwindcss`, `framer-motion`, `gsap`, `motion`, `frontend`, `web-design`, `portfolio`, `ui-animation`.
 
 ## 3. Upload a social preview (manual, owner action)
