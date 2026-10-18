@@ -127,6 +127,15 @@ Start with a few different styles and animation stacks:
 
 </details>
 
+
+### Discover and share a gallery view
+
+The [live gallery](https://jackxiaozhiren.github.io/MotionSites/) can filter by animation stack, search by title or source path, and show only projects with verified live demos. Press `/` to focus search, or `Escape` to clear it. Select **Share this view** to copy a URL that retains the current search, stack and live-demo filters. These are browser-side filters and do not track visitors.
+
+**Preview availability:** screenshots and hosted demos only appear after the GitHub Actions capture pipeline successfully builds and verifies them. Projects without verified demos remain available through their source links. The gallery's single project index is [`site/projects.json`](site/projects.json); [`site/app.js`](site/app.js) loads it directly rather than duplicating the list.
+
+**Validate the gallery before a PR:** `python3 scripts/check_gallery.py`. This checks project paths, catalog consistency, key accessibility controls and README source links; it does not replace a browser-level visual or performance audit.
+
 ## 🚀 Quick start
 
 Each subproject is self-contained. For most React / Vite projects:
