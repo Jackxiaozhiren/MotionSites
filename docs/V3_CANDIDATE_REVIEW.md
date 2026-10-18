@@ -6,11 +6,11 @@ This is an **evaluation-only pipeline**. It does not add demos to the published 
 
 | Gallery ID | Candidate | Source | Known review issue (pre-CI) | Publication gate |
 |---|---|---|---|---|
-| 18 | RIVR | `19/` | Video referenced from an external CloudFront host; verify creator and permission. | Build + browser QA **and** rights |
-| 29 | dot. | `30/` | Background MP4 referenced from CloudFront; verify origin and fallback. | Build + browser QA **and** rights |
-| 30 | Hero Liquid Glass | `hero-liquid-glass/` | `src/App.tsx` contains Vite/React starter branding and links; ensure the public title/description reflect what is actually built. | Verify meaningful custom project |
-| 23 | Mindloop | `24/mindloop/` | Media references and embedded third-party service branding require review. | Build + browser QA **and** rights |
-| 15 | CINEMATIC | `16/` | Full-screen external CloudFront video, UI links appear illustrative; verify media permission and user expectations. | Build + browser QA **and** rights |
+| 18 | RIVR | `projects/rivr/` | Video referenced from an external CloudFront host; verify creator and permission. | Build + browser QA **and** rights |
+| 29 | dot. | `projects/dot/` | Background MP4 referenced from CloudFront; verify origin and fallback. | Build + browser QA **and** rights |
+| 30 | Hero Liquid Glass | `projects/hero-liquid-glass/` | `src/App.tsx` contains Vite/React starter branding and links; ensure the public title/description reflect what is actually built. | Verify meaningful custom project |
+| 23 | Mindloop | `projects/mindloop/` | Media references and embedded third-party service branding require review. | Build + browser QA **and** rights |
+| 15 | CINEMATIC | `projects/cinematic/` | Full-screen external CloudFront video, UI links appear illustrative; verify media permission and user expectations. | Build + browser QA **and** rights |
 
 Run **V3 Candidate Demo Review** using a pull request or workflow dispatch. Every matrix job installs dependencies on an ephemeral runner, uses the project's own build script, runs Chromium at 1440×900 and 390×844 and uploads a JSON report plus actual screenshots if successful. The npm production-dependency audit is advisory: findings must be triaged rather than dismissed or treated as proof of compromise.
 

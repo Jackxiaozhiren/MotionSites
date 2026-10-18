@@ -6,11 +6,11 @@
 
 | Project | Sources inspected | Potential external dependency | Action before reuse/distribution |
 |---|---|---|---|
-| `1/jack-portfolio/` | `src/components/HeroSection.tsx`, `MarqueeSection.tsx` | remote portrait at `figma.site`; animated GIFs referenced on `motionsites.ai` | Verify original creator, asset license, and whether hotlinking is authorized. Record each source in `CREDITS.md`. |
-| `3/prisma-landing/` | `src/components/Hero.tsx`, `Features.tsx` | remote video on `cloudfront.net` and an image proxy at `images.higgs.ai` | Confirm media ownership and redistribute only when rights are clear. Check video fallback and external host availability. |
-| `21/` | `src/App.tsx` | video hosted on `cloudfront.net`; in-memory canvas frame buffer | Review media rights and mobile memory usage; avoid shipping unbounded frame buffers. |
-| `22/` | `src/Hero.tsx` | external `cloudfront.net` video | Verify rights; note that menu links and travel CTA are illustrative rather than working booking services. |
-| `29/` | `src/App.tsx`, `src/components/Marquee.tsx` | external video; third-party brand logos used in concept presentation | Record all brand/asset sources, avoid endorsement claims, and confirm each logo/media permission. |
+| `projects/jack-3d-creator/` | `src/components/HeroSection.tsx`, `MarqueeSection.tsx` | remote portrait at `figma.site`; animated GIFs referenced on `motionsites.ai` | Verify original creator, asset license, and whether hotlinking is authorized. Record each source in `CREDITS.md`. |
+| `projects/prisma-creative-studio/` | `src/components/Hero.tsx`, `Features.tsx` | remote video on `cloudfront.net` and an image proxy at `images.higgs.ai` | Confirm media ownership and redistribute only when rights are clear. Check video fallback and external host availability. |
+| `projects/axion-studio/` | `src/App.tsx` | video hosted on `cloudfront.net`; in-memory canvas frame buffer | Review media rights and mobile memory usage; avoid shipping unbounded frame buffers. |
+| `projects/wanderful/` | `src/Hero.tsx` | external `cloudfront.net` video | Verify rights; note that menu links and travel CTA are illustrative rather than working booking services. |
+| `projects/foundation-new-digital-epoch/` | `src/App.tsx`, `src/components/Marquee.tsx` | external video; third-party brand logos used in concept presentation | Record all brand/asset sources, avoid endorsement claims, and confirm each logo/media permission. |
 
 The appearance of a remote URL or brand name **does not establish permission** to republish, hotlink or commercially reuse the asset. A technically successful demo build is not a provenance check.
 
@@ -34,7 +34,7 @@ The appearance of a remote URL or brand name **does not establish permission** t
 
 ## External naming and media source check (public web, 2026-10-18)
 
-The public website [motionsites.ai](https://motionsites.ai/) identifies itself as **MotionSites AI**, a commercial website-prompt and animated-background library. Its published [terms](https://motionsites.ai/terms) govern its service. The repository's `1/jack-portfolio/src/components/MarqueeSection.tsx` links directly to animated GIF URLs from `motionsites.ai`; other projects use third-party videos and images. An apparently similar name, design or URL **does not itself prove copied code or infringement**, nor does it establish that the repo has an affiliation with that service.
+The public website [motionsites.ai](https://motionsites.ai/) identifies itself as **MotionSites AI**, a commercial website-prompt and animated-background library. Its published [terms](https://motionsites.ai/terms) govern its service. The repository's `projects/jack-3d-creator/src/components/MarqueeSection.tsx` links directly to animated GIF URLs from `motionsites.ai`; other projects use third-party videos and images. An apparently similar name, design or URL **does not itself prove copied code or infringement**, nor does it establish that the repo has an affiliation with that service.
 
 Before wider public promotion or releasing a blanket open-source license, the repository owner should:
 

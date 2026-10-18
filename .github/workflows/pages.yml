@@ -4,11 +4,11 @@ on:
     branches: [main]
     paths:
       - 'site/**'
-      - '1/jack-portfolio/**'
-      - '3/prisma-landing/**'
-      - '21/**'
-      - '22/**'
-      - '29/**'
+      - 'projects/jack-3d-creator/**'
+      - 'projects/prisma-creative-studio/**'
+      - 'projects/axion-studio/**'
+      - 'projects/wanderful/**'
+      - 'projects/foundation-new-digital-epoch/**'
       - 'scripts/capture_previews.mjs'
       - 'scripts/render_social_card.mjs'
       - 'scripts/check_live_gallery.mjs'

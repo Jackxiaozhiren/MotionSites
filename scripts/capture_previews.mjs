@@ -12,11 +12,11 @@ import { chromium } from "playwright";
 const root = resolve(import.meta.dirname, "..");
 const site = join(root, "site");
 const targets = [
-  { id: 1, dir: "1/jack-portfolio", slug: "jack-portfolio" },
-  { id: 3, dir: "3/prisma-landing", slug: "prisma-landing" },
-  { id: 20, dir: "21", slug: "axion-studio" },
-  { id: 22, dir: "22", slug: "wanderful" },
-  { id: 28, dir: "29", slug: "foundation" },
+  { id: 1, dir: "projects/jack-3d-creator", slug: "jack-portfolio" },
+  { id: 3, dir: "projects/prisma-creative-studio", slug: "prisma-landing" },
+  { id: 20, dir: "projects/axion-studio", slug: "axion-studio" },
+  { id: 22, dir: "projects/wanderful", slug: "wanderful" },
+  { id: 28, dir: "projects/foundation-new-digital-epoch", slug: "foundation" },
 ];
 await fs.mkdir(join(site, "previews"), { recursive: true });
 await fs.mkdir(join(site, "demos"), { recursive: true });

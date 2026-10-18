@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'scripts/capture_previews.mjs'
+      - 'projects/jack-3d-creator/**'
+      - 'projects/prisma-creative-studio/**'
+      - 'projects/axion-studio/**'
+      - 'projects/wanderful/**'
+      - 'projects/foundation-new-digital-epoch/**'
       - '.github/workflows/capture-previews.yml'
   workflow_dispatch:
 concurrency:

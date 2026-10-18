@@ -24,6 +24,10 @@
 
 ## 🌐 Explore the interactive gallery
 
+> **New source layout:** All 30 independent projects now have readable directories under [`projects/`](projects/), such as [`projects/axion-studio/`](projects/axion-studio/) and [`projects/mindloop/`](projects/mindloop/). If you previously bookmarked a numeric folder path, consult the [old → new directory map](docs/PROJECT_DIRECTORY_MIGRATION.md).
+
+
+
 A **searchable, filterable, motion-inspired gallery** is included in [`site/`](site/): browse all 30 projects by technology, find a concept quickly, and open each project's source on GitHub.
 
 **[🌐 Explore the live gallery](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)

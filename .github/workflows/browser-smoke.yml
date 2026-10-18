@@ -4,9 +4,9 @@ on:
   pull_request:
     paths:
       - 'site/**'
-      - '21/**'
-      - '22/**'
-      - '29/**'
+      - 'projects/axion-studio/**'
+      - 'projects/wanderful/**'
+      - 'projects/foundation-new-digital-epoch/**'
       - 'scripts/smoke_gallery.mjs'
       - 'scripts/render_social_card.mjs'
       - 'assets/motionsites-social-card.svg'
@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        demo: ['21', '22', '29']
+        demo: ['projects/axion-studio', 'projects/wanderful', 'projects/foundation-new-digital-epoch']
     defaults:
       run:
         working-directory: ${{ matrix.demo }}
