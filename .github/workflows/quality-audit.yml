@@ -1,0 +1,75 @@
+name: Accessibility and Lighthouse Baseline
+
+on:
+  pull_request:
+    paths:
+      - 'site/**'
+      - 'scripts/audit_accessibility.mjs'
+      - 'scripts/summarize_lighthouse.mjs'
+      - 'lighthouserc.cjs'
+      - '.github/workflows/quality-audit.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'scripts/audit_accessibility.mjs'
+      - 'scripts/summarize_lighthouse.mjs'
+      - 'lighthouserc.cjs'
+      - '.github/workflows/quality-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  accessibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser and axe
+        run: |
+          npm install --no-save --ignore-scripts --no-fund --no-audit playwright@1.56.1 @axe-core/playwright@4.14.0
+          npx playwright install --with-deps chromium
+      - name: Scan gallery and project guides
+        run: node scripts/audit_accessibility.mjs
+      - name: Upload accessibility findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: axe-accessibility-results
+          path: artifacts/accessibility/axe-results.json
+          if-no-files-found: warn
+          retention-days: 30
+
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Lighthouse CI and Playwright browser
+        run: |
+          npm install --no-save --ignore-scripts --no-fund --no-audit playwright@1.56.1 @lhci/cli@0.15.1
+          npx playwright install --with-deps chromium
+      - name: Collect reproducible Lighthouse reports
+        run: |
+          export CHROME_PATH="$(node -p "require('playwright').chromium.executablePath()")"
+          npx lhci collect --config=lighthouserc.cjs
+          npx lhci upload --config=lighthouserc.cjs
+          node scripts/summarize_lighthouse.mjs
+      - name: Upload Lighthouse HTML/JSON results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-baseline
+          path: |
+            artifacts/lighthouse/
+            .lighthouseci/
+          if-no-files-found: warn
+          retention-days: 30
