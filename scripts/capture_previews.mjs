@@ -65,13 +65,13 @@ try {
         await page.waitForTimeout(3000);
         const text = await page.locator("body").innerText().catch(() => "");
         if (text.trim().length < 10) throw Error("Page appears empty — screenshot not published.");
-        const screenshot = join(site, "previews", target.slug + ".webp");
-        await page.screenshot({ path: screenshot, type: "webp", quality: 84 });
+        const screenshot = join(site, "previews", target.slug + ".jpg");
+        await page.screenshot({ path: screenshot, type: "jpeg", quality: 84 });
         const file = await fs.stat(screenshot);
         if (file.size < 8000) throw Error("Screenshot unexpectedly small.");
         captured.push({
           id: target.id,
-          image: "previews/" + target.slug + ".webp",
+          image: "previews/" + target.slug + ".jpg",
           demo: "demos/" + target.slug + "/",
         });
         console.log("Captured:", target.slug, file.size, "bytes; body characters:", text.trim().length);
