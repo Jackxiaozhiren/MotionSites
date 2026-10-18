@@ -103,13 +103,13 @@ function App() {
     function startCapture() {
       if (started || !capturing) return;
       started = true;
-      video.play().catch(() => setMediaFailed(true));
+      video!.play().catch(() => setMediaFailed(true));
 
       function loop() {
         if (!capturing) return;
         captureFrame();
         if (!capturing) return;
-        if (video!.requestVideoFrameCallback) {
+        if (typeof video!.requestVideoFrameCallback === 'function') {
           vfcId = video!.requestVideoFrameCallback(loop);
         } else {
           rafId = requestAnimationFrame(loop);
@@ -124,7 +124,7 @@ function App() {
 
     return () => {
       capturing = false;
-      if (vfcId !== undefined && video.cancelVideoFrameCallback) {
+      if (vfcId !== undefined && typeof video.cancelVideoFrameCallback === 'function') {
         video.cancelVideoFrameCallback(vfcId);
       }
       if (rafId !== undefined) cancelAnimationFrame(rafId);
