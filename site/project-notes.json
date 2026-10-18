@@ -68,20 +68,20 @@
       },
       {
         "title": "Pointer-tracked parallax",
-        "detail": "A requestAnimationFrame loop eases toward pointer coordinates and uses gsap.set to move the video background.",
+        "detail": "Pointer movement triggers short GSAP tweens, avoiding a continuously running idle requestAnimationFrame loop.",
         "files": [
           "src/App.tsx"
         ]
       },
       {
         "title": "Consider memory and motion settings",
-        "detail": "Frame capture stores canvases in memory; review limits, cleanup, and reduced-motion alternatives before reusing this effect.",
+        "detail": "Capture now samples at up to eight frames per second, with a 480px maximum width and 48-frame cap. The demo skips video capture under reduced-motion and provides a static fallback when remote media fails.",
         "files": [
           "src/App.tsx"
         ]
       }
     ],
-    "caveat": "The demo relies on an external video URL. Canvas frame buffering may consume significant memory on lower-end devices."
+    "caveat": "The demo still depends on an external video URL; Canvas memory is bounded but needs device-specific testing and permission checks."
   },
   "22": {
     "description": "A travel-themed hero composition using a full-screen video, glass-like navigation and smooth GSAP pointer parallax.",
@@ -95,20 +95,20 @@
       },
       {
         "title": "Smooth mouse parallax",
-        "detail": "Pointer movement is eased in a requestAnimationFrame loop and applied to the video wrapper via gsap.set.",
+        "detail": "Fine-pointer movement triggers short GSAP tweens on the video wrapper, rather than running a permanent requestAnimationFrame loop.",
         "files": [
           "src/Hero.tsx"
         ]
       },
       {
         "title": "Timed entrance states",
-        "detail": "Component state controls the intro opacity and translation transitions after mounting.",
+        "detail": "Entrance transitions create the staged hero reveal. The browser's reduced-motion setting now prevents decorative video loading and pointer parallax.",
         "files": [
           "src/Hero.tsx"
         ]
       }
     ],
-    "caveat": "The background video is hosted externally. Navigation and travel calls to action are visual placeholders, not booking services."
+    "caveat": "The background video is hosted externally. This is a visual travel concept; there is no booking service, and the source link is the active call to action."
   },
   "28": {
     "description": "A digital-brand landing page with Motion-based hero entrances, a floating glass navigation element and a continuous logo marquee.",
@@ -129,12 +129,12 @@
       },
       {
         "title": "Marquee construction",
-        "detail": "The logo row duplicates its data and uses an animated CSS marquee with hover pause behavior.",
+        "detail": "The logo row duplicates data and uses CSS animation; the carousel is paused for visitors requesting reduced motion.",
         "files": [
           "src/components/Marquee.tsx"
         ]
       }
     ],
-    "caveat": "The demo includes an externally hosted video and third-party logos as design references; no endorsement is implied."
+    "caveat": "External video is skipped for reduced-motion visitors, but the normal demo still relies on remote media and third-party logos as design references. No endorsement is implied."
   }
 }
