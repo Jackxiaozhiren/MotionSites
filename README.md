@@ -151,6 +151,13 @@ The [live gallery](https://jackxiaozhiren.github.io/MotionSites/) can filter by 
 
 **Validate the gallery before a PR:** `python3 scripts/check_gallery.py`. This checks project paths, catalog consistency, key accessibility controls and README source links; it does not replace a browser-level visual or performance audit.
 
+
+### Reliability, accessibility and source attribution
+
+The featured GSAP/Motion demos are progressively being hardened for reduced-motion preferences and unreliable remote media. Gallery and detail pages show truthful fallback artwork when a published screenshot cannot load, rather than an empty broken-image area. New GitHub Actions browser checks test filtering, keyboard use, project guides, mobile layout and reduced motion; affected demos also undergo independent TypeScript/Vite builds.
+
+**External resources require separate verification:** some projects load video, GIF, font or image assets from third-party services, including [motionsites.ai](https://motionsites.ai/). Their presence in the source does not establish redistribution rights or any affiliation with the referenced service. See [asset provenance audit](docs/ASSET_PROVENANCE_AUDIT.md) and the [automated URL-inventory workflow](.github/workflows/asset-inventory.yml). The repository does **not** currently provide a blanket license for third-party artwork or source.
+
 ## 🚀 Quick start
 
 Each subproject is self-contained. For most React / Vite projects:
