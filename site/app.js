@@ -94,6 +94,7 @@ function render() {
         <div class="card-actions">${demoAction}
           <a class="open" target="_blank" rel="noopener noreferrer"
             href="${sourceURL(project)}">View source ↗</a>
+          <a class="open open--guide" href="project.html?id=${project.id}" aria-label="Read source notes for ${escapeHTML(project.title)}">Code notes ↗</a>
         </div>
       </div>
     </article>`;
