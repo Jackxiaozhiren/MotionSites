@@ -14,6 +14,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate gallery
         run: python3 scripts/check_gallery.py
+      - name: Generate and validate source-backed articles
+        run: |
+          python3 scripts/build_editorial_pages.py
+          python3 scripts/build_editorial_pages.py --check
       - name: Check JavaScript syntax
         run: |
           node --check site/app.js
