@@ -1,0 +1,16 @@
+name: Check Gallery
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', 'scripts/check_gallery.py', '.github/workflows/check-gallery.yml']
+  pull_request:
+    paths: ['site/**', 'scripts/check_gallery.py', '.github/workflows/check-gallery.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate gallery
+        run: python3 scripts/check_gallery.py

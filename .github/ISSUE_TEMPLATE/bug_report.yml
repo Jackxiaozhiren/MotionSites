@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a problem with a project or the gallery
+title: "bug: "
+body:
+  - type: input
+    id: project
+    attributes:
+      label: Project path or gallery URL
+      placeholder: 21 or site/
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce and observed behavior
+    validations:
+      required: true

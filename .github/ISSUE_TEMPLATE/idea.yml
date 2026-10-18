@@ -1,0 +1,10 @@
+name: Improvement idea
+description: Suggest a new improvement
+title: "idea: "
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Describe the suggestion and its benefit
+    validations:
+      required: true
