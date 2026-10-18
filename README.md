@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="https://jackxiaozhiren.github.io/MotionSites/"><strong>🌐 Interactive gallery (after Pages setup)</strong></a> ·
+  <a href="https://jackxiaozhiren.github.io/MotionSites/"><strong>🌐 Live interactive gallery</strong></a> ·
   <a href="#explore-the-collection"><strong>Explore projects</strong></a> ·
   <a href="#quick-start"><strong>Run locally</strong></a> ·
   <a href="README.zh-CN.md"><strong>简体中文</strong></a> ·
@@ -26,9 +26,9 @@
 
 A **searchable, filterable, motion-inspired gallery** is included in [`site/`](site/): browse all 30 projects by technology, find a concept quickly, and open each project's source on GitHub.
 
-**[Gallery URL — available after GitHub Pages deployment](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
+**[🌐 Explore the live gallery](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
 
-> The gallery uses **illustrated concept covers**, clearly marked as such. It does not pretend to be screenshots or live deployments of all 30 sites. Verify the Pages deployment before sharing the URL as live.
+> The gallery uses **illustrated concept covers**, clearly marked as such. It does not pretend to be screenshots or live deployments of all 30 sites. The gallery index is deployed via GitHub Pages; individual projects are not independently hosted demos.
 
 ## Why MotionSites?
 
