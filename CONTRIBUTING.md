@@ -39,3 +39,6 @@ Small, focused PRs are easiest to review. Describe **what changed**, **why**, **
 ## Licensing notes
 
 Do not assume all projects or all third-party assets have a single blanket open-source license. The repository maintainer should confirm code and asset provenance before adopting a repository-wide license. See [CREDITS.md](CREDITS.md).
+## Gallery discoverability checks
+
+The project catalog has a **single source of truth**: `site/projects.json`. Do not copy its entries into `site/app.js`. Keep project IDs unique and sequential; use an existing supported stack tag (React, GSAP, Framer Motion, Motion, HTML). Gallery filters are reflected in the URL (`stack`, `q`, `demos`) so shared links should continue to work. Test keyboard focus, screen-reader labels and reduced-motion behavior in addition to the static validation script. If a new filter category is introduced, update both the gallery buttons and the validator.
