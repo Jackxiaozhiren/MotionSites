@@ -80,3 +80,15 @@ button[hidden]{display:none!important}
 .detail-last h2{max-width:700px}
 @media(max-width:800px){.detail-hero,.detail-columns{grid-template-columns:1fr}.detail-hero{gap:28px;padding:28px 0 45px}.detail-columns{gap:14px}}
 @media(max-width:580px){.detail-panel{padding:20px}.detail-visual img{aspect-ratio:4/3}.detail-breadcrumb{margin-top:25px}.detail-concept{min-height:230px}}
+
+/* Source-guides invitation on the main collection. */
+.open--guide{color:#bba0e7}
+.card-actions .open{display:inline-block}
+.case-studies{border-top:1px solid var(--line)}
+.case-studies>.muted{max-width:730px}
+.case-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:30px}
+.case-links a{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px;border:1px solid #40344f;border-radius:12px;background:#17111e;font-weight:700}
+.case-links a:hover,.case-links a:focus-visible{border-color:#d1b9ff;background:#20172b}
+.case-links a span{font-size:12px;font-weight:500;color:#bba1db;white-space:nowrap}
+@media(max-width:760px){.case-links{grid-template-columns:1fr}}
+@media(max-width:420px){.case-links a{align-items:flex-start;flex-direction:column;gap:6px}}
