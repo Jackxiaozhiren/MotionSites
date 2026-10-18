@@ -30,6 +30,30 @@ A **searchable, filterable, motion-inspired gallery** is included in [`site/`](s
 
 > The gallery includes **real screenshots and live demo builds for selected verified projects** (Jack Portfolio, Prisma, Axion Studio, Wanderful and Foundation). All other projects have clearly labeled concept covers and source links; we do **not** claim all 30 are hosted.
 
+### ✨ Real website previews
+
+These are actual screenshots captured from running project builds, not generated concept art. Click a thumbnail to try the hosted preview. Some third-party assets may depend on external services.
+
+<table>
+<tr>
+<td width="33%" valign="top">
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/jack-portfolio.jpg" alt="Real browser screenshot of Jack · 3D Creator" width="100%"></a><br>
+<strong>Jack · 3D Creator</strong><br>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio">Source ↗</a>
+</td>
+<td width="33%" valign="top">
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/prisma-landing.jpg" alt="Real browser screenshot of Prisma — Creative Studio" width="100%"></a><br>
+<strong>Prisma — Creative Studio</strong><br>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing">Source ↗</a>
+</td>
+<td width="33%" valign="top">
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/foundation.jpg" alt="Real browser screenshot of Foundation — New Digital Epoch" width="100%"></a><br>
+<strong>Foundation — New Digital Epoch</strong><br>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/29">Source ↗</a>
+</td>
+</tr>
+</table>
+
 ## Why MotionSites?
 
 Modern websites are more than static layouts. MotionSites collects **30 independent, browsable source projects** so designers and frontend developers can explore how different visual styles and interactions are put together.
