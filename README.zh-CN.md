@@ -139,6 +139,9 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 **提交前检查：** 运行 `python3 scripts/check_gallery.py`，验证项目路径、目录数据、主要无障碍控件和双语 README 源码链接。此检查不替代真实浏览器中的视觉和性能测试。
 
 
+
+**社交分享封面：** 新增[原创、可编辑 SVG 封面](assets/motionsites-social-card.svg)，由 GitHub Actions 导出为 1280×640 JPG 并用于在线画廊的 Open Graph 元信息。此封面不包含第三方截图或品牌 Logo。GitHub 仓库设置中的 Social preview 仍需从 CI Artifact 取得 JPG 后手动上传；参见 [GITHUB_SETUP.md](GITHUB_SETUP.md)。
+
 ### 可靠性与素材来源
 
 精选 GSAP/Motion 网页已开始针对系统的「减少动态效果」偏好和远程视频失败进行降级处理。画廊图片加载失败时，会显示明确标注的替代封面；新的 Chromium 浏览器自动化检查会覆盖筛选、搜索、键盘操作、项目说明页和手机端横向溢出，受影响子项目另有构建测试。
