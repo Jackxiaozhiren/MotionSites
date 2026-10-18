@@ -19,11 +19,21 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Capture verified live demos and screenshots
+        continue-on-error: true
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          npx playwright install --with-deps chromium
+          node scripts/capture_previews.mjs
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site

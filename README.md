@@ -28,7 +28,7 @@ A **searchable, filterable, motion-inspired gallery** is included in [`site/`](s
 
 **[🌐 Explore the live gallery](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
 
-> The gallery uses **illustrated concept covers**, clearly marked as such. It does not pretend to be screenshots or live deployments of all 30 sites. The gallery index is deployed via GitHub Pages; individual projects are not independently hosted demos.
+> The gallery includes **real screenshots and live demo builds for selected verified projects** (Jack Portfolio, Prisma, Axion Studio, Wanderful and Foundation). All other projects have clearly labeled concept covers and source links; we do **not** claim all 30 are hosted.
 
 ## Why MotionSites?
 
@@ -54,7 +54,7 @@ Start with a few different styles and animation stacks:
 | **Foundation — New Digital Epoch** | Motion-powered digital experience | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
 | **Hero Liquid Glass** | Liquid-glass hero exploration | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
 
-**Want to see the motion in action?** Clone a project and run it locally using the instructions below. Individual projects do not yet have a verified, complete hosted-demo/screenshot gallery. See [the visual showcase guide](docs/SHOWCASE_GUIDE.md) for how to add genuine captures and live URLs later.
+**Want to see the motion in action?** Clone a project and run it locally using the instructions below. Selected projects offer verified demo builds in the gallery; others remain source-only. See [the visual showcase guide](docs/SHOWCASE_GUIDE.md) for how to add genuine captures and live URLs later.
 
 ### Find projects by technology
 
@@ -146,7 +146,7 @@ Found a bug, noticed a broken asset, or have an idea for the collection?
 
 ## 📍 What's next?
 
-In this update, a searchable **source-code gallery** is included under [`site/`](site/). Upcoming improvements: real screenshots and short clips captured from running projects, verified individual live previews, and more complete source/asset credits.
+In this update, a searchable **source-code gallery** is included under [`site/`](site/). Upcoming improvements: screenshots and short clips for more projects, additional live previews, and more complete source/asset credits.
 
 ## ❤️ Support
 

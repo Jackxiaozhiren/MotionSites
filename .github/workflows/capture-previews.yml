@@ -5,6 +5,9 @@ on:
       - 'scripts/capture_previews.mjs'
       - '.github/workflows/capture-previews.yml'
   workflow_dispatch:
+concurrency:
+  group: captures-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:

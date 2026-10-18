@@ -21,7 +21,7 @@
 
 **[🌐 访问已上线的作品画廊](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
 
-> 目前画廊使用**概念化视觉封面**，并非原项目截图或完整线上 Demo。项目目录已通过 GitHub Pages 发布，但各子项目尚未统一部署为独立在线 Demo。
+> 画廊已为部分完成验证的项目提供**真实网页截图和在线 Demo**（Jack Portfolio、Prisma、Axion Studio、Wanderful、Foundation）。其余项目仍使用明确标注的概念封面与源码链接；这不代表全部 30 个项目都已部署。
 
 ## 为什么是 MotionSites？
 
@@ -45,7 +45,7 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 | **Foundation — New Digital Epoch** | Motion 动效体验 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
 | **Hero Liquid Glass** | 液态玻璃风格 Hero | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
 
-**动效预览：** 当前暂未提供已验证的统一线上 Demo 或完整的项目截图集。可以按照「快速开始」在本地运行，或参考 [展示素材制作指南](docs/SHOWCASE_GUIDE.md) 后续补充真实截图与动图。
+**动效预览：** 已验证的精选项目可在在线画廊直接体验；其余项目可按照「快速开始」在本地运行。后续会逐步补充更多真实截图和动图，参见 [展示素材制作指南](docs/SHOWCASE_GUIDE.md)。
 
 ## 项目一览
 

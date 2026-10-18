@@ -5,14 +5,14 @@ interface Logo {
 }
 
 const logos: Logo[] = [
-  { src: '/logos/procure.svg', alt: 'Procure', gradient: { from: '#3b82f6', to: '#8b5cf6' } },
-  { src: '/logos/shopify.svg', alt: 'Shopify', gradient: { from: '#f59e0b', to: '#eab308' } },
-  { src: '/logos/blender.svg', alt: 'Blender', gradient: { from: '#3b82f6', to: '#06b6d4' } },
-  { src: '/logos/figma.svg', alt: 'Figma', gradient: { from: '#a855f7', to: '#ec4899' } },
-  { src: '/logos/spotify.svg', alt: 'Spotify', gradient: { from: '#22c55e', to: '#16a34a' } },
-  { src: '/logos/lottielab.svg', alt: 'Lottielab', gradient: { from: '#84cc16', to: '#10b981' } },
-  { src: '/logos/googlecloud.svg', alt: 'Google Cloud', gradient: { from: '#0ea5e9', to: '#38bdf8' } },
-  { src: '/logos/bing.svg', alt: 'Bing', gradient: { from: '#06b6d4', to: '#14b8a6' } },
+  { src: `${import.meta.env.BASE_URL}logos/procure.svg`, alt: 'Procure', gradient: { from: '#3b82f6', to: '#8b5cf6' } },
+  { src: `${import.meta.env.BASE_URL}logos/shopify.svg`, alt: 'Shopify', gradient: { from: '#f59e0b', to: '#eab308' } },
+  { src: `${import.meta.env.BASE_URL}logos/blender.svg`, alt: 'Blender', gradient: { from: '#3b82f6', to: '#06b6d4' } },
+  { src: `${import.meta.env.BASE_URL}logos/figma.svg`, alt: 'Figma', gradient: { from: '#a855f7', to: '#ec4899' } },
+  { src: `${import.meta.env.BASE_URL}logos/spotify.svg`, alt: 'Spotify', gradient: { from: '#22c55e', to: '#16a34a' } },
+  { src: `${import.meta.env.BASE_URL}logos/lottielab.svg`, alt: 'Lottielab', gradient: { from: '#84cc16', to: '#10b981' } },
+  { src: `${import.meta.env.BASE_URL}logos/googlecloud.svg`, alt: 'Google Cloud', gradient: { from: '#0ea5e9', to: '#38bdf8' } },
+  { src: `${import.meta.env.BASE_URL}logos/bing.svg`, alt: 'Bing', gradient: { from: '#06b6d4', to: '#14b8a6' } },
 ];
 
 function LogoCard({ logo }: { logo: Logo }) {
