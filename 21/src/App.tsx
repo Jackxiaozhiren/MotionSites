@@ -5,6 +5,21 @@ const NAV_LINKS = ['Gallery', 'Styles', 'API', 'Pricing', 'Blog'];
 const VIDEO_SRC =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_080827_a9e5ad52-b6ee-4e79-b393-d936f179cfd7.mp4';
 
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+
+  useEffect(() => {
+    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setReduced(query.matches);
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+
+  return reduced;
+}
+
 function LogoMark() {
   return (
     <svg width="44" height="26" viewBox="0 0 44 26" fill="none" aria-hidden>
@@ -18,6 +33,8 @@ function LogoMark() {
 function App() {
   const [mounted, setMounted] = useState(false);
   const [framesReady, setFramesReady] = useState(false);
+  const [mediaFailed, setMediaFailed] = useState(false);
+  const reducedMotion = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoBgRef = useRef<HTMLDivElement>(null);
   const displayCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -28,40 +45,72 @@ function App() {
     setMounted(true);
   }, []);
 
-  /* Effect 1 — Frame capture (boomerang) */
+  /* Effect 1 — Memory-bounded frame capture (boomerang). */
   useEffect(() => {
+    framesRef.current = [];
+    setFramesReady(false);
+    if (reducedMotion || mediaFailed) return;
+
     const video = videoRef.current;
     if (!video) return;
 
     let capturing = true;
+    let started = false;
     let lastTime = -1;
-    const MAX_WIDTH = 960;
-    const frames: HTMLCanvasElement[] = [];
     let vfcId: number | undefined;
     let rafId: number | undefined;
+    const frames: HTMLCanvasElement[] = [];
+    // 480×270 RGBA × 48 frames is about 24 MB, versus an unbounded
+    // full-resolution canvas for every video frame.
+    const MAX_WIDTH = 480;
+    const MAX_FRAMES = 48;
+    const MIN_INTERVAL = 1 / 8;
+
+    function finishCapture() {
+      if (!capturing) return;
+      capturing = false;
+      if (frames.length > 1) {
+        framesRef.current = frames;
+        setFramesReady(true);
+        video!.pause();
+      }
+    }
 
     function captureFrame() {
-      if (!capturing || video.readyState < 2) return;
-      if (video.currentTime === lastTime) return;
+      if (!capturing || !video || video.readyState < 2 || !video.videoWidth) return;
+      if (lastTime >= 0 && video.currentTime - lastTime < MIN_INTERVAL) return;
       lastTime = video.currentTime;
+
       const scale = Math.min(1, MAX_WIDTH / video.videoWidth);
-      const w = Math.round(video.videoWidth * scale);
-      const h = Math.round(video.videoHeight * scale);
+      const w = Math.max(1, Math.round(video.videoWidth * scale));
+      const h = Math.max(1, Math.round(video.videoHeight * scale));
       const canvas = document.createElement('canvas');
       canvas.width = w;
       canvas.height = h;
-      const ctx = canvas.getContext('2d')!;
-      ctx.drawImage(video, 0, 0, w, h);
-      frames.push(canvas);
+      const context = canvas.getContext('2d');
+      if (!context) return;
+      try {
+        context.drawImage(video, 0, 0, w, h);
+        frames.push(canvas);
+        if (frames.length >= MAX_FRAMES) finishCapture();
+      } catch {
+        // A remote video can fail due to CORS. Keep the static fallback.
+        capturing = false;
+        setMediaFailed(true);
+      }
     }
 
-    function onLoaded() {
-      video.play().catch(() => {});
+    function startCapture() {
+      if (started || !capturing) return;
+      started = true;
+      video.play().catch(() => setMediaFailed(true));
+
       function loop() {
         if (!capturing) return;
         captureFrame();
-        if (video.requestVideoFrameCallback) {
-          vfcId = video.requestVideoFrameCallback(loop);
+        if (!capturing) return;
+        if (video!.requestVideoFrameCallback) {
+          vfcId = video!.requestVideoFrameCallback(loop);
         } else {
           rafId = requestAnimationFrame(loop);
         }
@@ -69,18 +118,9 @@ function App() {
       loop();
     }
 
-    function onEnded() {
-      capturing = false;
-      framesRef.current = frames;
-      setFramesReady(true);
-    }
-
-    video.addEventListener('loadedmetadata', onLoaded);
-    video.addEventListener('ended', onEnded);
-
-    if (video.readyState >= 1) {
-      onLoaded();
-    }
+    video.addEventListener('loadedmetadata', startCapture);
+    video.addEventListener('ended', finishCapture);
+    if (video.readyState >= 1) startCapture();
 
     return () => {
       capturing = false;
@@ -88,32 +128,32 @@ function App() {
         video.cancelVideoFrameCallback(vfcId);
       }
       if (rafId !== undefined) cancelAnimationFrame(rafId);
-      video.removeEventListener('loadedmetadata', onLoaded);
-      video.removeEventListener('ended', onEnded);
+      video.removeEventListener('loadedmetadata', startCapture);
+      video.removeEventListener('ended', finishCapture);
+      video.pause();
+      framesRef.current = [];
     };
-  }, []);
+  }, [reducedMotion, mediaFailed]);
 
-  /* Effect 2 — Boomerang render */
+  /* Effect 2 — Pause playback when the tab is hidden. */
   useEffect(() => {
-    if (!framesReady) return;
+    if (!framesReady || reducedMotion) return;
     const canvas = displayCanvasRef.current;
-    if (!canvas) return;
     const frames = framesRef.current;
-    if (!frames.length) return;
+    if (!canvas || frames.length < 2) return;
 
     canvas.width = frames[0].width;
     canvas.height = frames[0].height;
-    const ctx = canvas.getContext('2d')!;
+    const context = canvas.getContext('2d');
+    if (!context) return;
 
     let index = 0;
     let direction = 1;
     let last = performance.now();
-    const interval = 1000 / 30;
     let rafId: number;
-
     function render(now: number) {
-      if (now - last >= interval) {
-        ctx.drawImage(frames[index], 0, 0);
+      if (!document.hidden && now - last >= 1000 / 24) {
+        context!.drawImage(frames[index], 0, 0);
         index += direction;
         if (index >= frames.length - 1) {
           index = frames.length - 1;
@@ -127,63 +167,57 @@ function App() {
       rafId = requestAnimationFrame(render);
     }
     rafId = requestAnimationFrame(render);
-
     return () => cancelAnimationFrame(rafId);
-  }, [framesReady]);
+  }, [framesReady, reducedMotion]);
 
-  /* Effect 3 — Parallax mouse tracking */
+  /* Effect 3 — Event-driven parallax; no idle animation loop. */
   useEffect(() => {
-    const strength = 20;
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let rafId: number;
+    const wrapper = videoBgRef.current;
+    if (!wrapper || reducedMotion || !window.matchMedia('(pointer: fine)').matches) return;
 
-    function onMouseMove(e: MouseEvent) {
+    function onMouseMove(event: MouseEvent) {
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 2;
-      targetX = ((e.clientX - cx) / cx) * strength;
-      targetY = ((e.clientY - cy) / cy) * strength;
+      gsap.to(wrapper, {
+        x: ((event.clientX - cx) / cx) * 20,
+        y: ((event.clientY - cy) / cy) * 20,
+        duration: 0.6,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      });
     }
 
-    window.addEventListener('mousemove', onMouseMove);
-
-    function tick() {
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
-      gsap.set(videoBgRef.current, { x: currentX, y: currentY });
-      rafId = requestAnimationFrame(tick);
-    }
-    rafId = requestAnimationFrame(tick);
-
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(rafId);
+      gsap.killTweensOf(wrapper);
+      gsap.set(wrapper, { x: 0, y: 0 });
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div className="min-h-screen bg-black text-white font-body overflow-x-hidden">
       {/* Video background layer */}
       <div
         ref={videoBgRef}
-        className="fixed top-0 left-0 w-full h-full z-0 scale-[1.08] origin-center"
+        className="fixed top-0 left-0 w-full h-full z-0 scale-[1.08] origin-center bg-gradient-to-br from-[#152f42] via-[#121e35] to-black"
+        aria-hidden="true"
       >
         <video
           ref={videoRef}
-          src={VIDEO_SRC}
+          src={reducedMotion || mediaFailed ? undefined : VIDEO_SRC}
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          onError={() => setMediaFailed(true)}
           crossOrigin="anonymous"
           className="w-full h-full object-cover"
-          style={{ display: framesReady ? 'none' : 'block' }}
+          style={{ display: reducedMotion || mediaFailed || framesReady ? 'none' : 'block' }}
         />
         <canvas
           ref={displayCanvasRef}
           className="w-full h-full object-cover"
-          style={{ display: framesReady ? 'block' : 'none' }}
+          style={{ display: !reducedMotion && framesReady ? 'block' : 'none' }}
         />
       </div>
 
