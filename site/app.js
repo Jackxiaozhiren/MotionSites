@@ -31,6 +31,31 @@ const sourceURL = project =>
   'https://github.com/Jackxiaozhiren/MotionSites/tree/main/' +
   project.path.split('/').map(encodeURIComponent).join('/');
 const gradients = ['#54397f', '#145e73', '#733c64', '#55406b', '#29535b', '#7c523b', '#5e485c', '#26535b'];
+// Browsers can fail to load an image even when CI published a manifest.
+// Never leave a broken-image icon under a label claiming a real screenshot.
+grid.addEventListener('error', event => {
+  const image = event.target;
+  if (!(image instanceof HTMLImageElement)) return;
+  const cover = image.closest('.cover--photo');
+  if (!cover) return;
+  const card = image.closest('.card');
+  const title = card?.querySelector('h3')?.textContent || 'Project preview';
+  const fallback = document.createElement('div');
+  fallback.className = 'cover cover--concept';
+  fallback.style.setProperty('--a', '#4f385d');
+  const kicker = document.createElement('span');
+  kicker.className = 'concept-kicker';
+  kicker.textContent = 'PREVIEW UNAVAILABLE';
+  const name = document.createElement('strong');
+  name.className = 'concept-title';
+  name.textContent = title;
+  const label = document.createElement('span');
+  label.className = 'cover-note';
+  label.textContent = 'Screenshot failed to load · Try live demo';
+  fallback.append(kicker, name, label);
+  cover.replaceWith(fallback);
+}, true);
+
 
 const conceptCover = project => `<div class="cover cover--concept" style="--a:${gradients[project.id % gradients.length]}">
   <span class="concept-kicker">MOTION / ${pad(project.id)}</span>
