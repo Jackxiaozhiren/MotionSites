@@ -54,6 +54,21 @@ These are actual screenshots captured from running project builds, not generated
 </tr>
 </table>
 
+
+### 🧠 Go beyond the screenshot: implementation guides
+
+Every catalog card now links to a [project guide](https://jackxiaozhiren.github.io/MotionSites/project.html?id=20) with the source directory, local start commands, honest preview availability, and a note about external assets. **Five featured guides are based on inspected source code**, not generated assumptions:
+
+| Project | What to learn | Guide |
+|---|---|---|
+| Jack · 3D Creator | Fade-in timing, pointer magnets, scroll-driven marquee | [Open →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=1) |
+| Prisma | Animated typography and scroll-triggered features | [Open →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=3) |
+| Axion Studio | GSAP mouse parallax and video-frame boomerang | [Open →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=20) |
+| Wanderful | Layered video hero and parallax | [Open →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=22) |
+| Foundation | Motion entrance, floating navigation and marquee | [Open →](https://jackxiaozhiren.github.io/MotionSites/project.html?id=28) |
+
+For implementation-note maintenance see [PROJECT_GUIDES.md](docs/PROJECT_GUIDES.md). Third-party images, videos and logos **are not automatically available for reuse**; read the [initial source/media audit](docs/ASSET_PROVENANCE_AUDIT.md) and [credits](CREDITS.md). This repository is a set of independent frontend concepts, not verified production software or a universally licensed asset pack.
+
 ## Why MotionSites?
 
 Modern websites are more than static layouts. MotionSites collects **30 independent, browsable source projects** so designers and frontend developers can explore how different visual styles and interactions are put together.
