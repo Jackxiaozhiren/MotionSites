@@ -91,6 +91,14 @@ try {
   assert.match(await page.locator('.open--demo').getAttribute('href'), /demos\/axion-studio/);
   log('published manifest correctly enables a verified demo link');
 
+  await page.getByText('Screenshot failed to load · Try live demo').waitFor();
+  log('missing gallery screenshot renders a truthful fallback');
+
+  await page.goto(origin + '/project.html?id=20');
+  await page.locator('#detail-content').waitFor({ state: 'visible' });
+  await page.getByText('Screenshot unavailable · Live demo link may still work').waitFor();
+  log('missing guide screenshot renders a truthful fallback');
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto(origin + '/');
