@@ -42,7 +42,7 @@ render();
     const manifest=await response.json();
     if(!Array.isArray(manifest.captures))return;
     captures=new Map(manifest.captures
-      .filter(c=>Number.isInteger(c.id)&&/^previews\/[a-z0-9-]+\.webp$/.test(c.image)&&/^demos\/[a-z0-9-]+\/$/.test(c.demo))
+      .filter(c=>Number.isInteger(c.id)&&/^previews\/[a-z0-9-]+\.jpg$/.test(c.image)&&/^demos\/[a-z0-9-]+\/$/.test(c.demo))
       .map(c=>[c.id,c]));
     render();
   }catch(error){console.info('Project previews unavailable; showing concept covers.',error)}
