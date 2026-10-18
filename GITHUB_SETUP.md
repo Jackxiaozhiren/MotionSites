@@ -1,64 +1,48 @@
-# Publish checklist — MotionSites GitHub refresh
+# MotionSites — repository owner setup and launch checklist
 
-> **This file is for the repository owner.** You may keep it locally instead of committing it.
+This checklist reflects the **current repository**, not an archive to extract. Do not overwrite files in `main` using an old ZIP. Use reviewed branches and pull requests.
 
-## 1. Upload files
+## GitHub About (repository settings)
 
-Extract the archive into the **root** of your existing local `MotionSites` checkout, preserving the `.github/`, `assets/`, and `docs/` folders. The supplied `README.md` replaces the old root README; all other files are additional. Review the diff before committing. This archive does **not** contain your existing 30 projects.
+Under the repository title, select the **About** edit control. These account-level settings cannot be changed simply by committing a README:
 
-```bash
-cd MotionSites
-git status
-git diff -- README.md
-git add README.md README.zh-CN.md CONTRIBUTING.md CREDITS.md GITHUB_SETUP.md assets/ docs/ site/ scripts/ .github/
-git commit -m "feat: add MotionSites gallery and refresh repository"
-git push origin main
-```
+**Description**
 
-Do not run these commands blindly. They assume you have merged the files into your local checkout and have appropriate Git permissions. The `GITHUB_SETUP.md` file is optional; omit it from `git add` if you only want it as an owner checklist.
+> A curated gallery of 30 motion-driven websites and creative frontend experiments. Explore working demos, source code and implementation notes with React, GSAP and Motion.
 
-## 2. Edit GitHub About (manual, owner action)
+**Website**
 
-Repository page → **About** gear icon:
+https://jackxiaozhiren.github.io/MotionSites/
 
-- **Description:** `30 creative animated websites and landing pages built with React, GSAP, Motion and Tailwind CSS. Explore source code, motion UI and frontend inspiration.`
-- **Website:** set `https://jackxiaozhiren.github.io/MotionSites/` (the GitHub Pages deployment workflow succeeded on 2026-10-18).
-- **Topics:** `animated-website`, `creative-coding`, `web-animation`, `landing-page`, `react`, `vite`, `tailwindcss`, `framer-motion`, `gsap`, `motion`, `frontend`, `web-design`, `portfolio`, `ui-animation`.
+**Topics**
 
-## 3. Upload a social preview (manual, owner action)
+`creative-coding`, `web-animation`, `animated-website`, `react`, `gsap`, `framer-motion`, `motion`, `frontend`, `typescript`, `landing-page`, `web-design`, `ui-animation`
 
-GitHub repository → **Settings** → **General** → **Social preview** → **Edit**. Upload the bundled **`assets/motionsites-social-preview.png`** (1280×640 px, PNG, under 1 MB). `assets/motionsites-banner.svg` is the editable README masthead.
+These are intended discovery labels, **not** a guarantee of GitHub Stars or search rankings. GitHub docs: [topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics).
 
-## 4. Add 4–6 *real* site screenshots
+## Social preview (manual upload)
 
-Follow `docs/SHOWCASE_GUIDE.md`; put authentic preview files under `assets/previews/` and link the cards from the README. Verified screenshots / clips of actual motion effects are higher priority than adding more badges.
+**No ready-to-upload PNG social preview is currently tracked in `assets/`.** The existing `assets/motionsites-banner.svg` is a README banner, not a verified screenshot collage or uploaded repository social card. Create a preview from authorized real project captures; keep screenshots labeled honestly and check media rights first.
 
-## 5. Verify licenses and permissions before adding a blanket LICENSE
+Upload the result at **Settings → General → Social preview → Edit**. GitHub recommends a 1280 × 640 PNG, JPG, or GIF below 1 MB ([GitHub instructions](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview)).
 
-There was no root LICENSE visible during the public review. A public GitHub repo is not automatically licensed for reuse. Audit original sources/designs and third-party assets across all subprojects. Fill in `CREDITS.md` and only then choose an appropriate license for code you own and can redistribute. Do not imply a single license applies to third-party assets without checking.
+## Deploy and verify
 
-## 6. Optional distribution
+- GitHub Pages: **Settings → Pages → Source → GitHub Actions**.
+- Pages workflow: `.github/workflows/pages.yml`; output is the static `site/` gallery and independently built, verified demos when those builds succeed.
+- Visit [the gallery](https://jackxiaozhiren.github.io/MotionSites/) and a [guide example](https://jackxiaozhiren.github.io/MotionSites/project.html?id=20).
+- Verify `python3 scripts/check_gallery.py`, `node --check site/app.js`, and `node --check site/project.js`.
+- Review both desktop and mobile layouts and respect reduced-motion settings.
+- Check the `previews/manifest.json` generated during deployment; do not treat unsuccessful builds as published demos.
+- Confirm all screenshot/demo URLs from a browser after deployment.
 
-- Publish a small static gallery of clickable, verified previews; then put its URL in the Website field.
-- Pin MotionSites on your GitHub profile and share an animated clip with an accurate source link.
-- Periodically add high-quality projects and improve documentation, not just the project count.
+## Provenance and licensing
 
-## 7. Validation before announcing
+Before selecting a blanket code license or promoting any third-party assets, perform the [source/media provenance review](docs/ASSET_PROVENANCE_AUDIT.md), update [CREDITS.md](CREDITS.md), and document exceptions. A successful webpage build does not establish rights to the code, images, brand assets or videos.
 
-- [ ] README and Chinese translation render as expected in GitHub light/dark mode.
-- [ ] Hero SVG appears and all table links open real folders.
-- [ ] At least one React/Vite sample installs and starts cleanly.
-- [ ] Issue templates appear in "New issue".
-- [ ] The About description and Topics were saved.
-- [ ] Any live demo and screenshot links are real and working.
-- [ ] Attribution and license status are clear.
+## Launch and community
 
-## 8. Publish the new gallery (recommended)
-
-The updated package contains a working, static `site/` gallery and GitHub Actions publishing workflow. It does **not** deploy each individual sample. See [`docs/GALLERY_DEPLOY.md`](docs/GALLERY_DEPLOY.md) for instructions and the exact Pages settings. Enable **Settings → Pages → Source → GitHub Actions**, push the files, check Actions for success, and verify the site before adding the Website URL to About.
-
-Run `python3 scripts/check_gallery.py` and optionally `python3 -m http.server 8000 --directory site` before uploading.
-
-## 9. Distribution plan
-
-After the gallery URL is verified, follow [`docs/LAUNCH_PLAYBOOK.md`](docs/LAUNCH_PLAYBOOK.md) for responsible, measured outreach, real screenshots, and feedback iteration.
+- Pin the repository on your public GitHub profile, add an honest showcase clip and link the live gallery.
+- Share actual technical walkthroughs in communities that welcome self-promotion.
+- Track useful feedback and resolve issues rather than chasing artificial Stars.
+- Read [the launch playbook](docs/LAUNCH_PLAYBOOK.md).
