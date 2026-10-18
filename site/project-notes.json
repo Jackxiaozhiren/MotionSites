@@ -1,0 +1,140 @@
+{
+  "1": {
+    "description": "A creator-portfolio concept built around a bold hero, entrance choreography, magnetic hover and an image marquee.",
+    "features": [
+      {
+        "title": "Entrance choreography",
+        "detail": "The hero composes staggered FadeIn elements for the heading, navigation, portrait and contact action.",
+        "files": [
+          "src/components/HeroSection.tsx",
+          "src/components/FadeIn.tsx"
+        ]
+      },
+      {
+        "title": "Pointer-responsive portrait",
+        "detail": "The portrait is wrapped by the Magnet component; review how pointer movement is translated into a visual response.",
+        "files": [
+          "src/components/Magnet.tsx",
+          "src/components/HeroSection.tsx"
+        ]
+      },
+      {
+        "title": "Scroll-driven marquee",
+        "detail": "Framer Motion's useScroll and useTransform drive the horizontal image-row offsets.",
+        "files": [
+          "src/components/MarqueeSection.tsx"
+        ]
+      }
+    ],
+    "caveat": "The portrait and marquee GIFs are loaded from third-party domains. Availability and reuse rights must be checked independently."
+  },
+  "3": {
+    "description": "An editorial creative-studio landing page combining a video-backed hero, animated typography and scroll-revealed feature cards.",
+    "features": [
+      {
+        "title": "Animated typography",
+        "detail": "WordsPullUp reveals the oversized headline using a dedicated text animation component.",
+        "files": [
+          "src/components/Hero.tsx",
+          "src/components/WordsPullUp.tsx"
+        ]
+      },
+      {
+        "title": "Sequenced hero content",
+        "detail": "Framer Motion coordinates entrance transitions for the introduction and call to action.",
+        "files": [
+          "src/components/Hero.tsx"
+        ]
+      },
+      {
+        "title": "Scroll-triggered features",
+        "detail": "The feature cards use useInView to animate as they appear in the viewport.",
+        "files": [
+          "src/components/Features.tsx"
+        ]
+      }
+    ],
+    "caveat": "Hero video and some feature assets reference remote services. Button destinations are conceptual, not production business workflows."
+  },
+  "20": {
+    "description": "A motion experiment featuring a video-to-canvas boomerang playback effect and a GSAP-assisted mouse-follow parallax layer.",
+    "features": [
+      {
+        "title": "Capture and replay frames",
+        "detail": "The source captures video frames into canvas buffers, then alternates playback direction on a display canvas.",
+        "files": [
+          "src/App.tsx"
+        ]
+      },
+      {
+        "title": "Pointer-tracked parallax",
+        "detail": "A requestAnimationFrame loop eases toward pointer coordinates and uses gsap.set to move the video background.",
+        "files": [
+          "src/App.tsx"
+        ]
+      },
+      {
+        "title": "Consider memory and motion settings",
+        "detail": "Frame capture stores canvases in memory; review limits, cleanup, and reduced-motion alternatives before reusing this effect.",
+        "files": [
+          "src/App.tsx"
+        ]
+      }
+    ],
+    "caveat": "The demo relies on an external video URL. Canvas frame buffering may consume significant memory on lower-end devices."
+  },
+  "22": {
+    "description": "A travel-themed hero composition using a full-screen video, glass-like navigation and smooth GSAP pointer parallax.",
+    "features": [
+      {
+        "title": "Layered cinematic hero",
+        "detail": "A looping background video sits behind a dark overlay and foreground text.",
+        "files": [
+          "src/Hero.tsx"
+        ]
+      },
+      {
+        "title": "Smooth mouse parallax",
+        "detail": "Pointer movement is eased in a requestAnimationFrame loop and applied to the video wrapper via gsap.set.",
+        "files": [
+          "src/Hero.tsx"
+        ]
+      },
+      {
+        "title": "Timed entrance states",
+        "detail": "Component state controls the intro opacity and translation transitions after mounting.",
+        "files": [
+          "src/Hero.tsx"
+        ]
+      }
+    ],
+    "caveat": "The background video is hosted externally. Navigation and travel calls to action are visual placeholders, not booking services."
+  },
+  "28": {
+    "description": "A digital-brand landing page with Motion-based hero entrances, a floating glass navigation element and a continuous logo marquee.",
+    "features": [
+      {
+        "title": "Motion hero reveal",
+        "detail": "The lead content animates its opacity and vertical position via motion.div.",
+        "files": [
+          "src/App.tsx"
+        ]
+      },
+      {
+        "title": "Floating navigation",
+        "detail": "The page uses a positioned translucent motion.nav with its own entrance sequence.",
+        "files": [
+          "src/App.tsx"
+        ]
+      },
+      {
+        "title": "Marquee construction",
+        "detail": "The logo row duplicates its data and uses an animated CSS marquee with hover pause behavior.",
+        "files": [
+          "src/components/Marquee.tsx"
+        ]
+      }
+    ],
+    "caveat": "The demo includes an externally hosted video and third-party logos as design references; no endorsement is implied."
+  }
+}

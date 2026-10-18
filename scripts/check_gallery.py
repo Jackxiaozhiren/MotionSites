@@ -44,4 +44,29 @@ for readme in ("README.md", "README.zh-CN.md"):
         url = f"tree/main/{project['path']}"
         assert url in content, f"{readme} is missing {project['path']}"
 
-print("OK: 30 project paths, bilingual indexes, discovery controls and gallery assets verified")
+# Independent project guides and audited implementation notes.
+detail_html = (site / "project.html").read_text(encoding="utf-8")
+detail_js = (site / "project.js").read_text(encoding="utf-8")
+notes = json.loads((site / "project-notes.json").read_text(encoding="utf-8"))
+assert isinstance(notes, dict) and len(notes) == 5, "Five featured guides are documented"
+assert "project.html?id=${project.id}" in js, "Every project needs a guide link"
+assert "fetch" in detail_js and "projects.json" in detail_js, "Guide must load the catalog"
+assert "project-notes.json" in detail_js, "Guide must load notes"
+for element in ("detail-status", "detail-content", "detail-number", "detail-title",
+                "detail-notes", "detail-visual", "detail-command", "detail-caveat"):
+    assert f'id="{element}"' in detail_html, f"Missing guide element: {element}"
+for id_text, entry in notes.items():
+    assert id_text.isdecimal() and int(id_text) in {p["id"] for p in projects}, id_text
+    project = next(p for p in projects if p["id"] == int(id_text))
+    assert isinstance(entry["description"], str) and entry["description"].strip(), project
+    assert isinstance(entry["caveat"], str) and entry["caveat"].strip(), project
+    assert isinstance(entry["features"], list) and 1 <= len(entry["features"]) <= 6, project
+    for feature in entry["features"]:
+        assert feature["title"] and feature["detail"], feature
+        assert feature["files"], feature
+        for file in feature["files"]:
+            assert re.fullmatch(r"(?:[a-zA-Z0-9_.-]+/)*[a-zA-Z0-9_.-]+", file), file
+            assert (root / project["path"] / file).is_file(), f"{project['path']}/{file}"
+assert all(f'project.html?id={id_text}' in html for id_text in notes), "Home must link featured guides"
+
+print("OK: 30 catalog entries, five source-checked guides, and bilingual gallery assets verified")

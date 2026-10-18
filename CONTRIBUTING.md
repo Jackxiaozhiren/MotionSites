@@ -42,3 +42,9 @@ Do not assume all projects or all third-party assets have a single blanket open-
 ## Gallery discoverability checks
 
 The project catalog has a **single source of truth**: `site/projects.json`. Do not copy its entries into `site/app.js`. Keep project IDs unique and sequential; use an existing supported stack tag (React, GSAP, Framer Motion, Motion, HTML). Gallery filters are reflected in the URL (`stack`, `q`, `demos`) so shared links should continue to work. Test keyboard focus, screen-reader labels and reduced-motion behavior in addition to the static validation script. If a new filter category is introduced, update both the gallery buttons and the validator.
+
+## Writing a source-backed guide
+
+New project guide content lives in `site/project-notes.json`. Read [the maintainer guide](docs/PROJECT_GUIDES.md) and verify every referenced source file before describing an interaction. Clearly label conceptual product UI, external asset dependencies and unverified features. Do not present a source-only project as a working hosted demo. The CI validator checks all note file references.
+
+For third-party images, videos, fonts and brands follow [the provenance audit workflow](docs/ASSET_PROVENANCE_AUDIT.md) and update `CREDITS.md` after verification. A public repository is not automatically a grant of rights to redistribute those assets.

@@ -15,4 +15,6 @@ jobs:
       - name: Validate gallery
         run: python3 scripts/check_gallery.py
       - name: Check JavaScript syntax
-        run: node --check site/app.js
+        run: |
+          node --check site/app.js
+          node --check site/project.js
