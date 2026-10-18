@@ -11,7 +11,7 @@
   <img alt="30 个项目" src="https://img.shields.io/badge/30-projects-8B5CF6?style=flat-square" />
 </p>
 
-<p align="center"><a href="README.md">English</a> · <a href="https://jackxiaozhiren.github.io/MotionSites/">🌐 在线画廊（部署 Pages 后）</a> · <a href="#项目一览">项目一览</a> · <a href="#快速开始">快速开始</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers">⭐ 给项目点 Star</a></p>
+<p align="center"><a href="README.md">English</a> · <a href="https://jackxiaozhiren.github.io/MotionSites/">🌐 在线画廊（已上线）</a> · <a href="#项目一览">项目一览</a> · <a href="#快速开始">快速开始</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers">⭐ 给项目点 Star</a></p>
 
 ---
 
@@ -19,9 +19,9 @@
 
 新版本包含 [`site/`](site/) 中的**可搜索、可按技术栈筛选的在线作品目录**：用更直观的卡片浏览全部 30 个项目，并一键打开对应 GitHub 源码。
 
-**[在线画廊（GitHub Pages 部署成功后可访问）](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
+**[🌐 访问已上线的作品画廊](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
 
-> 目前画廊使用**概念化视觉封面**，并非原项目截图或完整线上 Demo。正式分享前，请先部署并核验页面可访问性。
+> 目前画廊使用**概念化视觉封面**，并非原项目截图或完整线上 Demo。项目目录已通过 GitHub Pages 发布，但各子项目尚未统一部署为独立在线 Demo。
 
 ## 为什么是 MotionSites？
 
