@@ -1,57 +1,155 @@
-# MotionSites
+<p align="center">
+  <img src="assets/motionsites-banner.svg" alt="MotionSites — a curated collection of motion-driven websites" width="100%" />
+</p>
 
-动效网站项目集合 —— 30 个基于 React / Vite / Tailwind 的动画落地页与作品集项目，涵盖 GSAP、Framer Motion、Motion、Three.js 等动效方案。
+<h1 align="center">MotionSites</h1>
+<p align="center"><strong>30 motion-driven websites. One place to explore creative frontend ideas.</strong></p>
+<p align="center">A curated collection of animated landing pages, experimental interfaces, and portfolio concepts built with modern web technologies.</p>
 
-A collection of motion / animation website projects built with React, Vite and Tailwind CSS, exploring GSAP, Framer Motion, Motion and Three.js.
+<p align="center">
+  <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Jackxiaozhiren/MotionSites?style=flat-square&logo=github" /></a>
+  <img alt="30 projects" src="https://img.shields.io/badge/30-projects-8B5CF6?style=flat-square" />
+  <a href="https://github.com/Jackxiaozhiren/MotionSites/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Jackxiaozhiren/MotionSites?style=flat-square" /></a>
+</p>
 
-## 项目列表 / Projects
+<p align="center">
+  <a href="https://jackxiaozhiren.github.io/MotionSites/"><strong>🌐 Interactive gallery (after Pages setup)</strong></a> ·
+  <a href="#explore-the-collection"><strong>Explore projects</strong></a> ·
+  <a href="#quick-start"><strong>Run locally</strong></a> ·
+  <a href="README.zh-CN.md"><strong>简体中文</strong></a> ·
+  <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers"><strong>⭐ Star this repo</strong></a>
+</p>
 
-| 目录 | 项目 | 技术栈 |
+---
+
+## 🌐 Explore the interactive gallery
+
+A **searchable, filterable, motion-inspired gallery** is included in [`site/`](site/): browse all 30 projects by technology, find a concept quickly, and open each project's source on GitHub.
+
+**[Gallery URL — available after GitHub Pages deployment](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
+
+> The gallery uses **illustrated concept covers**, clearly marked as such. It does not pretend to be screenshots or live deployments of all 30 sites. Verify the Pages deployment before sharing the URL as live.
+
+## Why MotionSites?
+
+Modern websites are more than static layouts. MotionSites collects **30 independent, browsable source projects** so designers and frontend developers can explore how different visual styles and interactions are put together.
+
+- **Get inspired** — browse creative landing-page and portfolio concepts.
+- **Learn from real code** — open each project's source instead of settling for a screenshot.
+- **Try different motion approaches** — examples include GSAP, Framer Motion, Motion, and CSS-driven UI.
+- **Experiment locally** — most projects have their own Vite setup; a few run as standalone HTML pages.
+
+> **Note:** This is a collection of independent demo projects, **not** one installable component library or a single app. Some demos require external assets or services to look their best.
+
+## ✨ Explore the collection
+
+Start with a few different styles and animation stacks:
+
+| Project | Focus | Explore |
 |---|---|---|
-| `1/jack-portfolio` | Jack · 3D Creator | React, Framer Motion, Tailwind, Vite, TS |
-| `2` | Mainframe | React, Tailwind, Vite, TS |
-| `3/prisma-landing` | Prisma — Creative Studio | React, Framer Motion, Tailwind, Vite, TS |
-| `4` | Velorah | React, Tailwind, Vite, TS |
-| `5` | Password Manager | React, Framer Motion, Tailwind, Vite, TS |
-| `6` | Aethera | React, Tailwind, Vite, TS |
-| `7` | Venture — Space Travel | 独立 HTML + Tailwind CDN |
-| `8` | VEX | React, Tailwind, Vite, TS |
-| `10` | Forma | React, Tailwind, Vite, TS |
-| `11` | Asme | React, Tailwind, Vite, TS |
-| `12` | Orbis.Nft | React, Tailwind, Vite, TS |
-| `13` | VaultShield | React, Framer Motion, Tailwind, TS |
-| `14` | Asme | React, Framer Motion, Tailwind, Vite, TS |
-| `15` | securify | React, Tailwind, Vite, TS |
-| `16` | CINEMATIC | React, Tailwind, Vite |
-| `17` | LinkFlow | React, Tailwind, Vite, TS |
-| `18` | Motion Sites 18 | React, Tailwind, Vite, TS |
-| `19` | RIVR | React, Motion, Tailwind, Vite, TS |
-| `20` | Nexora | React, Framer Motion, Tailwind, Vite, TS |
-| `21` | Axion Studio | React, GSAP, Tailwind, Vite, TS |
-| `21/9` | Axion Studio (子项目) | React, Tailwind, Vite, TS |
-| `22` | Wanderful | React, GSAP, Tailwind, Vite, TS |
-| `24/mindloop` | Mindloop | React, Framer Motion, Tailwind, Vite, TS |
-| `25` | Equilibrium | React, Tailwind, Vite, TS |
-| `26` | Xero | React, Vite, TS |
-| `27` | Duolingo — Style Guide | 独立 HTML |
-| `28/newsletter-design` | Newsletter Design | React, Tailwind, Vite, TS |
-| `29` | Foundation — New Digital Epoch | React, Motion, Tailwind, Vite, TS |
-| `30` | dot. | React, Motion, Tailwind, Vite, TS |
-| `hero-liquid-glass` | Hero Liquid Glass | React, Vite, TS |
+| **Jack · 3D Creator** | Creative portfolio concept with Framer Motion | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) |
+| **Prisma — Creative Studio** | Creative studio landing page | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) |
+| **Axion Studio** | GSAP-driven landing page | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) |
+| **Wanderful** | Travel-inspired website with GSAP | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22) |
+| **Foundation — New Digital Epoch** | Motion-powered digital experience | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
+| **Hero Liquid Glass** | Liquid-glass hero exploration | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
 
-## 运行方式 / Getting Started
+**Want to see the motion in action?** Clone a project and run it locally using the instructions below. Individual projects do not yet have a verified, complete hosted-demo/screenshot gallery. See [the visual showcase guide](docs/SHOWCASE_GUIDE.md) for how to add genuine captures and live URLs later.
 
-大多数项目是标准 Vite 工程：
+### Find projects by technology
+
+- **GSAP:** [Axion Studio](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) · [Wanderful](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22)
+- **Motion:** [RIVR](https://github.com/Jackxiaozhiren/MotionSites/tree/main/19) · [Foundation](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) · [dot.](https://github.com/Jackxiaozhiren/MotionSites/tree/main/30)
+- **Framer Motion:** [Jack · 3D Creator](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) · [Prisma](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) · [Nexora](https://github.com/Jackxiaozhiren/MotionSites/tree/main/20) · [Mindloop](https://github.com/Jackxiaozhiren/MotionSites/tree/main/24/mindloop)
+- **Standalone HTML:** [Venture](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) · [Duolingo — Style Guide](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27)
+
+<details>
+<summary><strong>📚 View all 30 projects (click to expand)</strong></summary>
+
+<br />
+
+| # | Project | Stack / Technology | Source |
+|:--:|---|---|:--:|
+| 01 | **Jack · 3D Creator** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) |
+| 02 | **Mainframe** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/2) |
+| 03 | **Prisma — Creative Studio** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) |
+| 04 | **Velorah** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/4) |
+| 05 | **Password Manager** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/5) |
+| 06 | **Aethera** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/6) |
+| 07 | **Venture — Space Travel** | Standalone HTML · CDN | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) |
+| 08 | **VEX** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/8) |
+| 09 | **Forma** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/10) |
+| 10 | **Asme** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/11) |
+| 11 | **Orbis.Nft** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/12) |
+| 12 | **VaultShield** | React · Framer Motion · Tailwind · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/13) |
+| 13 | **Asme (Motion)** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/14) |
+| 14 | **securify** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/15) |
+| 15 | **CINEMATIC** | React · Tailwind · Vite | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/16) |
+| 16 | **LinkFlow** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/17) |
+| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/18) |
+| 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/19) |
+| 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/20) |
+| 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) |
+| 21 | **Axion Studio (subproject)** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21/9) |
+| 22 | **Wanderful** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22) |
+| 23 | **Mindloop** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/24/mindloop) |
+| 24 | **Equilibrium** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/25) |
+| 25 | **Xero** | React · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/26) |
+| 26 | **Duolingo — Style Guide** | Standalone HTML | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27) |
+| 27 | **Newsletter Design** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/28/newsletter-design) |
+| 28 | **Foundation — New Digital Epoch** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
+| 29 | **dot.** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/30) |
+| 30 | **Hero Liquid Glass** | React · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
+
+</details>
+
+## 🚀 Quick start
+
+Each subproject is self-contained. For most React / Vite projects:
 
 ```bash
-cd 2            # 进入任意项目目录
-npm install     # 安装依赖
-npm run dev     # 启动开发服务器
+git clone https://github.com/Jackxiaozhiren/MotionSites.git
+cd MotionSites/21
+npm install
+npm run dev
 ```
 
-`7` 和 `27` 是纯 HTML 页面，直接用浏览器打开即可。
+Open the local URL printed by Vite (usually `http://localhost:5173`). To try a different project, enter its folder and repeat the install/run steps.
 
-## 说明 / Notes
+For **standalone HTML** projects ([`7`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) and [`27`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27)), open the project's `index.html` in a browser. External CDN resources may need an internet connection.
 
-- `node_modules/`、`dist/` 等构建产物与依赖未纳入版本控制，克隆后请执行 `npm install`。
-- `package-lock.json` 未纳入本集合仓库（自动生成文件），如需锁定依赖版本可在各项目内单独提交。
+**Builds:** Many Vite-based subprojects also expose `npm run build`. Run commands **inside the individual project directory**; there is no root-level app install command.
+
+## 🗂 Repository structure
+
+```text
+MotionSites/
+├── 1/ ... 30/               # Individual website experiments (some nested)
+├── hero-liquid-glass/      # Separate hero experiment
+├── assets/                 # README branding and future captures
+├── site/                   # Static gallery for GitHub Pages
+├── scripts/                # Gallery validation
+├── docs/                   # Showcase + deployment guidance
+├── .github/                # Issue & PR templates
+├── README.md
+├── README.zh-CN.md
+└── CONTRIBUTING.md
+```
+
+## 🤝 Contributing & feedback
+
+Found a bug, noticed a broken asset, or have an idea for the collection?
+
+- [Open an issue](https://github.com/Jackxiaozhiren/MotionSites/issues/new/choose) with the project path and steps to reproduce.
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a pull request.
+- For design inspiration, source code, fonts, images, and trademarks, please respect original creators and applicable licenses. See [CREDITS.md](CREDITS.md).
+
+## 📍 What's next?
+
+In this update, a searchable **source-code gallery** is included under [`site/`](site/). Upcoming improvements: real screenshots and short clips captured from running projects, verified individual live previews, and more complete source/asset credits.
+
+## ❤️ Support
+
+If you find a useful interaction or a new design direction here, consider **[starring MotionSites](https://github.com/Jackxiaozhiren/MotionSites/stargazers)**. It helps more frontend developers discover the collection.
+
+**Made & curated by [Jackxiaozhiren](https://github.com/Jackxiaozhiren).**

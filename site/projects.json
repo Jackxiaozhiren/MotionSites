@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "path": "1/jack-portfolio",
+    "title": "Jack · 3D Creator",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 2,
+    "path": "2",
+    "title": "Mainframe",
+    "tag": "React"
+  },
+  {
+    "id": 3,
+    "path": "3/prisma-landing",
+    "title": "Prisma — Creative Studio",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 4,
+    "path": "4",
+    "title": "Velorah",
+    "tag": "React"
+  },
+  {
+    "id": 5,
+    "path": "5",
+    "title": "Password Manager",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 6,
+    "path": "6",
+    "title": "Aethera",
+    "tag": "React"
+  },
+  {
+    "id": 7,
+    "path": "7",
+    "title": "Venture — Space Travel",
+    "tag": "HTML"
+  },
+  {
+    "id": 8,
+    "path": "8",
+    "title": "VEX",
+    "tag": "React"
+  },
+  {
+    "id": 9,
+    "path": "10",
+    "title": "Forma",
+    "tag": "React"
+  },
+  {
+    "id": 10,
+    "path": "11",
+    "title": "Asme",
+    "tag": "React"
+  },
+  {
+    "id": 11,
+    "path": "12",
+    "title": "Orbis.Nft",
+    "tag": "React"
+  },
+  {
+    "id": 12,
+    "path": "13",
+    "title": "VaultShield",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 13,
+    "path": "14",
+    "title": "Asme (Motion)",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 14,
+    "path": "15",
+    "title": "securify",
+    "tag": "React"
+  },
+  {
+    "id": 15,
+    "path": "16",
+    "title": "CINEMATIC",
+    "tag": "React"
+  },
+  {
+    "id": 16,
+    "path": "17",
+    "title": "LinkFlow",
+    "tag": "React"
+  },
+  {
+    "id": 17,
+    "path": "18",
+    "title": "Motion Sites 18",
+    "tag": "React"
+  },
+  {
+    "id": 18,
+    "path": "19",
+    "title": "RIVR",
+    "tag": "Motion"
+  },
+  {
+    "id": 19,
+    "path": "20",
+    "title": "Nexora",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 20,
+    "path": "21",
+    "title": "Axion Studio",
+    "tag": "GSAP"
+  },
+  {
+    "id": 21,
+    "path": "21/9",
+    "title": "Axion Studio (subproject)",
+    "tag": "React"
+  },
+  {
+    "id": 22,
+    "path": "22",
+    "title": "Wanderful",
+    "tag": "GSAP"
+  },
+  {
+    "id": 23,
+    "path": "24/mindloop",
+    "title": "Mindloop",
+    "tag": "Framer Motion"
+  },
+  {
+    "id": 24,
+    "path": "25",
+    "title": "Equilibrium",
+    "tag": "React"
+  },
+  {
+    "id": 25,
+    "path": "26",
+    "title": "Xero",
+    "tag": "React"
+  },
+  {
+    "id": 26,
+    "path": "27",
+    "title": "Duolingo — Style Guide",
+    "tag": "HTML"
+  },
+  {
+    "id": 27,
+    "path": "28/newsletter-design",
+    "title": "Newsletter Design",
+    "tag": "React"
+  },
+  {
+    "id": 28,
+    "path": "29",
+    "title": "Foundation — New Digital Epoch",
+    "tag": "Motion"
+  },
+  {
+    "id": 29,
+    "path": "30",
+    "title": "dot.",
+    "tag": "Motion"
+  },
+  {
+    "id": 30,
+    "path": "hero-liquid-glass",
+    "title": "Hero Liquid Glass",
+    "tag": "React"
+  }
+]

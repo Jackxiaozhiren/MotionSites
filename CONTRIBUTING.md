@@ -1,0 +1,41 @@
+# Contributing to MotionSites
+
+Thanks for helping make this collection more useful.
+
+## Before you open a PR
+
+1. Check existing [issues](https://github.com/Jackxiaozhiren/MotionSites/issues) to avoid duplicates.
+2. Mention the **exact project path** you are changing, such as `21/` or `24/mindloop/`.
+3. Keep changes inside the relevant project where possible. Projects are independent; don't assume shared tooling.
+4. Test from that project's own directory. For Vite projects, run `npm install`, `npm run build` when available, and `npm run dev` to verify the page. For HTML-only projects, check in a browser.
+5. Include before/after screenshots or a short recording for visual changes.
+6. Do not commit generated `node_modules/`, `dist/`, secrets, or API keys.
+
+## Adding a new website
+
+- Choose a descriptive directory name and include an `index.html` or a complete project with `package.json` and working scripts.
+- Explain the visual concept, key effects, dependencies, and how to start it.
+- Update the index in **both** `README.md` and `README.zh-CN.md`, add a matching entry in [`site/projects.json`](site/projects.json), and update project counts in the gallery/README and [`scripts/check_gallery.py`](scripts/check_gallery.py).
+- If possible, add **real** screenshots (`webp` or `png`) and short motion clips using the [showcase guide](docs/SHOWCASE_GUIDE.md).
+- Include origins and licenses for external artwork, fonts, copied designs, code, and other assets in [CREDITS.md](CREDITS.md). Only submit materials you have rights to redistribute.
+- Do not imply endorsement by a company simply because a project references its visual style.
+
+## Updating the interactive gallery
+
+- Edit `site/projects.json` for project title, real source directory, verified technology list, and `mood` (an **illustrated cover**, not a claim about actual visuals).
+- Run `python3 scripts/check_gallery.py` after any catalog changes.
+- Preview with `python3 -m http.server 8000 --directory site` and verify keyword search, stack filters, source links, mobile layout, and reduced-motion preferences.
+- Real previews must be captured from a running project and attributed correctly. Never silently present conceptual artwork as a screenshot.
+- Gallery-only changes should not add dependencies to individual subprojects.
+
+## Reporting issues
+
+Use the [issue templates](https://github.com/Jackxiaozhiren/MotionSites/issues/new/choose). For broken demos, include the project path, browser, OS, reproduction steps, expected result, and actual result. Remove private information from screenshots and logs.
+
+## Pull requests
+
+Small, focused PRs are easiest to review. Describe **what changed**, **why**, **which project**, and **how you tested it**. A reviewer may request asset credits or reproducible steps before merging.
+
+## Licensing notes
+
+Do not assume all projects or all third-party assets have a single blanket open-source license. The repository maintainer should confirm code and asset provenance before adopting a repository-wide license. See [CREDITS.md](CREDITS.md).
