@@ -20,5 +20,7 @@ jobs:
           node --check site/project.js
           node --check scripts/smoke_gallery.mjs
           node --check scripts/check_live_gallery.mjs
+          node --check scripts/audit_accessibility.mjs
+          node --check scripts/summarize_lighthouse.mjs
           node --check scripts/render_social_card.mjs
           node --check scripts/capture_previews.mjs
