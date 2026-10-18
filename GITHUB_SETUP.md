@@ -20,11 +20,18 @@ https://jackxiaozhiren.github.io/MotionSites/
 
 These are intended discovery labels, **not** a guarantee of GitHub Stars or search rankings. GitHub docs: [topics](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics).
 
-## Social preview (manual upload)
+## Social preview (original artwork + manual GitHub upload)
 
-**No ready-to-upload PNG social preview is currently tracked in `assets/`.** The existing `assets/motionsites-banner.svg` is a README banner, not a verified screenshot collage or uploaded repository social card. Create a preview from authorized real project captures; keep screenshots labeled honestly and check media rights first.
+The repo now tracks an **editable, original 1280×640 SVG** at [`assets/motionsites-social-card.svg`](assets/motionsites-social-card.svg). It is a brand illustration—**not a real screenshot of any sample and not a third-party asset collage**.
 
-Upload the result at **Settings → General → Social preview → Edit**. GitHub recommends a 1280 × 640 PNG, JPG, or GIF below 1 MB ([GitHub instructions](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview)).
+Two actions produce an exportable JPG (1280×640, below 1 MB):
+
+1. **Browser Smoke and Featured Demo Builds** runs `node scripts/render_social_card.mjs` and uploads the `motionsites-social-preview` workflow artifact. Download its `motionsites-social-preview.jpg` after a successful run.
+2. **Publish MotionSites Gallery** generates `site/assets/social-preview.jpg` at deployment. The gallery Open Graph/Twitter metadata points to this hosted JPG.
+
+To make this appear in *GitHub repository link previews* (which cannot be set by committing a file), open **Settings → General → Social preview → Edit**, then upload the generated JPG manually. Confirm the upload from an incognito link preview. Existing screenshot cards remain separate from this typographic brand artwork.
+
+`npx playwright` is required only in the CI rendering workflow, not by visitors to the gallery.
 
 ## Deploy and verify
 
