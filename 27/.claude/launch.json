@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "style-guide",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "1027"],
+      "cwd": "G:/Motion sites/27",
+      "port": 1027
+    }
+  ]
+}

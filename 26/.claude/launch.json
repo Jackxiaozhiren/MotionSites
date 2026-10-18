@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Xero Dev Server",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "--port", "1026"],
+      "port": 1026,
+      "autoPort": false
+    }
+  ]
+}

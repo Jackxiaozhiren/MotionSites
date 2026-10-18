@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "jack-portfolio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 1111,
+      "cwd": "G:/Motion sites/1/jack-portfolio",
+      "autoPort": true
+    }
+  ]
+}

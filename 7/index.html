@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Venture — Space Travel</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Instrument Serif', 'serif'],
+            body: ['Barlow', 'sans-serif'],
+          },
+          borderRadius: { DEFAULT: '9999px' },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/framer-motion@11.11.17/dist/framer-motion.js"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    .liquid-glass {
+      background: rgba(255,255,255,0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: none;
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.15) 20%,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0) 60%,
+        rgba(255,255,255,0.15) 80%,
+        rgba(255,255,255,0.45) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .liquid-glass-strong {
+      background: rgba(255,255,255,0.01);
+      background-blend-mode: luminosity;
+      backdrop-filter: blur(50px);
+      -webkit-backdrop-filter: blur(50px);
+      border: none;
+      box-shadow: 4px 4px 4px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .liquid-glass-strong::before {
+      content: "";
+      position: absolute; inset: 0;
+      border-radius: inherit;
+      padding: 1.4px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0.5) 0%,
+        rgba(255,255,255,0.2) 20%,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0) 60%,
+        rgba(255,255,255,0.2) 80%,
+        rgba(255,255,255,0.5) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    body { background: #000; }
+
+    /* Vanilla animation classes */
+    .anim-blur-in {
+      transition: opacity 0.7s ease-out, filter 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .anim-hidden {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(20px);
+    }
+    .anim-visible {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+(function() {
+const { motion: m } = Motion;
+const FADE_MS = 500;
+const FADE_OUT_LEAD = 0.55;
+
+function FadingVideo({ src, className, style }) {
+  const videoRef = React.useRef(null);
+  const rafRef = React.useRef(null);
+  const fadingOutRef = React.useRef(false);
+  const mountedRef = React.useRef(true);
+
+  const fadeTo = React.useCallback((target, dur) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    const video = videoRef.current;
+    if (!video) return;
+    const start = performance.now();
+    const from = parseFloat(video.style.opacity) || 0;
+
+    function step(now) {
+      if (!mountedRef.current || !video) return;
+      const elapsed = now - start;
+      const p = Math.min(elapsed / dur, 1);
+      const eased = 1 - (1 - p) * (1 - p);
+      video.style.opacity = from + (target - from) * eased;
+      if (p < 1) {
+        rafRef.current = requestAnimationFrame(step);
+      } else {
+        video.style.opacity = target;
+        rafRef.current = null;
+      }
+    }
+    rafRef.current = requestAnimationFrame(step);
+  }, []);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    let cancelled = false;
+
+    const onLoadedData = () => {
+      if (cancelled) return;
+      video.style.opacity = 0;
+      video.play().catch(() => {});
+      fadeTo(1, FADE_MS);
+    };
+
+    const onTimeUpdate = () => {
+      if (fadingOutRef.current) return;
+      const remaining = video.duration - video.currentTime;
+      if (remaining <= FADE_OUT_LEAD && remaining > 0) {
+        fadingOutRef.current = true;
+        fadeTo(0, FADE_MS);
+      }
+    };
+
+    const onEnded = () => {
+      video.style.opacity = 0;
+      setTimeout(() => {
+        if (cancelled) return;
+        video.currentTime = 0;
+        video.play().catch(() => {});
+        fadingOutRef.current = false;
+        fadeTo(1, FADE_MS);
+      }, 100);
+    };
+
+    video.addEventListener('loadeddata', onLoadedData);
+    video.addEventListener('timeupdate', onTimeUpdate);
+    video.addEventListener('ended', onEnded);
+
+    return () => {
+      cancelled = true;
+      mountedRef.current = false;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      video.removeEventListener('loadeddata', onLoadedData);
+      video.removeEventListener('timeupdate', onTimeUpdate);
+      video.removeEventListener('ended', onEnded);
+    };
+  }, [fadeTo]);
+
+  return (
+    <video
+      ref={videoRef}
+      autoPlay muted playsInline preload="auto"
+      className={className}
+      style={{ opacity: 0, ...style }}
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
+
+window.FadingVideo = FadingVideo;
+})();
+</script>
+
+<script type="text/babel">
+(function() {
+const { motion: m } = Motion;
+
+function BlurText({ text, className }) {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <p ref={ref} className={className} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', rowGap: '0.1em' }}>
+      {text.split(' ').map((word, i) => (
+        <m.span
+          key={i}
+          style={{ display: 'inline-block', marginRight: '0.28em' }}
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 50 }}
+          animate={isVisible ? {
+            filter: ['blur(10px)', 'blur(5px)', 'blur(0px)'],
+            opacity: [0, 0.5, 1],
+            y: [50, -5, 0],
+          } : {}}
+          transition={{
+            duration: 0.7, times: [0, 0.5, 1], ease: 'easeOut',
+            delay: (i * 100) / 1000,
+          }}
+        >
+          {word}
+        </m.span>
+      ))}
+    </p>
+  );
+}
+
+window.BlurText = BlurText;
+})();
+</script>
+
+<script type="text/babel">
+(function() {
+const { motion: m } = Motion;
+const FadingVideo = window.FadingVideo;
+const BlurText = window.BlurText;
+
+const ArrowUpRight = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block">
+    <path d="M7 17L17 7" /><path d="M7 7h10v10" />
+  </svg>
+);
+const PlayIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="inline-block">
+    <polygon points="6,4 20,12 6,20" />
+  </svg>
+);
+const ClockIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+  </svg>
+);
+const GlobeIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" /><path d="M2 12h20" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+  </svg>
+);
+const ImageIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 text-white"><path d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21H5Zm1-4h12l-3.75-5-3 4L9 13l-3 4Z" /></svg>
+);
+const MovieIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 text-white"><path d="M4 6.47 5.76 10H20v8H4V6.47M22 4h-4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.89-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4Z" /></svg>
+);
+const LightbulbIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 text-white"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1Zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7Z" /></svg>
+);
+
+function HeroSection() {
+  return (
+    <section className="relative h-screen overflow-hidden">
+      <FadingVideo
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+        className="absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top z-0"
+        style={{ width: '120%', height: '120%' }}
+      />
+      <nav className="fixed top-4 left-0 right-0 px-8 lg:px-16 z-50 flex items-center justify-between">
+        <div className="liquid-glass w-12 h-12 rounded-full flex items-center justify-center shrink-0">
+          <span className="font-heading italic text-white text-sm lowercase">a</span>
+        </div>
+        <div className="hidden md:flex items-center liquid-glass px-1.5 py-1.5">
+          {['Home','Voyages','Worlds','Innovation','Plan Launch'].map(item => (
+            <a key={item} href="#" className="px-3 py-2 text-sm font-medium text-white/90 font-body whitespace-nowrap">{item}</a>
+          ))}
+          <a href="#" className="ml-2 bg-white text-black rounded-full px-4 py-2 text-sm font-medium flex items-center gap-1.5 whitespace-nowrap font-body">
+            Claim a Spot <ArrowUpRight />
+          </a>
+        </div>
+        <div className="w-12 h-12 shrink-0" />
+      </nav>
+      <div className="relative z-10 flex flex-col h-full">
+        <div className="flex-1 flex flex-col items-center justify-center pt-24 px-4">
+          <m.div
+            className="liquid-glass rounded-full flex items-center gap-2"
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.4 }}
+          >
+            <span className="bg-white text-black px-3 py-1 text-xs font-semibold rounded-full">New</span>
+            <span className="text-sm text-white/90 pr-3 font-body">Maiden Crewed Voyage to Mars Arrives 2026</span>
+          </m.div>
+          <div className="mt-6 max-w-2xl">
+            <BlurText text="Venture Past Our Sky Across the Universe" className="text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] justify-center tracking-[-4px]" />
+          </div>
+          <m.p
+            className="mt-4 text-sm md:text-base text-white max-w-2xl font-body font-light leading-tight text-center px-4"
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.8 }}
+          >Discover the universe in ways once unimaginable. Our pioneering vessels and breakthrough engineering bring deep-space exploration within reach—secure and extraordinary.</m.p>
+          <m.div
+            className="flex items-center gap-6 mt-6"
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 1.1 }}
+          >
+            <a href="#" className="liquid-glass-strong rounded-full px-5 py-2.5 text-sm font-medium text-white flex items-center gap-2 font-body">
+              Start Your Voyage <span className="h-5 w-5"><ArrowUpRight /></span>
+            </a>
+            <a href="#" className="text-sm font-medium text-white flex items-center gap-2 font-body">
+              View Liftoff <span className="h-4 w-4"><PlayIcon /></span>
+            </a>
+          </m.div>
+          <m.div
+            className="flex items-stretch gap-4 mt-8"
+            initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+            animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 1.3 }}
+          >
+            <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col items-start">
+              <ClockIcon />
+              <div className="mt-3 font-heading italic text-white text-4xl tracking-[-1px] leading-none">34.5 Min</div>
+              <div className="mt-2 text-xs text-white font-body font-light">Average Videos Watch Time</div>
+            </div>
+            <div className="liquid-glass p-5 w-[220px] rounded-[1.25rem] flex flex-col items-start">
+              <GlobeIcon />
+              <div className="mt-3 font-heading italic text-white text-4xl tracking-[-1px] leading-none">2.8B+</div>
+              <div className="mt-2 text-xs text-white font-body font-light">Users Across the Globe</div>
+            </div>
+          </m.div>
+        </div>
+        <m.div
+          className="flex flex-col items-center gap-4 pb-8"
+          initial={{ filter: 'blur(10px)', opacity: 0, y: 20 }}
+          animate={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 1.4 }}
+        >
+          <div className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body">Collaborating with top aerospace pioneers globally</div>
+          <div className="flex items-center gap-12 md:gap-16 font-heading italic text-white text-2xl md:text-3xl tracking-tight">
+            <span>Aeon</span><span>Vela</span><span>Apex</span><span>Orbit</span><span>Zeno</span>
+          </div>
+        </m.div>
+      </div>
+    </section>
+  );
+}
+
+window.HeroSection = HeroSection;
+})();
+</script>
+
+<script type="text/babel">
+(function() {
+const { motion: m } = Motion;
+const FadingVideo = window.FadingVideo;
+
+const cardData = [
+  { Icon: window.ImageIcon || (() => null), title: 'AI Scenery', tags: ['Natural Context','Photo Realism','Infinite Settings','Eco-Vibe'], body: 'AI analyzes your product to create indistinguishable natural environments — from Icelandic cliffs to misty forests.' },
+  { Icon: window.MovieIcon || (() => null), title: 'Batch Production', tags: ['Scale Fast','Visual Consistency','Time Saver','Ready to Post'], body: 'Style your entire product line in minutes. Create a unified visual identity for catalogues and social media without weeks of retouching.' },
+  { Icon: window.LightbulbIcon || (() => null), title: 'Smart Lighting', tags: ['Ray Tracing','Physical Shadows','Studio Quality','Sunlight Sync'], body: 'Automatic lighting and material adjustment. Achieve flawless integration with realistic shadows and sunlight.' },
+];
+
+function CapabilitiesSection() {
+  return (
+    <section className="relative min-h-screen overflow-hidden">
+      <FadingVideo
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      <div className="relative z-10 px-8 md:px-16 lg:px-20 pt-24 pb-10 flex flex-col min-h-screen">
+        <div className="mb-auto">
+          <p className="text-sm font-body text-white/80 mb-6 tracking-wide">// Capabilities</p>
+          <h2 className="font-heading italic text-white text-6xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-[-3px]">
+            Production<br />evolved
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+          {cardData.map((card, idx) => (
+            <m.div
+              key={card.title}
+              className="liquid-glass rounded-[1.25rem] p-6 min-h-[360px] flex flex-col"
+              initial={{ filter: 'blur(10px)', opacity: 0, y: 30 }}
+              whileInView={{ filter: 'blur(0px)', opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: idx * 0.15 }}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="liquid-glass rounded-[0.75rem] w-11 h-11 flex items-center justify-center shrink-0">
+                  <card.Icon />
+                </div>
+                <div className="flex flex-wrap justify-end gap-1.5 max-w-[70%]">
+                  {card.tags.map(tag => (
+                    <span key={tag} className="liquid-glass rounded-full px-3 py-1 text-[11px] text-white/90 font-body whitespace-nowrap">{tag}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex-1" />
+              <div className="mt-6">
+                <h3 className="font-heading italic text-white text-3xl md:text-4xl tracking-[-1px] leading-none">{card.title}</h3>
+                <p className="mt-3 text-sm text-white/90 font-body font-light leading-snug max-w-[32ch]">{card.body}</p>
+              </div>
+            </m.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+window.CapabilitiesSection = CapabilitiesSection;
+})();
+</script>
+
+<script type="text/babel">
+const { motion: m } = Motion;
+const HeroSection = window.HeroSection;
+const CapabilitiesSection = window.CapabilitiesSection;
+
+function App() {
+  return (
+    <div className="bg-black">
+      <HeroSection />
+      <CapabilitiesSection />
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+
+</body>
+</html>

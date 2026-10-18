@@ -1,0 +1,85 @@
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+
+const VIDEO_1 =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4';
+const VIDEO_2 =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4';
+
+const cards = [
+  {
+    video: VIDEO_1,
+    tag: 'Strategy',
+    title: 'Research & Insight',
+    description:
+      'We dig deep into data, culture, and human behavior to surface the insights that drive meaningful, lasting change.',
+  },
+  {
+    video: VIDEO_2,
+    tag: 'Craft',
+    title: 'Design & Execution',
+    description:
+      'From concept to launch, we obsess over every detail to deliver experiences that feel effortless and look extraordinary.',
+  },
+];
+
+export default function ServicesSection() {
+  return (
+    <section className="bg-black py-28 md:py-40 px-6 overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.02)_0%,_transparent_60%)] pointer-events-none" />
+      <div className="max-w-6xl mx-auto">
+        {/* Header row */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.7 }}
+          className="flex items-center justify-between mb-12 md:mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl text-white tracking-tight">What we do</h2>
+          <p className="text-white/40 text-sm hidden md:block">Our services</p>
+        </motion.div>
+
+        {/* Two-card grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {cards.map((card, i) => (
+            <motion.div
+              key={card.tag}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, delay: i * 0.15 }}
+              className="liquid-glass rounded-3xl overflow-hidden group"
+            >
+              {/* Video area */}
+              <div className="relative aspect-video overflow-hidden">
+                <video
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  preload="auto"
+                  src={card.video}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+              </div>
+
+              {/* Card body */}
+              <div className="p-6 md:p-8">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-white/40 text-xs tracking-widest uppercase">{card.tag}</span>
+                  <div className="liquid-glass rounded-full p-2">
+                    <ArrowUpRight size={16} className="text-white" />
+                  </div>
+                </div>
+                <h3 className="text-white text-xl md:text-2xl tracking-tight mb-3">{card.title}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{card.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

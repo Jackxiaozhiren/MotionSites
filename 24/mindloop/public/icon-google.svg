@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <rect width="200" height="200" rx="40" fill="hsl(0 0% 8%)" stroke="hsl(0 0% 20%)" stroke-width="1" />
+  <text x="100" y="85" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="700" fill="hsl(0 0% 100%)">G</text>
+  <text x="100" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="hsl(0 0% 60%)">Google AI</text>
+</svg>

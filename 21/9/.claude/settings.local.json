@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"G:/Motion sites/9\")",
+      "Bash(cp \"G:/Motion sites 9/tailwind.config.js\" \"G:/Motion sites/9/tailwind.config.js\")",
+      "Bash(cp \"G:/Motion sites 9/postcss.config.js\" \"G:/Motion sites/9/postcss.config.js\")",
+      "Bash(rm \"G:/Motion sites 9/tailwind.config.js\" \"G:/Motion sites 9/postcss.config.js\")",
+      "Bash(rmdir \"G:/Motion sites 9\")"
+    ]
+  }
+}

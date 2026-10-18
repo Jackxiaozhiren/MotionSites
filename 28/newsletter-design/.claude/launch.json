@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "newsletter-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite"],
+      "cwd": "G:/Motion sites/28/newsletter-design",
+      "port": 5173
+    }
+  ]
+}

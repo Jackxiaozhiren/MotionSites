@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.output/
+.vercel/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+
+# Caches
+.cache/
+.parcel-cache/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor dirs
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Lockfiles are auto-generated; not tracked in this collection
+package-lock.json

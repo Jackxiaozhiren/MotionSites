@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #EFF4FF;
+  --color-neon: #6FFF00;
+  --color-bg-dark: #010828;
+  --font-grotesk: "Anton", sans-serif;
+  --font-condiment: "Condiment", cursive;
+}
+
+.liquid-glass {
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}

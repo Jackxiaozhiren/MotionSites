@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duolingo — Style Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== Feather Bold ===== */
+@font-face {
+  font-family: 'Feather Bold';
+  src: url('https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold');
+  src: url('https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold#iefix') format('embedded-opentype'),
+       url('https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold') format('woff2'),
+       url('https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold') format('woff'),
+       url('https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold') format('truetype');
+  font-display: swap;
+}
+
+/* ===== CSS Variables ===== */
+:root {
+  --green: rgb(88, 204, 2);
+  --green-hover: rgb(75, 178, 0);
+  --green-shadow: #61B800;
+  --dark-blue: rgb(16, 15, 62);
+  --blue: rgb(28, 176, 246);
+  --gray-text: rgb(75, 75, 75);
+  --gray-light: rgb(119, 119, 119);
+  --border-color: rgb(229, 229, 229);
+  --nav-text: rgb(175, 175, 175);
+  --footer-green: #4EC604;
+  --red: #FF4B4B;
+  --orange: #FF9600;
+  --golden: #FFC800;
+  --font-primary: 'Nunito', 'DIN Round Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Feather Bold', 'Nunito', 'DIN Round Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-primary);
+  color: var(--gray-text);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+}
+
+.navbar-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-logo {
+  height: 33px;
+  width: 140px;
+  display: block;
+}
+
+.navbar-logo img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.navbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-color);
+}
+
+.navbar-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gray-light);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.nav-toggle:hover {
+  background: rgba(88, 204, 2, 0.08);
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--gray-light);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.nav-toggle span + span {
+  margin-top: 5px;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 16px 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 999;
+  transform: translateY(-10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-menu .nav-link {
+  display: block;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--nav-text);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--green);
+  background: rgba(88, 204, 2, 0.08);
+}
+
+.nav-link.active {
+  color: var(--green);
+}
+
+/* ===== Hero ===== */
+.hero {
+  margin-top: 64px;
+  background: linear-gradient(180deg, rgba(88, 204, 2, 0.08) 0%, #fff 100%);
+  text-align: center;
+  padding: 56px 40px 40px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 52px;
+  color: var(--green);
+  text-transform: lowercase;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+.hero p {
+  font-size: 17px;
+  color: var(--gray-light);
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.5;
+}
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  position: relative;
+  top: 0;
+}
+
+.btn:active {
+  box-shadow: none !important;
+  transform: translateY(4px);
+}
+
+.btn-primary {
+  background: var(--green);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--green-shadow);
+}
+
+.btn-primary:hover {
+  background: var(--green-hover);
+}
+
+.btn-primary:active {
+  background: var(--green-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--blue);
+  border: 2px solid #CFCFCF;
+  box-shadow: 0 4px 0 #CFCFCF;
+}
+
+.btn-secondary:hover {
+  border-color: #bbb;
+  box-shadow: 0 4px 0 #bbb;
+}
+
+.btn-sm {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+.btn-disabled {
+  opacity: 0.45;
+  pointer-events: none;
+  cursor: default;
+}
+
+.btn-danger {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 4px 0 #CC3C3C;
+}
+
+.btn-danger:hover {
+  background: #e04444;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--green);
+  border: none;
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background: rgba(88, 204, 2, 0.08);
+}
+
+.btn-white {
+  background: #fff;
+  color: var(--dark-blue);
+  box-shadow: 0 4px 0 #88879F;
+}
+
+.btn-white:hover {
+  background: #c8f040;
+}
+
+/* ===== Main Grid ===== */
+.grid {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.panel {
+  padding: 36px 40px;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.panel:nth-child(even) {
+  border-right: none;
+}
+
+/* last two panels: if grid has 8 children, the 7th and 8th are last row */
+.panel:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.panel-dark {
+  background: var(--dark-blue);
+  border-bottom-color: rgba(255,255,255,0.08);
+  border-right-color: rgba(255,255,255,0.08);
+}
+
+/* ===== Section Label ===== */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--nav-text);
+  margin-bottom: 24px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
+.panel-dark .section-label {
+  color: rgba(255,255,255,0.35);
+}
+
+.panel-dark .section-label::after {
+  background: rgba(255,255,255,0.1);
+}
+
+/* ===== Panel 1: Color Palette ===== */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+
+.color-swatch {
+  cursor: default;
+}
+
+.color-swatch-box {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+  margin-bottom: 8px;
+}
+
+.color-swatch:hover .color-swatch-box {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.color-swatch-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-text);
+  margin-bottom: 2px;
+}
+
+.color-swatch-hex {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray-light);
+}
+
+/* ===== Panel 2: Typography ===== */
+.type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.type-row {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.type-meta {
+  width: 80px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.type-size {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  display: block;
+}
+
+.type-weight {
+  font-size: 10px;
+  color: var(--nav-text);
+  display: block;
+  margin-top: 1px;
+}
+
+.type-sample {
+  flex: 1;
+}
+
+.type-sample.display {
+  font-family: var(--font-display);
+  font-size: 48px;
+  color: var(--green);
+}
+
+.type-sample.h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gray-text);
+}
+
+.type-sample.h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--green);
+  text-transform: lowercase;
+}
+
+.type-sample.body {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gray-light);
+  line-height: 1.6;
+}
+
+.type-sample.caption {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--nav-text);
+  letter-spacing: 0.5px;
+}
+
+.type-sample.small {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-light);
+}
+
+/* ===== Panel 3: Button Variants ===== */
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-row-label {
+  width: 80px;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--nav-text);
+}
+
+/* ===== Panel 4: Dark Buttons ===== */
+.dark-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dark-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ===== Panel 5 & 6: Cards ===== */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.card-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.card-tag-green {
+  color: var(--green);
+  background: rgba(88, 204, 2, 0.1);
+}
+
+.card-tag-blue {
+  color: var(--blue);
+  background: rgba(28, 176, 246, 0.1);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gray-text);
+  margin-bottom: 6px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--gray-light);
+  line-height: 1.5;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding: 12px 16px;
+}
+
+.card-footer-left {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--nav-text);
+}
+
+.card-footer-right {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.card-footer-right:hover {
+  opacity: 0.7;
+}
+
+/* Dark Cards */
+.card-dark {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.08);
+}
+
+.card-dark .card-title {
+  color: #fff;
+}
+
+.card-dark .card-desc {
+  color: rgba(255,255,255,0.5);
+}
+
+.card-dark .card-footer {
+  border-top-color: rgba(255,255,255,0.08);
+}
+
+.card-dark .card-footer-left {
+  color: rgba(255,255,255,0.3);
+}
+
+.card-dark:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.card-tag-golden {
+  color: var(--golden);
+  background: rgba(255, 200, 0, 0.15);
+}
+
+.card-tag-orange {
+  color: var(--orange);
+  background: rgba(255, 150, 0, 0.15);
+}
+
+/* ===== Panel 7: Components ===== */
+.components-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comp-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--nav-text);
+  margin-bottom: 8px;
+}
+
+.comp-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-dark .comp-label {
+  color: rgba(255,255,255,0.3);
+}
+
+/* Badges */
+.badges-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-green {
+  color: var(--green);
+  background: rgba(88, 204, 2, 0.12);
+}
+
+.badge-blue {
+  color: var(--blue);
+  background: rgba(28, 176, 246, 0.12);
+}
+
+.badge-red {
+  color: var(--red);
+  background: rgba(255, 75, 75, 0.12);
+}
+
+.badge-orange {
+  color: var(--orange);
+  background: rgba(255, 150, 0, 0.12);
+}
+
+.badge-golden {
+  color: #b8920f;
+  background: rgba(255, 200, 0, 0.15);
+}
+
+/* Input + Button */
+.input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.input-row input {
+  flex: 1;
+  height: 48px;
+  padding: 0 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-primary);
+  color: var(--gray-text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-row input::placeholder {
+  color: var(--nav-text);
+  font-weight: 500;
+}
+
+.input-row input:focus {
+  border-color: var(--blue);
+}
+
+.input-row .btn {
+  flex-shrink: 0;
+}
+
+/* Toggle */
+.toggle-row {
+  display: flex;
+  gap: 24px;
+}
+
+.toggle-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  position: absolute;
+  inset: 0;
+  background: var(--border-color);
+  border-radius: 14px;
+  transition: background 0.25s ease;
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+
+.toggle input:checked + .toggle-track {
+  background: var(--green);
+}
+
+.toggle input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(20px);
+}
+
+.toggle-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-text);
+}
+
+/* Progress */
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 12px;
+  background: var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s ease;
+  width: 0;
+}
+
+.progress-fill-green {
+  background: var(--green);
+}
+
+.progress-fill-blue {
+  background: var(--blue);
+}
+
+.progress-fill-orange {
+  background: var(--orange);
+}
+
+.progress-value {
+  font-size: 12px;
+  font-weight: 700;
+  width: 32px;
+  text-align: right;
+  color: var(--gray-text);
+}
+
+/* Tooltip + Streak */
+.tooltip-streak-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tooltip-trigger {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-btn {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  color: var(--green);
+  background: rgba(88, 204, 2, 0.08);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.tooltip-btn:hover {
+  background: rgba(88, 204, 2, 0.15);
+}
+
+.tooltip-bubble {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  background: var(--dark-blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.tooltip-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--dark-blue);
+}
+
+.tooltip-btn:hover + .tooltip-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.streak-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 150, 0, 0.1);
+  border-radius: 20px;
+}
+
+.streak-fire {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.streak-count {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--orange);
+}
+
+/* ===== Panel 8: Dark Components ===== */
+.panel-dark .toggle-label {
+  color: rgba(255,255,255,0.7);
+}
+
+.panel-dark .progress-bar {
+  background: rgba(255,255,255,0.08);
+}
+
+.panel-dark .progress-value {
+  color: rgba(255,255,255,0.6);
+}
+
+/* Language Pills */
+.lang-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lang-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+  font-family: var(--font-primary);
+}
+
+.lang-pill:hover {
+  border-color: var(--green);
+  background: rgba(88, 204, 2, 0.08);
+}
+
+.lang-pill.active {
+  border-color: var(--green);
+  background: rgba(88, 204, 2, 0.08);
+}
+
+.lang-pill img {
+  width: 24px;
+  height: 18px;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.lang-pill span {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+}
+
+.lang-pill.active span {
+  color: #fff;
+}
+
+/* Avatar Group */
+.avatar-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  margin-left: -8px;
+}
+
+.avatar:first-child {
+  margin-left: 0;
+}
+
+.avatar-count {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gray-light);
+  margin-left: -8px;
+}
+
+.avatar-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  margin-left: 12px;
+}
+
+/* Dark Progress */
+.progress-fill-golden {
+  background: var(--golden);
+}
+
+/* Dark Badges */
+.badge-dark-green {
+  color: #7ADB2E;
+  background: rgba(88, 204, 2, 0.15);
+}
+
+.badge-dark-blue {
+  color: #4DC4F8;
+  background: rgba(28, 176, 246, 0.15);
+}
+
+.badge-dark-golden {
+  color: var(--golden);
+  background: rgba(255, 200, 0, 0.15);
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel {
+  animation: fadeInUp 0.6s ease both;
+}
+
+.panel:nth-child(1) { animation-delay: 0.05s; }
+.panel:nth-child(2) { animation-delay: 0.10s; }
+.panel:nth-child(3) { animation-delay: 0.15s; }
+.panel:nth-child(4) { animation-delay: 0.20s; }
+.panel:nth-child(5) { animation-delay: 0.25s; }
+.panel:nth-child(6) { animation-delay: 0.30s; }
+.panel:nth-child(7) { animation-delay: 0.35s; }
+.panel:nth-child(8) { animation-delay: 0.40s; }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-right: none !important;
+  }
+
+  .panel:nth-last-child(-n+2) {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .panel:last-child {
+    border-bottom: none !important;
+  }
+
+  .panel-dark:nth-last-child(-n+2) {
+    border-bottom-color: rgba(255,255,255,0.08);
+  }
+
+  .panel-dark:last-child {
+    border-bottom: none !important;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 40px 20px 32px;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .panel {
+    padding: 28px 20px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .type-meta {
+    display: none;
+  }
+
+  .type-sample.display {
+    font-size: 32px;
+  }
+
+  .btn-row-label {
+    display: none;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Navbar ===== -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-left">
+      <a href="#" class="navbar-logo" aria-label="Duolingo">
+        <img src="https://d35aaqx5ub95lt.cloudfront.net/images/splash/f92d5f2f7d56636846861c458c0d0b6c.svg" alt="Duolingo">
+      </a>
+      <div class="navbar-divider"></div>
+      <span class="navbar-label">Style Guide</span>
+    </div>
+    <div class="navbar-right">
+      <a href="#colors" class="nav-link">Colors</a>
+      <a href="#type" class="nav-link">Type</a>
+      <a href="#buttons" class="nav-link">Buttons</a>
+      <a href="#cards" class="nav-link">Cards</a>
+      <a href="#components" class="nav-link">Components</a>
+      <button type="button" class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#colors" class="nav-link">Colors</a>
+  <a href="#type" class="nav-link">Type</a>
+  <a href="#buttons" class="nav-link">Buttons</a>
+  <a href="#cards" class="nav-link">Cards</a>
+  <a href="#components" class="nav-link">Components</a>
+</div>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <h1>duolingo design</h1>
+  <p>A comprehensive visual reference for the Duolingo design system covering colors, typography, button variants, cards, and UI components.</p>
+  <div class="hero-buttons">
+    <button type="button" class="btn btn-primary">Get Started</button>
+    <button type="button" class="btn btn-secondary">I Already Have an Account</button>
+  </div>
+</section>
+
+<!-- ===== Grid ===== -->
+<div class="grid">
+
+  <!-- Panel 1: Color Palette -->
+  <div class="panel" id="colors">
+    <div class="section-label">Color Palette</div>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#58CC02"></div>
+        <div class="color-swatch-name">Green</div>
+        <div class="color-swatch-hex">#58CC02</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#4BB200"></div>
+        <div class="color-swatch-name">Green Hover</div>
+        <div class="color-swatch-hex">#4BB200</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#1CB0F6"></div>
+        <div class="color-swatch-name">Blue</div>
+        <div class="color-swatch-hex">#1CB0F6</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#100F3E"></div>
+        <div class="color-swatch-name">Dark Blue</div>
+        <div class="color-swatch-hex">#100F3E</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#FF4B4B"></div>
+        <div class="color-swatch-name">Red</div>
+        <div class="color-swatch-hex">#FF4B4B</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#FF9600"></div>
+        <div class="color-swatch-name">Orange</div>
+        <div class="color-swatch-hex">#FF9600</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#FFC800"></div>
+        <div class="color-swatch-name">Golden</div>
+        <div class="color-swatch-hex">#FFC800</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#4EC604"></div>
+        <div class="color-swatch-name">Footer Green</div>
+        <div class="color-swatch-hex">#4EC604</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#4B4B4B"></div>
+        <div class="color-swatch-name">Gray Text</div>
+        <div class="color-swatch-hex">#4B4B4B</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#777777"></div>
+        <div class="color-swatch-name">Gray Light</div>
+        <div class="color-swatch-hex">#777777</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#AFAFAF"></div>
+        <div class="color-swatch-name">Nav Text</div>
+        <div class="color-swatch-hex">#AFAFAF</div>
+      </div>
+      <div class="color-swatch">
+        <div class="color-swatch-box" style="background:#E5E5E5"></div>
+        <div class="color-swatch-name">Border</div>
+        <div class="color-swatch-hex">#E5E5E5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 2: Typography -->
+  <div class="panel" id="type">
+    <div class="section-label">Typography</div>
+    <div class="type-list">
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-size">48px</span>
+          <span class="type-weight">Feather Bold</span>
+        </div>
+        <div class="type-sample display">Display</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-size">32px</span>
+          <span class="type-weight">Bold 700</span>
+        </div>
+        <div class="type-sample h1">Heading One</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-size">28px</span>
+          <span class="type-weight">Feather Bold</span>
+        </div>
+        <div class="type-sample h2">heading two</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-size">18px</span>
+          <span class="type-weight">Medium 500</span>
+        </div>
+        <div class="type-sample body">Body text for paragraphs and descriptions with comfortable reading line-height.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-size">14px</span>
+          <span class="type-weight">Bold 700</span>
+        </div>
+        <div class="type-sample caption">Caption Label</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-size">12px</span>
+          <span class="type-weight">Semi 600</span>
+        </div>
+        <div class="type-sample small">Small utility text for metadata and hints</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 3: Button Variants -->
+  <div class="panel" id="buttons">
+    <div class="section-label">Button Variants</div>
+    <div class="btn-group">
+      <div class="btn-row">
+        <span class="btn-row-label">Primary</span>
+        <button type="button" class="btn btn-primary">Get Started</button>
+        <button type="button" class="btn btn-primary btn-sm">Small</button>
+        <button type="button" class="btn btn-primary btn-disabled">Disabled</button>
+      </div>
+      <div class="btn-row">
+        <span class="btn-row-label">Secondary</span>
+        <button type="button" class="btn btn-secondary">Learn More</button>
+        <button type="button" class="btn btn-secondary btn-sm">Small</button>
+        <button type="button" class="btn btn-secondary btn-disabled">Disabled</button>
+      </div>
+      <div class="btn-row">
+        <span class="btn-row-label">Danger</span>
+        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-danger btn-sm">Remove</button>
+      </div>
+      <div class="btn-row">
+        <span class="btn-row-label">Ghost</span>
+        <button type="button" class="btn btn-ghost">View All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 4: Dark Theme Buttons -->
+  <div class="panel panel-dark">
+    <div class="section-label">Dark Theme Buttons</div>
+    <div class="dark-btn-group">
+      <div class="dark-btn-row">
+        <button type="button" class="btn btn-primary">Get Started</button>
+        <button type="button" class="btn btn-white">Try 1 Week Free</button>
+      </div>
+      <div class="dark-btn-row">
+        <button type="button" class="btn btn-primary btn-sm">Get Started</button>
+        <button type="button" class="btn btn-white btn-sm">Try 1 Week Free</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 5: Cards -->
+  <div class="panel" id="cards">
+    <div class="section-label">Cards</div>
+    <div class="cards-grid">
+      <div class="card">
+        <img class="card-img" src="https://images.pexels.com/photos/4145354/pexels-photo-4145354.jpeg?auto=compress&cs=tinysrgb&w=400&h=200&fit=crop" alt="Spanish" loading="lazy">
+        <div class="card-body">
+          <span class="card-tag card-tag-green">New</span>
+          <div class="card-title">Spanish for Beginners</div>
+          <div class="card-desc">Start your language journey with interactive lessons designed to build fluency.</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-left">12 Units</span>
+          <a href="#" class="card-footer-right">Start</a>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="https://images.pexels.com/photos/267669/pexels-photo-267669.jpeg?auto=compress&cs=tinysrgb&w=400&h=200&fit=crop" alt="French" loading="lazy">
+        <div class="card-body">
+          <span class="card-tag card-tag-blue">Popular</span>
+          <div class="card-title">French Conversations</div>
+          <div class="card-desc">Practice real-world dialogue and improve pronunciation with native speakers.</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-left">8 Units</span>
+          <a href="#" class="card-footer-right">Continue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 6: Dark Theme Cards -->
+  <div class="panel panel-dark">
+    <div class="section-label">Dark Theme Cards</div>
+    <div class="cards-grid">
+      <div class="card card-dark">
+        <div class="card-body">
+          <span class="card-tag card-tag-golden">Super</span>
+          <div class="card-title">Unlimited Hearts</div>
+          <div class="card-desc">Keep learning without interruption with Super Duolingo benefits.</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-left">Premium</span>
+          <a href="#" class="card-footer-right">Upgrade</a>
+        </div>
+      </div>
+      <div class="card card-dark">
+        <div class="card-body">
+          <span class="card-tag card-tag-orange">Pro</span>
+          <div class="card-title">Mastery Quizzes</div>
+          <div class="card-desc">Challenge yourself with advanced assessments to test your skill level.</div>
+        </div>
+        <div class="card-footer">
+          <span class="card-footer-left">Advanced</span>
+          <a href="#" class="card-footer-right">Try Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 7: Components -->
+  <div class="panel" id="components">
+    <div class="section-label">Components</div>
+    <div class="components-stack">
+      <!-- Badges -->
+      <div class="comp-group">
+        <div class="comp-label">Badges</div>
+        <div class="badges-row">
+          <span class="badge badge-green">Completed</span>
+          <span class="badge badge-blue">In Progress</span>
+          <span class="badge badge-red">Failed</span>
+          <span class="badge badge-orange">Streak</span>
+          <span class="badge badge-golden">Premium</span>
+        </div>
+      </div>
+
+      <!-- Input + Button -->
+      <div class="comp-group">
+        <div class="comp-label">Input + Button</div>
+        <div class="input-row">
+          <input type="email" placeholder="Enter your email" value="">
+          <button type="button" class="btn btn-primary">Subscribe</button>
+        </div>
+      </div>
+
+      <!-- Toggle -->
+      <div class="comp-group">
+        <div class="comp-label">Toggle</div>
+        <div class="toggle-row">
+          <div class="toggle-item">
+            <label class="toggle">
+              <input type="checkbox" checked>
+              <div class="toggle-track">
+                <div class="toggle-thumb"></div>
+              </div>
+            </label>
+            <span class="toggle-label">Sound effects</span>
+          </div>
+          <div class="toggle-item">
+            <label class="toggle">
+              <input type="checkbox">
+              <div class="toggle-track">
+                <div class="toggle-thumb"></div>
+              </div>
+            </label>
+            <span class="toggle-label">Animations</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="comp-group">
+        <div class="comp-label">Progress</div>
+        <div class="progress-list">
+          <div class="progress-row">
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-green" data-width="85"></div>
+            </div>
+            <span class="progress-value">85%</span>
+          </div>
+          <div class="progress-row">
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-blue" data-width="60"></div>
+            </div>
+            <span class="progress-value">60%</span>
+          </div>
+          <div class="progress-row">
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-orange" data-width="35"></div>
+            </div>
+            <span class="progress-value">35%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tooltips & Streak -->
+      <div class="comp-group">
+        <div class="comp-label">Tooltips &amp; Streak</div>
+        <div class="tooltip-streak-row">
+          <div class="tooltip-trigger">
+            <button type="button" class="tooltip-btn">Hover me</button>
+            <div class="tooltip-bubble">Tooltip message</div>
+          </div>
+          <div class="streak-counter">
+            <span class="streak-fire">🔥</span>
+            <span class="streak-count">42</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel 8: Dark Theme Components -->
+  <div class="panel panel-dark">
+    <div class="section-label">Dark Theme Components</div>
+    <div class="components-stack">
+
+      <!-- Language Pills -->
+      <div class="comp-group">
+        <div class="comp-label">Language</div>
+        <div class="lang-pills">
+          <button class="lang-pill active">
+            <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/59a90a2cedd48b751a8fd22014768fd7.svg" alt="Spanish flag">
+            <span>Spanish</span>
+          </button>
+          <button class="lang-pill">
+            <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/482fda142ee4abd728ebf4ccce5d3307.svg" alt="French flag">
+            <span>French</span>
+          </button>
+          <button class="lang-pill">
+            <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/c71db846ffab7e0a74bc6971e34ad82e.svg" alt="German flag">
+            <span>German</span>
+          </button>
+          <button class="lang-pill">
+            <img src="https://d35aaqx5ub95lt.cloudfront.net/vendor/edea4fa18ff3e7d8c0282de3f102aaed.svg" alt="Japanese flag">
+            <span>Japanese</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Avatar Group -->
+      <div class="comp-group">
+        <div class="comp-label">Avatar Group</div>
+        <div style="display:flex;align-items:center;">
+          <div class="avatar-group">
+            <img class="avatar" src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="User 1">
+            <img class="avatar" src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="User 2">
+            <img class="avatar" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=80&h=80&fit=crop" alt="User 3">
+            <div class="avatar-count">+5</div>
+          </div>
+          <span class="avatar-text">8 learners active</span>
+        </div>
+      </div>
+
+      <!-- Progress (Dark) -->
+      <div class="comp-group">
+        <div class="comp-label">Progress</div>
+        <div class="progress-list">
+          <div class="progress-row">
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-golden" data-width="72"></div>
+            </div>
+            <span class="progress-value">72%</span>
+          </div>
+          <div class="progress-row">
+            <div class="progress-bar">
+              <div class="progress-fill progress-fill-green" data-width="45"></div>
+            </div>
+            <span class="progress-value">45%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badges (Dark) -->
+      <div class="comp-group">
+        <div class="comp-label">Badges</div>
+        <div class="badges-row">
+          <span class="badge badge-dark-green">Mastered</span>
+          <span class="badge badge-dark-blue">Review</span>
+          <span class="badge badge-dark-golden">Crown</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Animate progress bars on load
+document.addEventListener('DOMContentLoaded', () => {
+  const fills = document.querySelectorAll('.progress-fill');
+  fills.forEach(el => {
+    const w = el.getAttribute('data-width');
+    if (w) {
+      requestAnimationFrame(() => {
+        el.style.width = w + '%';
+      });
+    }
+  });
+});
+
+// Scroll-based active nav link
+const sections = ['colors', 'type', 'buttons', 'cards', 'components'];
+const navLinks = document.querySelectorAll('.nav-link');
+
+function updateActiveNav() {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= 150) current = id;
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('load', updateActiveNav);
+
+// Mobile menu toggle
+const navToggle = document.querySelector('.nav-toggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (navToggle && mobileMenu) {
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+
+  mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+}
+</script>
+</body>
+</html>
