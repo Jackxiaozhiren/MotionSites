@@ -9,7 +9,7 @@ const fadeUp = (delay: number) => ({
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" style={{ background: 'radial-gradient(circle at 52% 40%, #19332b 0%, #0b1717 46%, #000000 95%)' }}>
       {/* Background Video */}
       <video
         autoPlay
@@ -36,17 +36,17 @@ export default function Hero() {
         >
           <div className="flex -space-x-2">
             <img
-              src="/avatar-1.svg"
+              src={`${import.meta.env.BASE_URL}avatar-1.svg`}
               alt="avatar"
               className="w-8 h-8 rounded-full border-2 border-background"
             />
             <img
-              src="/avatar-2.svg"
+              src={`${import.meta.env.BASE_URL}avatar-2.svg`}
               alt="avatar"
               className="w-8 h-8 rounded-full border-2 border-background"
             />
             <img
-              src="/avatar-3.svg"
+              src={`${import.meta.env.BASE_URL}avatar-3.svg`}
               alt="avatar"
               className="w-8 h-8 rounded-full border-2 border-background"
             />
