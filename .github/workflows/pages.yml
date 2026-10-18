@@ -12,6 +12,7 @@ on:
       - 'scripts/capture_previews.mjs'
       - 'scripts/render_social_card.mjs'
       - 'scripts/check_live_gallery.mjs'
+      - 'scripts/build_editorial_pages.py'
       - 'assets/motionsites-social-card.svg'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -46,6 +47,8 @@ jobs:
       - name: Capture verified live demos and screenshots
         continue-on-error: true
         run: node scripts/capture_previews.mjs
+      - name: Generate five indexable source-backed articles
+        run: python3 scripts/build_editorial_pages.py
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
