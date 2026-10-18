@@ -18,3 +18,26 @@
 .open--demo{color:#ece0ff}
 :focus-visible{outline:2px solid #d4baff;outline-offset:3px}
 @media(max-width:580px){.concept-title{font-size:34px}}
+
+/* Discovery tools and keyboard-friendly gallery navigation. */
+.skip-link{position:absolute;top:-70px;left:12px;background:#d5c5ff;color:#20152f;padding:10px 16px;border-radius:8px;z-index:20}
+.skip-link:focus{top:12px}
+.search-wrap{flex:1 1 245px;max-width:350px}
+.search-wrap input{width:100%;min-width:0}
+.discovery-tools,.discovery-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.discovery-tools{justify-content:space-between;margin:-8px 0 16px}
+.demo-toggle{display:inline-flex;gap:9px;align-items:center;color:var(--ink);font-size:14px;cursor:pointer}
+.demo-toggle input{min-width:0;width:17px;height:17px;accent-color:#d5c5ff}
+.discovery-actions button{border:1px solid #614f78;background:#1c1627;color:#e7dafa;border-radius:8px;padding:9px 13px}
+.discovery-actions button:hover{border-color:#d5c5ff}
+.notice:empty{display:none}
+.notice{font-size:13px;margin:10px 0}
+.cover-link{display:block}
+.cover-link:focus-visible{outline:3px solid #d4baff;outline-offset:-3px}
+.cover--concept .concept-kicker,.cover--concept .cover-note{position:relative;bottom:auto;left:auto}
+.cover--concept .concept-title{position:relative}
+.cover--photo .cover-note{font-size:9px}
+.card:focus-within{border-color:#d4baff}
+button[hidden]{display:none!important}
+@media(max-width:580px){.search-wrap{max-width:none;flex-basis:100%}.discovery-actions{width:100%;justify-content:space-between}.navlinks a.cta{padding:8px 10px;font-size:12px}.cover{height:220px}}
+@media(prefers-reduced-motion:reduce){.skip-link{scroll-behavior:auto}}

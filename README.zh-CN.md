@@ -114,6 +114,15 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 
 </details>
 
+
+### 筛选与分享作品画廊
+
+[在线画廊](https://jackxiaozhiren.github.io/MotionSites/) 支持按动画技术栈筛选、搜索项目名称或源码目录、只显示已验证的在线 Demo。按 `/` 可以聚焦搜索框，按 `Escape` 可清空搜索内容；点击 **Share this view** 可复制保留当前筛选条件的链接。筛选逻辑完全在浏览器中执行，不使用访问者追踪。
+
+**关于 Demo：** 只有在 GitHub Actions 成功构建并验证之后，画廊才会显示真实截图与在线预览入口。其他项目始终提供源码目录链接。项目元数据统一维护在 [`site/projects.json`](site/projects.json)，不再需要同步修改 JavaScript 中的另一份列表。
+
+**提交前检查：** 运行 `python3 scripts/check_gallery.py`，验证项目路径、目录数据、主要无障碍控件和双语 README 源码链接。此检查不替代真实浏览器中的视觉和性能测试。
+
 ## 快速开始
 
 大部分 React / Vite 工程可以这样运行：
