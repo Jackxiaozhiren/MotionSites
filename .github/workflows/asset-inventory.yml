@@ -1,0 +1,27 @@
+name: External Asset Reference Inventory
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inventory external source references
+        run: |
+          python3 scripts/inventory_external_assets.py --output external-assets.json
+      - name: Save audit inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: external-assets-inventory
+          path: external-assets.json
+          retention-days: 30
+          if-no-files-found: error
