@@ -31,3 +31,16 @@ The appearance of a remote URL or brand name **does not establish permission** t
 - [ ] Brand references and sample UI are not presented as real endorsements or production services.
 - [ ] Responsive, reduced-motion and offline/error states are tested where applicable.
 - [ ] Root licensing decision is documented with project-specific exceptions.
+
+## External naming and media source check (public web, 2026-10-18)
+
+The public website [motionsites.ai](https://motionsites.ai/) identifies itself as **MotionSites AI**, a commercial website-prompt and animated-background library. Its published [terms](https://motionsites.ai/terms) govern its service. The repository's `1/jack-portfolio/src/components/MarqueeSection.tsx` links directly to animated GIF URLs from `motionsites.ai`; other projects use third-party videos and images. An apparently similar name, design or URL **does not itself prove copied code or infringement**, nor does it establish that the repo has an affiliation with that service.
+
+Before wider public promotion or releasing a blanket open-source license, the repository owner should:
+
+- Verify the **original creation history or applicable licenses** of each demo, especially media hosted by `motionsites.ai` and branded visual references. A paid prompt, publicly viewable preview, or publicly accessible image URL is **not by itself** a grant to redistribute that provider's media.
+- Confirm whether the project name and branding could cause confusion with existing services. If the repository is independent, make that clear without suggesting an official relationship. Consider a distinct collection name if its intended public branding conflicts with another service.
+- Replace hotlinked media with rights-cleared, reliably hosted files or original equivalents where necessary. Record evidence in `CREDITS.md`; if permission is unknown, keep the verification status **pending**.
+- Keep technical improvements separate from legal ownership assertions. This initial check cannot determine trademark ownership or settle license rights.
+
+Web references checked: [MotionSites AI](https://motionsites.ai/), [MotionSites AI terms](https://motionsites.ai/terms). No legal conclusions were made.
