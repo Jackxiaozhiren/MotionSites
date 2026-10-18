@@ -44,3 +44,15 @@ Before wider public promotion or releasing a blanket open-source license, the re
 - Keep technical improvements separate from legal ownership assertions. This initial check cannot determine trademark ownership or settle license rights.
 
 Web references checked: [MotionSites AI](https://motionsites.ai/), [MotionSites AI terms](https://motionsites.ai/terms). No legal conclusions were made.
+
+## Automated source URL inventory (supporting evidence, not permission)
+
+Every pull request and change to `main` runs [External Asset Reference Inventory](../.github/workflows/asset-inventory.yml). It scans source files for external URLs across **all 30 catalog entries** and uploads a `external-assets-inventory` GitHub Actions artifact (JSON: source path, line, hostname and category; intentionally no full URL with potential query tokens). Download this artifact from the workflow run to prioritize manual attribution checks.
+
+Run locally:
+
+```bash
+python3 scripts/inventory_external_assets.py --output external-assets.json
+```
+
+This automated scan can miss dynamically assembled URLs or bundled assets. It reports references, **not ownership, permissions, network availability or whether source code was copied**. `external-assets.json` is a temporary review artifact, not a substitute for `CREDITS.md` or legal documentation.
