@@ -43,17 +43,17 @@ These are actual screenshots captured from running project builds, not generated
 <td width="33%" valign="top">
 <a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/jack-portfolio.jpg" alt="Real browser screenshot of Jack · 3D Creator" width="100%"></a><br>
 <strong>Jack · 3D Creator</strong><br>
-<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio">Source ↗</a>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/jack-portfolio/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator">Source ↗</a>
 </td>
 <td width="33%" valign="top">
 <a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/prisma-landing.jpg" alt="Real browser screenshot of Prisma — Creative Studio" width="100%"></a><br>
 <strong>Prisma — Creative Studio</strong><br>
-<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing">Source ↗</a>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/prisma-landing/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio">Source ↗</a>
 </td>
 <td width="33%" valign="top">
 <a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/"><img src="https://jackxiaozhiren.github.io/MotionSites/previews/foundation.jpg" alt="Real browser screenshot of Foundation — New Digital Epoch" width="100%"></a><br>
 <strong>Foundation — New Digital Epoch</strong><br>
-<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/29">Source ↗</a>
+<a href="https://jackxiaozhiren.github.io/MotionSites/demos/foundation/">Live demo ↗</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch">Source ↗</a>
 </td>
 </tr>
 </table>
@@ -90,21 +90,21 @@ Start with a few different styles and animation stacks:
 
 | Project | Focus | Explore |
 |---|---|---|
-| **Jack · 3D Creator** | Creative portfolio concept with Framer Motion | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) |
-| **Prisma — Creative Studio** | Creative studio landing page | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) |
-| **Axion Studio** | GSAP-driven landing page | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) |
-| **Wanderful** | Travel-inspired website with GSAP | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22) |
-| **Foundation — New Digital Epoch** | Motion-powered digital experience | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
-| **Hero Liquid Glass** | Liquid-glass hero exploration | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
+| **Jack · 3D Creator** | Creative portfolio concept with Framer Motion | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator) |
+| **Prisma — Creative Studio** | Creative studio landing page | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio) |
+| **Axion Studio** | GSAP-driven landing page | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) |
+| **Wanderful** | Travel-inspired website with GSAP | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/wanderful) |
+| **Foundation — New Digital Epoch** | Motion-powered digital experience | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) |
+| **Hero Liquid Glass** | Liquid-glass hero exploration | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/hero-liquid-glass) |
 
 **Want to see the motion in action?** Clone a project and run it locally using the instructions below. Selected projects offer verified demo builds in the gallery; others remain source-only. See [the visual showcase guide](docs/SHOWCASE_GUIDE.md) for how to add genuine captures and live URLs later.
 
 ### Find projects by technology
 
-- **GSAP:** [Axion Studio](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) · [Wanderful](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22)
-- **Motion:** [RIVR](https://github.com/Jackxiaozhiren/MotionSites/tree/main/19) · [Foundation](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) · [dot.](https://github.com/Jackxiaozhiren/MotionSites/tree/main/30)
-- **Framer Motion:** [Jack · 3D Creator](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) · [Prisma](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) · [Nexora](https://github.com/Jackxiaozhiren/MotionSites/tree/main/20) · [Mindloop](https://github.com/Jackxiaozhiren/MotionSites/tree/main/24/mindloop)
-- **Standalone HTML:** [Venture](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) · [Duolingo — Style Guide](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27)
+- **GSAP:** [Axion Studio](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) · [Wanderful](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/wanderful)
+- **Motion:** [RIVR](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/rivr) · [Foundation](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) · [dot.](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/dot)
+- **Framer Motion:** [Jack · 3D Creator](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator) · [Prisma](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio) · [Nexora](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/nexora) · [Mindloop](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/mindloop)
+- **Standalone HTML:** [Venture](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/venture-space-travel) · [Duolingo — Style Guide](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/duolingo-style-guide)
 
 <details>
 <summary><strong>📚 View all 30 projects (click to expand)</strong></summary>
@@ -113,36 +113,36 @@ Start with a few different styles and animation stacks:
 
 | # | Project | Stack / Technology | Source |
 |:--:|---|---|:--:|
-| 01 | **Jack · 3D Creator** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/1/jack-portfolio) |
-| 02 | **Mainframe** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/2) |
-| 03 | **Prisma — Creative Studio** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/3/prisma-landing) |
-| 04 | **Velorah** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/4) |
-| 05 | **Password Manager** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/5) |
-| 06 | **Aethera** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/6) |
-| 07 | **Venture — Space Travel** | Standalone HTML · CDN | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) |
-| 08 | **VEX** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/8) |
-| 09 | **Forma** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/10) |
-| 10 | **Asme** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/11) |
-| 11 | **Orbis.Nft** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/12) |
-| 12 | **VaultShield** | React · Framer Motion · Tailwind · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/13) |
-| 13 | **Asme (Motion)** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/14) |
-| 14 | **securify** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/15) |
-| 15 | **CINEMATIC** | React · Tailwind · Vite | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/16) |
-| 16 | **LinkFlow** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/17) |
-| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/18) |
-| 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/19) |
-| 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/20) |
-| 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21) |
-| 21 | **Axion Studio (subproject)** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/21/9) |
-| 22 | **Wanderful** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/22) |
-| 23 | **Mindloop** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/24/mindloop) |
-| 24 | **Equilibrium** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/25) |
-| 25 | **Xero** | React · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/26) |
-| 26 | **Duolingo — Style Guide** | Standalone HTML | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27) |
-| 27 | **Newsletter Design** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/28/newsletter-design) |
-| 28 | **Foundation — New Digital Epoch** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/29) |
-| 29 | **dot.** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/30) |
-| 30 | **Hero Liquid Glass** | React · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/hero-liquid-glass) |
+| 01 | **Jack · 3D Creator** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/jack-3d-creator) |
+| 02 | **Mainframe** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/mainframe) |
+| 03 | **Prisma — Creative Studio** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prisma-creative-studio) |
+| 04 | **Velorah** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/velorah) |
+| 05 | **Password Manager** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/password-manager) |
+| 06 | **Aethera** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/aethera) |
+| 07 | **Venture — Space Travel** | Standalone HTML · CDN | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/venture-space-travel) |
+| 08 | **VEX** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/vex) |
+| 09 | **Forma** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/forma) |
+| 10 | **Asme** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/asme) |
+| 11 | **Orbis.Nft** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/orbis-nft) |
+| 12 | **VaultShield** | React · Framer Motion · Tailwind · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/vaultshield) |
+| 13 | **Asme (Motion)** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/asme-motion) |
+| 14 | **securify** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/securify) |
+| 15 | **CINEMATIC** | React · Tailwind · Vite | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/cinematic) |
+| 16 | **LinkFlow** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/linkflow) |
+| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/motion-sites-18) |
+| 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/rivr) |
+| 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/nexora) |
+| 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) |
+| 21 | **Axion Studio (subproject)** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio-subproject) |
+| 22 | **Wanderful** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/wanderful) |
+| 23 | **Mindloop** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/mindloop) |
+| 24 | **Equilibrium** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/equilibrium) |
+| 25 | **Xero** | React · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/xero) |
+| 26 | **Duolingo — Style Guide** | Standalone HTML | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/duolingo-style-guide) |
+| 27 | **Newsletter Design** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/newsletter-design) |
+| 28 | **Foundation — New Digital Epoch** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) |
+| 29 | **dot.** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/dot) |
+| 30 | **Hero Liquid Glass** | React · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/hero-liquid-glass) |
 
 </details>
 
@@ -174,14 +174,14 @@ Each subproject is self-contained. For most React / Vite projects:
 
 ```bash
 git clone https://github.com/Jackxiaozhiren/MotionSites.git
-cd MotionSites/21
+cd MotionSites/projects/axion-studio
 npm install
 npm run dev
 ```
 
 Open the local URL printed by Vite (usually `http://localhost:5173`). To try a different project, enter its folder and repeat the install/run steps.
 
-For **standalone HTML** projects ([`7`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/7) and [`27`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/27)), open the project's `index.html` in a browser. External CDN resources may need an internet connection.
+For **standalone HTML** projects ([`7`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/venture-space-travel) and [`27`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/duolingo-style-guide)), open the project's `index.html` in a browser. External CDN resources may need an internet connection.
 
 **Builds:** Many Vite-based subprojects also expose `npm run build`. Run commands **inside the individual project directory**; there is no root-level app install command.
 
