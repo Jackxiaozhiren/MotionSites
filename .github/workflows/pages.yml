@@ -10,6 +10,8 @@ on:
       - '22/**'
       - '29/**'
       - 'scripts/capture_previews.mjs'
+      - 'scripts/render_social_card.mjs'
+      - 'assets/motionsites-social-card.svg'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 permissions:
@@ -34,12 +36,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Capture verified live demos and screenshots
-        continue-on-error: true
+      - name: Install browser for screenshots and share artwork
         run: |
           npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
           npx playwright install --with-deps chromium
-          node scripts/capture_previews.mjs
+      - name: Render original social preview artwork
+        run: node scripts/render_social_card.mjs site/assets/social-preview.jpg
+      - name: Capture verified live demos and screenshots
+        continue-on-error: true
+        run: node scripts/capture_previews.mjs
       - uses: actions/upload-pages-artifact@v4
         with:
           path: site
