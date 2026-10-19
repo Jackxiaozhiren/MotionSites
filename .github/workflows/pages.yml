@@ -5,7 +5,7 @@ on:
     paths:
       - 'site/**'
       - 'projects/**'
-            - 'scripts/capture_previews.mjs'
+      - 'scripts/capture_previews.mjs'
       - 'scripts/render_social_card.mjs'
       - 'scripts/check_live_gallery.mjs'
       - 'scripts/build_editorial_pages.py'
