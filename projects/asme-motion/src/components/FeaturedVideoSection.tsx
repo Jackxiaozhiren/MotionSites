@@ -1,9 +1,11 @@
+import { useDecorativeMedia } from '../useDecorativeMedia';
 import { motion } from 'framer-motion';
 
 const FEATURED_VIDEO =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4';
 
 export default function FeaturedVideoSection() {
+  const { showVideo, onVideoError } = useDecorativeMedia();
   return (
     <section className="bg-black pt-6 md:pt-10 pb-20 md:pb-32 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
@@ -14,15 +16,16 @@ export default function FeaturedVideoSection() {
           transition={{ duration: 0.9 }}
           className="relative rounded-3xl overflow-hidden aspect-video"
         >
-          <video
+          {showVideo && <video
             className="w-full h-full object-cover"
             muted
             autoPlay
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             src={FEATURED_VIDEO}
-          />
+          onError={onVideoError}
+        />}
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
