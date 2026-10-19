@@ -52,4 +52,5 @@ jobs:
       - name: Verify publicly deployed gallery and guides
         env:
           MOTIONSITES_PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          MOTIONSITES_REQUIRE_ALL_DEMOS: '1'
         run: node scripts/check_live_gallery.mjs
