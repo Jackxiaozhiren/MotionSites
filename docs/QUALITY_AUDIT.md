@@ -36,3 +36,17 @@ node scripts/summarize_lighthouse.mjs
 ```
 
 Browser checks do not certify accessibility; human review and specific third-party asset verification remain necessary. See [launch readiness](../GITHUB_SETUP.md) and [asset audit](ASSET_PROVENANCE_AUDIT.md).
+
+
+## Post-deployment real preview lifecycle
+
+`scripts/check_live_gallery.mjs` now exercises the **already deployed** public gallery after verifying 30 cards, the Axion guide, five declared demo/screenshot URLs and the social image. When Axion (ID 20) appears in the published manifest, it checks:
+
+- No interactive iframe document is fetched before a visitor requests a preview.
+- The button opens the native dialog, the same-origin iframe loads meaningful rendered body content, and the loading notice disappears.
+- Escape closes the dialog, removes the iframe source and restores keyboard focus to the invoking preview button.
+- A 390px viewport contains the dialog; the Close button releases the iframe.
+
+The same script is also invoked from the pull-request browser-smoke workflow to confirm that the **currently deployed baseline** still behaves as expected. A PR run against the live site is **not** a preview deployment of the proposed code. The Pages workflow runs it again **after** each release, making it a deployed-site regression gate.
+
+These checks still do not prove that third-party videos, embedded images, media licenses, all device/browser combinations or Core Web Vitals meet production requirements.
