@@ -112,7 +112,7 @@ function render() {
       ? '<span class="project-badge">Live demo</span>'
       : '<span class="project-badge project-badge--neutral">Source only</span>';
     const demoAction = capture
-      ? `<button type="button" class="open open--preview" data-preview-id="${project.id}" aria-label="Preview ${escapeHTML(project.title)} in this page">Preview here ↗</button>
+      ? `<button type="button" class="open open--preview" data-preview-id="${project.id}">Preview here ↗<span class="sr-only"> — ${escapeHTML(project.title)}</span></button>
         <a class="open open--demo" target="_blank" rel="noopener noreferrer" href="${capture.demo}">Full demo ↗</a>`
       : '';
     return `<article class="card">
