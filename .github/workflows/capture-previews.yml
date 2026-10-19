@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'scripts/capture_previews.mjs'
+      - 'scripts/check_media_fallbacks.mjs'
       - 'projects/**'
       - '.github/workflows/capture-previews.yml'
   workflow_dispatch:
@@ -26,6 +27,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Build and capture real projects
         run: node scripts/capture_previews.mjs
+      - name: Check reduced-motion and missing-media behavior
+        run: node scripts/check_media_fallbacks.mjs
       - name: Save screenshots and manifest
         if: always()
         uses: actions/upload-artifact@v4
