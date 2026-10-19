@@ -9,6 +9,8 @@
 <p align="center">
   <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/Jackxiaozhiren/MotionSites?style=flat-square&logo=github" /></a>
   <img alt="30 个项目" src="https://img.shields.io/badge/30-projects-8B5CF6?style=flat-square" />
+  <a href="https://jackxiaozhiren.github.io/MotionSites/"><img alt="30 个在线 Demo" src="https://img.shields.io/badge/30-live%20demos-14B8A6?style=flat-square" /></a>
+  <a href="https://github.com/Jackxiaozhiren/MotionSites/actions/workflows/pages.yml"><img alt="画廊部署状态" src="https://github.com/Jackxiaozhiren/MotionSites/actions/workflows/pages.yml/badge.svg?branch=main&style=flat-square" /></a>
 </p>
 
 <p align="center"><a href="README.md">English</a> · <a href="https://jackxiaozhiren.github.io/MotionSites/">🌐 在线画廊（已上线）</a> · <a href="#项目一览">项目一览</a> · <a href="#快速开始">快速开始</a> · <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers">⭐ 给项目点 Star</a></p>
@@ -24,7 +26,7 @@
 
 **[🌐 访问已上线的作品画廊](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
 
-> 画廊将对 **全部 30 个独立项目**构建真实网页并生成真实截图；发布要求所有项目通过浏览器检查。Jack Portfolio、Prisma、Axion Studio、Wanderful、Foundation 仍是精选示例。第三方媒体可能依赖外部服务，公开展示不代表获得素材再使用授权。
+> 发布流程会构建、截图并通过浏览器检查后再部署 **全部 30 个独立 Demo**。Jack · 3D Creator、Prisma、Axion Studio、Wanderful 和 Foundation 另有经过源码检查的精选实现说明。第三方媒体可能依赖外部服务，公开展示不代表获得素材再使用授权。
 
 通过验证的作品都支持 **Preview here（站内预览）**：点击即可在画廊中体验真实网页，关闭后停止内嵌页面；也可以选择 **Full demo** 在新标签页打开。
 
@@ -90,7 +92,7 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 | **Foundation — New Digital Epoch** | Motion 动效体验 | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) |
 | **Hero Liquid Glass** | 液态玻璃风格 Hero | [查看 →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/hero-liquid-glass) |
 
-**动效预览：** 已验证的精选项目可在在线画廊直接体验；其余项目可按照「快速开始」在本地运行。后续会逐步补充更多真实截图和动图，参见 [展示素材制作指南](docs/SHOWCASE_GUIDE.md)。
+**动效预览：** 当前画廊已为全部 30 个项目提供在线 Demo 与从真实运行页面捕获的截图。点击 [在线画廊](https://jackxiaozhiren.github.io/MotionSites/) 中的 **Preview here** 可站内体验，也可选择 **Full demo** 在新标签页打开。若未来某个项目未通过构建或浏览器检查，画廊会保留源码入口，而不会将它标记为已上线。
 
 ## 项目一览
 
@@ -139,7 +141,7 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 
 [在线画廊](https://jackxiaozhiren.github.io/MotionSites/) 支持按动画技术栈筛选、搜索项目名称或源码目录、只显示已验证的在线 Demo。按 `/` 可以聚焦搜索框，按 `Escape` 可清空搜索内容；点击 **Share this view** 可复制保留当前筛选条件的链接。筛选逻辑完全在浏览器中执行，不使用访问者追踪。
 
-**关于 Demo：** 只有在 GitHub Actions 成功构建并验证之后，画廊才会显示真实截图与在线预览入口。其他项目始终提供源码目录链接。项目元数据统一维护在 [`site/projects.json`](site/projects.json)，不再需要同步修改 JavaScript 中的另一份列表。
+**关于 Demo：** GitHub Actions 只有在项目成功构建并通过浏览器检查后，才会发布截图与在线预览入口；当前版本已为全部 30 个项目发布了 Demo 和真实截图。若未来某个项目验证失败，画廊仍会保留源码入口，不会虚报为在线 Demo。项目元数据统一维护在 [`site/projects.json`](site/projects.json)，不需要再同步维护另一份 JavaScript 列表。
 
 **提交前检查：** 运行 `python3 scripts/check_gallery.py`，验证项目路径、目录数据、主要无障碍控件和双语 README 源码链接。此检查不替代真实浏览器中的视觉和性能测试。
 
@@ -169,7 +171,7 @@ npm install
 npm run dev
 ```
 
-按终端输出打开本地地址（通常为 `http://localhost:5173`）。切换项目时，请进入对应项目目录重新安装依赖并启动。项目 `7` 和 `27` 为 HTML 页面，可直接打开各自的 `index.html`（部分 CDN 资源需要联网）。
+按终端输出打开本地地址（通常为 `http://localhost:5173`）。切换项目时，请进入对应项目目录重新安装依赖并启动。项目 `7` 和 `26` 为 HTML 页面，可直接打开各自的 `index.html`（部分 CDN 资源需要联网）。
 
 ## 参与贡献
 
