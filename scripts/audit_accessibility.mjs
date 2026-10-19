@@ -32,6 +32,8 @@ try {
   for (const scenario of [
     { name: 'gallery-desktop', path: '/', width: 1440, height: 900 },
     { name: 'gallery-mobile', path: '/', width: 390, height: 844 },
+    { name: 'gallery-preview-desktop', path: '/', width: 1440, height: 900, preview: true },
+    { name: 'gallery-preview-mobile', path: '/', width: 390, height: 844, preview: true },
     { name: 'guide-desktop', path: '/project.html?id=20', width: 1440, height: 900 },
     { name: 'guide-mobile', path: '/project.html?id=20', width: 390, height: 844 },
   ]) {
@@ -44,10 +46,27 @@ try {
     const page = await context.newPage();
     try {
       // Do not depend on CI-created demo screenshots for the accessibility scan.
-      await page.route('**/previews/manifest.json', route => route.fulfill({ status: 404, body: 'Not yet published' }));
+      if (scenario.preview) {
+        await page.route('**/previews/manifest.json', route => route.fulfill({
+          status: 200, contentType: 'application/json',
+          body: JSON.stringify({ captures: [{
+            id: 20, image: 'previews/axion-studio.jpg', demo: 'demos/axion-studio/',
+          }] }),
+        }));
+        await page.route('**/demos/axion-studio/', route => route.fulfill({
+          status: 200, contentType: 'text/html',
+          body: '<!doctype html><html lang="en"><head><title>Embedded demo fixture</title></head><body><h1>Demo</h1></body></html>',
+        }));
+      } else {
+        await page.route('**/previews/manifest.json', route => route.fulfill({ status: 404, body: 'Not yet published' }));
+      }
       await page.goto(origin + scenario.path, { waitUntil: 'load' });
       if (scenario.path === '/') await page.locator('.card').first().waitFor();
       else await page.locator('#detail-content').waitFor({ state: 'visible' });
+      if (scenario.preview) {
+        await page.locator('button[data-preview-id="20"]').click();
+        await page.frameLocator('#demo-frame').locator('h1').waitFor();
+      }
 
       const audit = await new AxeBuilder({ page }).withTags([
         'wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa',
