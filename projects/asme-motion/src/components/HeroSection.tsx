@@ -1,13 +1,14 @@
+import { useDecorativeMedia } from '../useDecorativeMedia';
 import { useRef, useEffect } from 'react';
 import { Globe, ArrowRight, Camera, MessageCircle } from 'lucide-react';
 
 const HERO_VIDEO =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4';
 
-function useVideoFade(videoRef: React.RefObject<HTMLVideoElement | null>) {
+function useVideoFade(videoRef: React.RefObject<HTMLVideoElement | null>, enabled: boolean) {
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !enabled) return;
 
     let fadeAnimId: number | null = null;
     let loopTimerId: ReturnType<typeof setTimeout> | null = null;
@@ -62,26 +63,28 @@ function useVideoFade(videoRef: React.RefObject<HTMLVideoElement | null>) {
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleEnded);
     };
-  }, [videoRef]);
+  }, [videoRef, enabled]);
 }
 
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  useVideoFade(videoRef);
+  const { showVideo, onVideoError } = useDecorativeMedia();
+  useVideoFade(videoRef, showVideo);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black flex flex-col">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0a111d] via-[#222b42] to-black flex flex-col">
       {/* Background Video */}
-      <video
+      {showVideo && <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover object-bottom"
         style={{ opacity: 0 }}
         muted
         autoPlay
         playsInline
-        preload="auto"
+        preload="metadata"
         src={HERO_VIDEO}
-      />
+      onError={onVideoError}
+        />}
 
       {/* Navbar */}
       <nav className="relative z-20 px-6 pt-6">

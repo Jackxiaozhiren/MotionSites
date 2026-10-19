@@ -40,3 +40,14 @@ The new scripts are read-only toward the public website. No browser history, cus
 For a one-off run, use **Actions → Production Website Quality Audit → Run workflow**. The audit is not used as an artificial Star count or marketing claim.
 
 Real-world follow-up still requires manual Safari/Firefox, keyboard/screen-reader tests, and [per-project asset rights review](ASSET_PROVENANCE_AUDIT.md). GitHub Pages deploy is verified separately by the [production smoke test](../scripts/check_live_gallery.mjs).
+
+
+## 2026-10-19: investigating seven media-error observations
+
+The first deployed 390px reduced-motion audit recorded **7 projects with HTMLMediaElement errors** while all 30 pages still loaded. It also found one failed font-domain request from LinkFlow. Those findings do not establish that the whole page failed or that a user-facing service exists.
+
+The following source demos have been updated in a focused branch to **not mount decorative remote video when `prefers-reduced-motion: reduce` is set** and to leave a local CSS background visible when an ordinary-mode video reports a loading error: Aethera, VEX, Asme (Motion), securify, LinkFlow, Axion Studio (subproject), Equilibrium. LinkFlow's canvas experiment also limits its video-frame buffer to **48 frames at up to 480px width** rather than keeping an unbounded array.
+
+CI runs `scripts/check_media_fallbacks.mjs` on the freshly built demos after `scripts/capture_previews.mjs` and checks that reduced-motion visitors do not request decorative videos and that blocked remote media does not cause a JavaScript exception or remove the page's text content.
+
+**Scope boundaries:** This only establishes a deterministic fallback for these projects. It does not determine whether media has been licensed, whether autoplay works on iOS Safari, whether the original media server is reliable, or whether every user should experience identical motion. For reusable media, obtain asset rights and attribution evidence separately.

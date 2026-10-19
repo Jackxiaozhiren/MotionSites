@@ -1,3 +1,4 @@
+import { useDecorativeMedia } from '../useDecorativeMedia';
 import { ArrowRight } from 'lucide-react';
 
 function LinkIcon({ className = '' }: { className?: string }) {
@@ -24,17 +25,20 @@ function CaseCard({
   buttonText: string;
   dark?: boolean;
 }) {
+  const { showVideo, onVideoError } = useDecorativeMedia();
   return (
     <div>
       <div className={`relative aspect-[329/246] rounded-2xl overflow-hidden ${bgColor} group cursor-pointer`}>
-        <video
+        {showVideo && <video
           src={videoSrc}
           autoPlay
           muted
           loop
           playsInline
           className="w-full h-full object-cover"
-        />
+        preload="metadata"
+        onError={onVideoError}
+        />}
         <div className="absolute bottom-4 left-4">
           <div
             className={`flex items-center ${

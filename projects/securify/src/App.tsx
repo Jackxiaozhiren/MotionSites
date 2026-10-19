@@ -1,15 +1,19 @@
+import { useDecorativeMedia } from './useDecorativeMedia'
 function HeroSection() {
+  const { showVideo, onVideoError } = useDecorativeMedia()
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
+    <section className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-[#0b1724] via-[#102b31] to-black">
       {/* Background Video */}
-      <video
+      {showVideo && <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         loop
         muted
         playsInline
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_063509_7d167302-4fd4-480b-8260-18ab572333d4.mp4"
-      />
+        preload="metadata"
+        onError={onVideoError}
+      />}
 
       {/* Navbar */}
       <nav className="absolute top-0 left-0 right-0 z-20 px-6 md:px-10 pt-6">

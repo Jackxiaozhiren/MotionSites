@@ -1,3 +1,4 @@
+import { useDecorativeMedia } from '../useDecorativeMedia';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
@@ -22,6 +23,24 @@ const cards = [
       'From concept to launch, we obsess over every detail to deliver experiences that feel effortless and look extraordinary.',
   },
 ];
+
+function ServiceVideo({ src }: { src: string }) {
+  const { showVideo, onVideoError } = useDecorativeMedia();
+  return (
+    <div className="absolute inset-0 bg-gradient-to-br from-[#29213a] to-[#111729]">
+      {showVideo && <video
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  muted
+                  autoPlay
+                  loop
+                  playsInline
+                  preload="metadata"
+                  src={src}
+                onError={onVideoError}
+                />}
+    </div>
+  );
+}
 
 export default function ServicesSection() {
   return (
@@ -53,15 +72,7 @@ export default function ServicesSection() {
             >
               {/* Video area */}
               <div className="relative aspect-video overflow-hidden">
-                <video
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  preload="auto"
-                  src={card.video}
-                />
+                <ServiceVideo src={card.video} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
               </div>
 

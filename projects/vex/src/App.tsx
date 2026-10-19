@@ -1,18 +1,22 @@
+import { useDecorativeMedia } from './useDecorativeMedia'
 import FadeIn from './FadeIn'
 import AnimatedHeading from './AnimatedHeading'
 
 function App() {
+  const { showVideo, onVideoError } = useDecorativeMedia()
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#03060e] via-[#132536] to-black text-white overflow-hidden">
       {/* Video Background */}
-      <video
+      {showVideo && <video
         autoPlay
         loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4"
-      />
+        preload="metadata"
+        onError={onVideoError}
+      />}
 
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
