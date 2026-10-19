@@ -45,6 +45,60 @@ try {
           assert.equal(demo.status(), 200, 'Broken demo: ' + capture.demo);
         }
         console.log('Verified ' + manifest.captures.length + ' published demo and screenshot links.');
+
+        // Verify the full production preview lifecycle, not just HTTP 200s.
+        // Axion is selected because its current build exposes real body content
+        // without needing a third-party autoplay permission.
+        const axion = manifest.captures.find(item => item.id === 20);
+        if (axion) {
+          const frameRequests = [];
+          page.on('request', request => {
+            if (request.isNavigationRequest() &&
+                request.url().startsWith(origin + 'demos/')) {
+              frameRequests.push(request.url());
+            }
+          });
+          await page.emulateMedia({ reducedMotion: 'reduce' });
+          await page.goto(origin + '?demos=1', { waitUntil: 'load', timeout: 20000 });
+          await page.waitForFunction(expected => document.querySelectorAll('#grid .card').length === expected,
+            manifest.captures.length, { timeout: 15000 });
+          assert.equal(await page.locator('#demo-frame').getAttribute('src'), null,
+            'Preview iframe should not load on gallery entry');
+          assert.equal(frameRequests.length, 0, 'A demo was requested before user interaction');
+
+          await page.locator('button[data-preview-id="20"]').click();
+          assert.equal(await page.locator('#demo-dialog').evaluate(node => node.open), true);
+          assert.equal(await page.locator('#demo-frame').getAttribute('src'), axion.demo);
+          await page.waitForFunction(() => {
+            const frame = document.querySelector('#demo-frame');
+            try {
+              const doc = frame?.contentDocument;
+              return doc?.readyState === 'complete' &&
+                (doc.body?.innerText?.trim().length || 0) >= 30;
+            } catch { return false; }
+          }, null, { timeout: 20000 });
+          await page.locator('#demo-loading').waitFor({ state: 'hidden', timeout: 5000 });
+          assert.ok(frameRequests.length >= 1, 'Click did not initiate demo navigation');
+          await page.keyboard.press('Escape');
+          await page.waitForFunction(() => {
+            const dialog = document.querySelector('#demo-dialog');
+            return !dialog.open && !document.querySelector('#demo-frame').hasAttribute('src');
+          });
+          assert.equal(await page.evaluate(() => document.activeElement?.dataset?.previewId), '20',
+            'Keyboard focus should return to the preview button after Escape');
+
+          await page.setViewportSize({ width: 390, height: 844 });
+          await page.goto(origin + '?demos=1', { waitUntil: 'load', timeout: 20000 });
+          await page.waitForFunction(() => document.querySelector('button[data-preview-id="20"]') !== null);
+          await page.locator('button[data-preview-id="20"]').click();
+          const bounds = await page.locator('#demo-dialog').boundingBox();
+          assert.ok(bounds && bounds.x >= -1 && bounds.x + bounds.width <= 392,
+            'Mobile dialog overflows the viewport: ' + JSON.stringify(bounds));
+          await page.locator('#demo-close').click();
+          await page.waitForFunction(() => !document.querySelector('#demo-dialog').open &&
+            !document.querySelector('#demo-frame').hasAttribute('src'));
+          console.log('PASS live inline preview: lazy-load, readable iframe, focus restoration, mobile bounds and cleanup.');
+        }
       } else if (response.status() === 404) {
         console.log('No demo manifest published; gallery remains source-only.');
       } else {
