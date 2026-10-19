@@ -8,6 +8,7 @@ on:
       - 'projects/wanderful/**'
       - 'projects/foundation-new-digital-epoch/**'
       - 'scripts/smoke_gallery.mjs'
+      - 'scripts/check_live_gallery.mjs'
       - 'scripts/render_social_card.mjs'
       - 'assets/motionsites-social-card.svg'
       - '.github/workflows/browser-smoke.yml'
@@ -31,6 +32,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Run gallery and guide smoke tests
         run: node scripts/smoke_gallery.mjs
+      - name: Exercise production preview lifecycle
+        run: node scripts/check_live_gallery.mjs
       - name: Render rights-independent social preview JPG
         run: node scripts/render_social_card.mjs
       - name: Upload social preview for GitHub Settings
