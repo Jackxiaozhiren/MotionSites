@@ -9,6 +9,8 @@
 <p align="center">
   <a href="https://github.com/Jackxiaozhiren/MotionSites/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Jackxiaozhiren/MotionSites?style=flat-square&logo=github" /></a>
   <img alt="30 projects" src="https://img.shields.io/badge/30-projects-8B5CF6?style=flat-square" />
+  <a href="https://jackxiaozhiren.github.io/MotionSites/"><img alt="30 live demos" src="https://img.shields.io/badge/30-live%20demos-14B8A6?style=flat-square" /></a>
+  <a href="https://github.com/Jackxiaozhiren/MotionSites/actions/workflows/pages.yml"><img alt="Gallery deployment" src="https://github.com/Jackxiaozhiren/MotionSites/actions/workflows/pages.yml/badge.svg?branch=main&style=flat-square" /></a>
   <a href="https://github.com/Jackxiaozhiren/MotionSites/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/Jackxiaozhiren/MotionSites?style=flat-square" /></a>
 </p>
 
@@ -32,7 +34,7 @@ A **searchable, filterable, motion-inspired gallery** is included in [`site/`](s
 
 **[🌐 Explore the live gallery](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
 
-> The gallery automatically **builds and screenshots all 30 independent projects**; publishing now requires all 30 real website demos to pass a browser check. Jack, Prisma, Axion Studio, Wanderful and Foundation remain featured examples. External media may require third-party services and usage rights are not automatically granted.
+> The publish workflow builds, captures and browser-checks all **30 independent demos** before deployment. Five featured guides—Jack · 3D Creator, Prisma, Axion Studio, Wanderful and Foundation—also include source-inspected implementation notes. External media may depend on third-party services; publication does not grant reuse rights.
 
 For a verified project, select **Preview here** to explore the actual website in an on-demand modal without leaving the collection. You can also choose **Full demo** to open it in a separate tab; closing the preview stops its iframe.
 
@@ -99,7 +101,7 @@ Start with a few different styles and animation stacks:
 | **Foundation — New Digital Epoch** | Motion-powered digital experience | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/foundation-new-digital-epoch) |
 | **Hero Liquid Glass** | Liquid-glass hero exploration | [View source →](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/hero-liquid-glass) |
 
-**Want to see the motion in action?** Clone a project and run it locally using the instructions below. Selected projects offer verified demo builds in the gallery; others remain source-only. See [the visual showcase guide](docs/SHOWCASE_GUIDE.md) for how to add genuine captures and live URLs later.
+**Want to see the motion in action?** All 30 catalog entries currently have a published demo and a browser-captured screenshot. Choose **Preview here** in the [live gallery](https://jackxiaozhiren.github.io/MotionSites/) or open **Full demo** in a new tab, then use the source links to run a project locally. See [the visual showcase guide](docs/SHOWCASE_GUIDE.md) for how to maintain and verify future captures.
 
 ### Find projects by technology
 
@@ -153,7 +155,7 @@ Start with a few different styles and animation stacks:
 
 The [live gallery](https://jackxiaozhiren.github.io/MotionSites/) can filter by animation stack, search by title or source path, and show only projects with verified live demos. Press `/` to focus search, or `Escape` to clear it. Select **Share this view** to copy a URL that retains the current search, stack and live-demo filters. These are browser-side filters and do not track visitors.
 
-**Preview availability:** screenshots and hosted demos only appear after the GitHub Actions capture pipeline successfully builds and verifies them. Projects without verified demos remain available through their source links. The gallery's single project index is [`site/projects.json`](site/projects.json); [`site/app.js`](site/app.js) loads it directly rather than duplicating the list.
+**Preview availability:** the capture workflow publishes a screenshot and live-demo link only after the project builds and passes its browser checks. If a future build fails verification, the card keeps its source link instead of claiming the demo is live. The gallery's single project index is [`site/projects.json`](site/projects.json); [`site/app.js`](site/app.js) loads it directly rather than duplicating the list.
 
 **Validate the gallery before a PR:** `python3 scripts/check_gallery.py`. This checks project paths, catalog consistency, key accessibility controls and README source links; it does not replace a browser-level visual or performance audit.
 
@@ -185,7 +187,7 @@ npm run dev
 
 Open the local URL printed by Vite (usually `http://localhost:5173`). To try a different project, enter its folder and repeat the install/run steps.
 
-For **standalone HTML** projects ([`7`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/venture-space-travel) and [`27`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/duolingo-style-guide)), open the project's `index.html` in a browser. External CDN resources may need an internet connection.
+For **standalone HTML** projects ([`7`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/venture-space-travel) and [`26`](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/duolingo-style-guide)), open the project's `index.html` in a browser. External CDN resources may need an internet connection.
 
 **Builds:** Many Vite-based subprojects also expose `npm run build`. Run commands **inside the individual project directory**; there is no root-level app install command.
 
