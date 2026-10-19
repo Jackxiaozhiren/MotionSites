@@ -18,6 +18,8 @@ const demoTitle = $('#demo-dialog-title');
 const demoFull = $('#demo-full');
 const demoSource = $('#demo-source');
 const demoClose = $('#demo-close');
+const demoLoading = $('#demo-loading');
+let demoWatch = null;
 const reset = $('#reset-filters');
 const share = $('#share-view');
 const shareStatus = $('#share-status');
@@ -134,6 +136,31 @@ function render() {
   reset.hidden = active === 'All' && !showDemosOnly && !search.value.trim();
 }
 
+// Do not hide the loading state until the actual React demo has rendered.
+function monitorDemoLoad() {
+  clearInterval(demoWatch);
+  const started = performance.now();
+  demoLoading.hidden = false;
+  demoLoading.textContent = 'Loading interactive demo…';
+  demoWatch = setInterval(() => {
+    if (!demoDialog.open) { clearInterval(demoWatch); return; }
+    let ready = false;
+    try {
+      const doc = demoFrame.contentDocument;
+      const bodyText = doc?.body?.innerText?.trim() || '';
+      const title = doc?.title || '';
+      ready = bodyText.length >= 30 && !/^(error response|404)/i.test(title);
+    } catch { /* Frame access can be restricted by the browser. */ }
+    if (ready) {
+      demoLoading.hidden = true;
+      clearInterval(demoWatch);
+    } else if (performance.now() - started > 12000) {
+      demoLoading.textContent = 'Preview is taking longer than expected. Try Full demo instead.';
+      clearInterval(demoWatch);
+    }
+  }, 350);
+}
+
 // An explicitly requested same-origin demo loads only while the dialog is open.
 // Never auto-create five active frames or duplicate hosted third-party resources.
 grid.addEventListener('click', event => {
@@ -150,10 +177,13 @@ grid.addEventListener('click', event => {
   demoDialog.showModal();
   // Assign src after showing the dialog so hidden frames do not prefetch demos.
   demoFrame.src = capture.demo;
+  monitorDemoLoad();
   demoClose.focus();
 });
 demoClose.addEventListener('click', () => demoDialog.close());
 demoDialog.addEventListener('close', () => {
+  clearInterval(demoWatch);
+  demoLoading.hidden = true;
   demoFrame.removeAttribute('src');
 });
 demoDialog.addEventListener('click', event => {
