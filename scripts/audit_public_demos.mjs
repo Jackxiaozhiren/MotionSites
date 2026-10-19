@@ -62,7 +62,7 @@ try {
             const basePath = new URL(origin).pathname;
             const relativePath = url.pathname.startsWith(basePath)
               ? url.pathname.slice(basePath.length)
-              : url.pathname.replace(/^\\//, '');
+              : url.pathname.replace(/^\//, '');
             item.failedHttpPaths.push(relativePath + ' HTTP ' + response.status());
           }
         }
