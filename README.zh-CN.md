@@ -24,9 +24,9 @@
 
 **[🌐 访问已上线的作品画廊](https://jackxiaozhiren.github.io/MotionSites/)** · [本地预览及部署方法](docs/GALLERY_DEPLOY.md)
 
-> 画廊已为部分完成验证的项目提供**真实网页截图和在线 Demo**（Jack Portfolio、Prisma、Axion Studio、Wanderful、Foundation）。其余项目仍使用明确标注的概念封面与源码链接；这不代表全部 30 个项目都已部署。
+> 画廊将对 **全部 30 个独立项目**构建真实网页并生成真实截图；发布要求所有项目通过浏览器检查。Jack Portfolio、Prisma、Axion Studio、Wanderful、Foundation 仍是精选示例。第三方媒体可能依赖外部服务，公开展示不代表获得素材再使用授权。
 
-上述五个项目现在支持 **Preview here（站内预览）**：点击后直接在画廊内体验真实网页，关闭后即停止内嵌页面；也可以选择 **Full demo** 在新标签页打开。其他项目仍只提供源码。
+通过验证的作品都支持 **Preview here（站内预览）**：点击即可在画廊中体验真实网页，关闭后停止内嵌页面；也可以选择 **Full demo** 在新标签页打开。
 
 ### ✨ 真实网页效果预览
 

@@ -32,9 +32,9 @@ A **searchable, filterable, motion-inspired gallery** is included in [`site/`](s
 
 **[🌐 Explore the live gallery](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
 
-> The gallery includes **real screenshots and live demo builds for selected verified projects** (Jack Portfolio, Prisma, Axion Studio, Wanderful and Foundation). All other projects have clearly labeled concept covers and source links; we do **not** claim all 30 are hosted.
+> The gallery automatically **builds and screenshots all 30 independent projects**; publishing now requires all 30 real website demos to pass a browser check. Jack, Prisma, Axion Studio, Wanderful and Foundation remain featured examples. External media may require third-party services and usage rights are not automatically granted.
 
-For these five verified projects, select **Preview here** to explore the actual website in a lightweight, on-demand modal without leaving the collection. You can also choose **Full demo** to open it in a separate tab; closing the preview stops its iframe. Other projects remain source-only.
+For a verified project, select **Preview here** to explore the actual website in an on-demand modal without leaving the collection. You can also choose **Full demo** to open it in a separate tab; closing the preview stops its iframe.
 
 ### ✨ Real website previews
 
