@@ -140,7 +140,7 @@ function App() {
       <div className="relative z-10 flex flex-col items-center text-center pt-24 sm:pt-28 md:pt-32 px-4 sm:px-6">
         <h1
           className="font-normal leading-[0.95] text-[#336443] text-[2rem] sm:text-4xl md:text-5xl lg:text-[4.75rem] xl:text-[5.25rem] max-w-5xl"
-          style={{ fontFamily: '"Neue Haas Grotesk Display Pro 55 Roman", "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica, Arial, sans-serif', letterSpacing: '-0.035em' }}
+          style={{ fontFamily: 'Inter, "Helvetica Neue", Helvetica, Arial, sans-serif', letterSpacing: '-0.035em' }}
         >
           Close the rift{' '}
           <span className="text-[#85AB8B]">
