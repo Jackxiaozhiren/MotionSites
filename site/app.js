@@ -27,6 +27,7 @@ const tags = new Set(['All', ...buttons.map(button => button.dataset.tag)]);
 
 let projects = [];
 let captures = new Map();
+let capturesLoaded = false;
 let active = 'All';
 let showDemosOnly = false;
 
@@ -112,7 +113,9 @@ function render() {
     const cover = capture ? photoCover(project, capture) : conceptCover(project);
     const badge = capture
       ? '<span class="project-badge">Live demo</span>'
-      : '<span class="project-badge project-badge--neutral">Source only</span>';
+      : capturesLoaded
+        ? '<span class="project-badge project-badge--neutral">Source only</span>'
+        : '<span class="project-badge project-badge--neutral">Checking demo…</span>';
     const demoAction = capture
       ? `<button type="button" class="open open--preview" data-preview-id="${project.id}">Preview here ↗<span class="sr-only"> — ${escapeHTML(project.title)}</span></button>
         <a class="open open--demo" target="_blank" rel="noopener noreferrer" href="${capture.demo}">Full demo ↗</a>`
@@ -255,8 +258,10 @@ async function loadCaptures() {
   } catch {
     // Source gallery still works when demo captures have not been deployed.
     status.textContent = 'Live demos are temporarily unavailable; all source projects remain accessible.';
+  } finally {
+    capturesLoaded = true;
+    render();
   }
-  render();
 }
 
 async function init() {
