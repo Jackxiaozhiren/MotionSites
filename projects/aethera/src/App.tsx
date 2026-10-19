@@ -1,11 +1,13 @@
+import { useDecorativeMedia } from './useDecorativeMedia'
 import { useEffect, useRef } from 'react'
 
 function App() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const { showVideo, onVideoError } = useDecorativeMedia()
 
   useEffect(() => {
     const video = videoRef.current
-    if (!video) return
+    if (!video || !showVideo) return
 
     let animationId: number
 
@@ -30,11 +32,13 @@ function App() {
       animationId = requestAnimationFrame(checkTime)
     }
 
+    let restartTimer: ReturnType<typeof setTimeout> | undefined
+
     const handleEnded = () => {
       video.style.opacity = '0'
-      setTimeout(() => {
+      restartTimer = setTimeout(() => {
         video.currentTime = 0
-        video.play()
+        video.play().catch(() => onVideoError())
       }, 100)
     }
 
@@ -43,16 +47,19 @@ function App() {
 
     return () => {
       cancelAnimationFrame(animationId)
+      if (restartTimer) clearTimeout(restartTimer)
       video.removeEventListener('ended', handleEnded)
     }
-  }, [])
+  }, [showVideo])
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-white">
       {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#e6ddec] via-[#e5ebf1] to-white">
+        {showVideo && <video
           ref={videoRef}
+          onError={onVideoError}
+          preload="metadata"
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
           className="w-full h-full object-cover"
           style={{
@@ -66,7 +73,7 @@ function App() {
           playsInline
           autoPlay
           loop={false}
-        />
+        />}
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white" />
       </div>
