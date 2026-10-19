@@ -154,6 +154,8 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 **公开可访问不等于获得再分发许可。** 部分演示使用第三方视频、GIF、字体、图片（包括 `motionsites.ai` 的媒体地址）。源码引用不意味着与第三方服务存在关联，也不能证明原创或授权。请参考[素材来源审查](docs/ASSET_PROVENANCE_AUDIT.md)与[自动生成外部资源清单的工作流](.github/workflows/asset-inventory.yml)，在复用或扩大传播前核实授权。
 
 
+**线上质量测量：** 新增[生产环境质量审查](docs/PRODUCTION_QUALITY.md)：针对公开 Pages 网址重复采样三次 Lighthouse，并在 390px 浏览器视口审阅全部 30 个在线 Demo。报告区分页面错误、媒体请求与版权授权问题，不将模拟分数等同于真实用户的 Core Web Vitals。
+
 **无障碍和性能检测：** 新增 [Accessibility and Lighthouse Baseline](docs/QUALITY_AUDIT.md) 工作流：在桌面与移动端场景运行 axe-core 的 WCAG 自动检查，并输出真实 CI Lighthouse 测量分数。分数须以对应 Actions 报告为准，不是所有用户的实际体验，也不能替代人工键盘、读屏器及第三方素材授权审查。
 
 ## 快速开始
