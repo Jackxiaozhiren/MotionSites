@@ -1,9 +1,11 @@
+import { useDecorativeMedia } from '../useDecorativeMedia';
 import { motion } from 'framer-motion';
 
 const PHILOSOPHY_VIDEO =
   'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4';
 
 export default function PhilosophySection() {
+  const { showVideo, onVideoError } = useDecorativeMedia();
   return (
     <section className="bg-black py-28 md:py-40 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
@@ -32,15 +34,16 @@ export default function PhilosophySection() {
             transition={{ duration: 0.7 }}
             className="rounded-3xl overflow-hidden aspect-[4/3]"
           >
-            <video
+            {showVideo && <video
               className="w-full h-full object-cover"
               muted
               autoPlay
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               src={PHILOSOPHY_VIDEO}
-            />
+            onError={onVideoError}
+        />}
           </motion.div>
 
           {/* Right text */}
