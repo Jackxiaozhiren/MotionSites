@@ -9,17 +9,17 @@ const fadeUp = (delay: number) => ({
 
 const platforms = [
   {
-    icon: "/icon-chatgpt.svg",
+    icon: "icon-chatgpt.svg",
     name: "ChatGPT",
     description: "Conversational AI that helps you brainstorm, draft, and refine ideas with natural dialogue.",
   },
   {
-    icon: "/icon-perplexity.svg",
+    icon: "icon-perplexity.svg",
     name: "Perplexity",
     description: "AI-powered search engine that delivers precise answers with cited sources in real-time.",
   },
   {
-    icon: "/icon-google.svg",
+    icon: "icon-google.svg",
     name: "Google AI",
     description: "Advanced machine learning tools and models powering the next generation of smart applications.",
   },
@@ -53,7 +53,7 @@ export default function SearchChanged() {
           >
             <div className="w-[200px] h-[200px] mx-auto mb-6">
               <img
-                src={platform.icon}
+                src={import.meta.env.BASE_URL + platform.icon}
                 alt={platform.name}
                 className="w-full h-full object-contain"
               />

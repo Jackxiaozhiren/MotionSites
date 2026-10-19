@@ -43,3 +43,9 @@ package-lock.json
 
 # Local workspace data (agent memory, task data)
 .workbuddy/
+
+# Generated Pages demos and captured screenshots (CI artifacts only)
+/site/demos/
+/site/previews/
+
+/site/projects/

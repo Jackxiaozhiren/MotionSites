@@ -4,11 +4,7 @@ on:
     branches: [main]
     paths:
       - 'site/**'
-      - 'projects/jack-3d-creator/**'
-      - 'projects/prisma-creative-studio/**'
-      - 'projects/axion-studio/**'
-      - 'projects/wanderful/**'
-      - 'projects/foundation-new-digital-epoch/**'
+      - 'projects/**'
       - 'scripts/capture_previews.mjs'
       - 'scripts/render_social_card.mjs'
       - 'scripts/check_live_gallery.mjs'
@@ -29,7 +25,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
@@ -44,8 +40,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Render original social preview artwork
         run: node scripts/render_social_card.mjs site/assets/social-preview.jpg
-      - name: Capture verified live demos and screenshots
-        continue-on-error: true
+      - name: Build and screenshot every real project (30 required)
         run: node scripts/capture_previews.mjs
       - name: Generate five indexable source-backed articles
         run: python3 scripts/build_editorial_pages.py
@@ -57,4 +52,5 @@ jobs:
       - name: Verify publicly deployed gallery and guides
         env:
           MOTIONSITES_PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          MOTIONSITES_REQUIRE_ALL_DEMOS: '1'
         run: node scripts/check_live_gallery.mjs

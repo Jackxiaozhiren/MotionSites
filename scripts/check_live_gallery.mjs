@@ -34,6 +34,9 @@ try {
       if (response.ok()) {
         const manifest = await response.json();
         assert.ok(Array.isArray(manifest.captures), 'Invalid manifest payload');
+        if (process.env.MOTIONSITES_REQUIRE_ALL_DEMOS === '1') {
+          assert.equal(manifest.captures.length, 30, 'All 30 verified demos must be published after deployment');
+        }
         for (const capture of manifest.captures) {
           assert.match(capture.image, /^previews\/[a-z0-9-]+\.jpg$/);
           assert.match(capture.demo, /^demos\/[a-z0-9-]+\/$/);
