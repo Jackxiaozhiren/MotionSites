@@ -30,7 +30,10 @@ async function ready() {
 const log = label => process.stdout.write('PASS ' + label + '\n');
 try {
   await ready();
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({
+    headless: true,
+    ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}),
+  });
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -91,6 +94,35 @@ try {
   assert.match(await page.locator('.open--demo').getAttribute('href'), /demos\/axion-studio/);
   log('published manifest correctly enables a verified demo link');
 
+  // An actual demo is embedded only on an explicit request. Check the native
+  // dialog lifecycle so opening multiple previews never leaves running frames.
+  let demoLoads = 0;
+  await page.route('**/demos/axion-studio/', route => {
+    demoLoads += 1;
+    return route.fulfill({
+      status: 200, contentType: 'text/html',
+      body: '<!doctype html><title>Fixture Demo</title><main id="inline-sample">Real demo document</main>',
+    });
+  });
+  assert.equal(demoLoads, 0, 'Demo must not load before a visitor opens it');
+  const inlineButton = page.locator('button[data-preview-id="20"]');
+  assert.equal(await inlineButton.count(), 1);
+  assert.equal(await page.locator('#demo-frame').getAttribute('src'), null);
+  await inlineButton.click();
+  assert.equal(await page.locator('#demo-dialog').evaluate(node => node.open), true);
+  assert.match(await page.locator('#demo-frame').getAttribute('src'), /^demos\/axion-studio\/$/);
+  await page.frameLocator('#demo-frame').locator('#inline-sample').waitFor();
+  assert.equal(demoLoads, 1);
+
+  assert.equal(await page.locator('#demo-dialog-title').innerText(), 'Axion Studio');
+  assert.match(await page.locator('#demo-source').getAttribute('href'), /projects\/axion-studio/);
+  await page.keyboard.press('Escape');
+  await page.waitForFunction(() => !document.querySelector('#demo-dialog').open && !document.querySelector('#demo-frame').hasAttribute('src'));
+  assert.equal(await page.locator('#demo-frame').getAttribute('src'), null);
+  assert.equal(demoLoads, 1);
+  log('user-triggered inline demo and Escape cleanup on desktop');
+
+
   await page.getByText('Screenshot failed to load · Try live demo').waitFor();
   log('missing gallery screenshot renders a truthful fallback');
 
@@ -110,6 +142,24 @@ try {
   }));
   assert.ok(metrics.documentWidth <= metrics.viewport + 2, JSON.stringify(metrics));
   assert.equal(metrics.orbAnimation, 'none');
+
+  // Mobile dialog should remain inside the viewport and respond to Close.
+  await page.unroute('**/previews/manifest.json');
+  await page.route('**/previews/manifest.json', route =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
+      captures: [{ id: 20, image: 'previews/axion-studio.jpg', demo: 'demos/axion-studio/' }],
+    }) }));
+  await page.goto(origin + '/?demos=1');
+  await page.locator('button[data-preview-id="20"]').click();
+  const dialogBounds = await page.locator('#demo-dialog').boundingBox();
+  assert.ok(dialogBounds && dialogBounds.x >= 0 && dialogBounds.x + dialogBounds.width <= 391,
+    JSON.stringify(dialogBounds));
+  assert.equal(await page.locator('#demo-frame').getAttribute('src'), 'demos/axion-studio/');
+  await page.locator('#demo-close').click();
+  await page.waitForFunction(() => !document.querySelector('#demo-frame').hasAttribute('src'));
+  assert.equal(await page.locator('#demo-frame').getAttribute('src'), null);
+  log('mobile demo overlay fits and releases its iframe');
+
   log('390px mobile overflow and reduced-motion CSS');
 
   assert.deepEqual(errors, []);

@@ -12,6 +12,12 @@ const empty = $('#empty');
 const status = $('#gallery-status');
 const buttons = [...document.querySelectorAll('.chip')];
 const demoOnly = $('#demo-only');
+const demoDialog = $('#demo-dialog');
+const demoFrame = $('#demo-frame');
+const demoTitle = $('#demo-dialog-title');
+const demoFull = $('#demo-full');
+const demoSource = $('#demo-source');
+const demoClose = $('#demo-close');
 const reset = $('#reset-filters');
 const share = $('#share-view');
 const shareStatus = $('#share-status');
@@ -106,7 +112,8 @@ function render() {
       ? '<span class="project-badge">Live demo</span>'
       : '<span class="project-badge project-badge--neutral">Source only</span>';
     const demoAction = capture
-      ? `<a class="open open--demo" target="_blank" rel="noopener noreferrer" href="${capture.demo}">Explore live demo ↗</a>`
+      ? `<button type="button" class="open open--preview" data-preview-id="${project.id}" aria-label="Preview ${escapeHTML(project.title)} in this page">Preview here ↗</button>
+        <a class="open open--demo" target="_blank" rel="noopener noreferrer" href="${capture.demo}">Full demo ↗</a>`
       : '';
     return `<article class="card">
       <a class="cover-link" target="_blank" rel="noopener noreferrer" href="${link}">${cover}</a>
@@ -126,6 +133,33 @@ function render() {
   empty.hidden = shown.length > 0 || projects.length === 0;
   reset.hidden = active === 'All' && !showDemosOnly && !search.value.trim();
 }
+
+// An explicitly requested same-origin demo loads only while the dialog is open.
+// Never auto-create five active frames or duplicate hosted third-party resources.
+grid.addEventListener('click', event => {
+  const trigger = event.target.closest('button[data-preview-id]');
+  if (!trigger) return;
+  const id = Number(trigger.dataset.previewId);
+  const project = projects.find(item => item.id === id);
+  const capture = captures.get(id);
+  if (!project || !capture || demoDialog.open) return;
+  demoTitle.textContent = project.title;
+  demoFull.href = capture.demo;
+  demoSource.href = sourceURL(project);
+  demoFrame.title = 'Interactive preview of ' + project.title;
+  demoDialog.showModal();
+  // Assign src after showing the dialog so hidden frames do not prefetch demos.
+  demoFrame.src = capture.demo;
+  demoClose.focus();
+});
+demoClose.addEventListener('click', () => demoDialog.close());
+demoDialog.addEventListener('close', () => {
+  demoFrame.removeAttribute('src');
+});
+demoDialog.addEventListener('click', event => {
+  // Native dialog provides focus containment, Escape handling and a backdrop.
+  if (event.target === demoDialog) demoDialog.close();
+});
 
 function updateView() {
   render();

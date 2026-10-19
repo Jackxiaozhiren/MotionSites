@@ -92,3 +92,33 @@ button[hidden]{display:none!important}
 .case-links a span{font-size:12px;font-weight:500;color:#bba1db;white-space:nowrap}
 @media(max-width:760px){.case-links{grid-template-columns:1fr}}
 @media(max-width:420px){.case-links a{align-items:flex-start;flex-direction:column;gap:6px}}
+
+
+/* On-demand accessible preview. The actual demo is loaded in one iframe only
+   after explicit interaction; no extra video copies or autoplaying cards. */
+.card-actions .open--preview{border:0;padding:0;background:transparent;color:#e6d3ff;
+  font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.card-actions .open--preview:hover{color:#fff}
+.demo-dialog{position:fixed;inset:0;margin:auto;width:min(1120px,calc(100vw - 32px));
+  max-width:none;max-height:calc(100dvh - 32px);padding:0;border:1px solid #685180;
+  border-radius:18px;background:#15111b;color:var(--ink);box-shadow:0 30px 130px #000d}
+.demo-dialog::backdrop{background:#040108df;backdrop-filter:blur(8px)}
+.demo-dialog-shell{padding:18px;display:flex;flex-direction:column;gap:12px;
+  max-height:calc(100dvh - 34px)}
+.demo-dialog-header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.demo-dialog-header h2{font-size:clamp(21px,3vw,30px);letter-spacing:-.04em;line-height:1.1;margin:4px 0}
+.demo-close{background:#291d34;color:#eee6f8;border:1px solid #6b567e;border-radius:9px;
+  padding:10px 14px;white-space:nowrap}
+.demo-close:hover{background:#39274a}
+.demo-dialog-help{font-size:13px;color:#bdb0cd;margin:0}
+#demo-frame{display:block;width:100%;height:min(66dvh,670px);min-height:210px;
+  border:1px solid #453351;border-radius:11px;background:#17121f}
+.demo-dialog-footer{display:flex;gap:21px;justify-content:flex-end;align-items:center;
+  flex-wrap:wrap;padding:2px}
+@media(max-width:580px){
+  .demo-dialog{width:calc(100vw - 16px);max-height:calc(100dvh - 16px)}
+  .demo-dialog-shell{padding:11px;max-height:calc(100dvh - 18px)}
+  #demo-frame{height:min(60dvh,540px)}
+  .demo-dialog-footer{gap:14px;justify-content:flex-start}
+  .demo-dialog-help{font-size:12px}
+}
