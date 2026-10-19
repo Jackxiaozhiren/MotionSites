@@ -42,6 +42,26 @@ for path in ["scripts/capture_previews.mjs", "scripts/review_v3_candidate.mjs"]:
     assert "dir: \"21\"" not in data
     assert "dir: '19'" not in data
     assert "projects/" in data
+# Historical numeric source links are no longer valid on main.
+# Scan actual source code, not the deliberate migration table or release notes.
+legacy_link = re.compile(
+    r"https?://(?:www\.)?github\.com/Jackxiaozhiren/MotionSites/"
+    r"(?:tree|blob)/main/((?:[1-9]|[12][0-9]|30)|hero-liquid-glass)"
+    r"(?=[/\"'\s<>)?#]|$)", re.IGNORECASE
+)
+stale = []
+for project in CATALOG:
+    for source in (ROOT / project["path"]).rglob("*"):
+        if source.suffix.lower() not in {".tsx", ".ts", ".jsx", ".js", ".html"}:
+            continue
+        if any(part in {"node_modules", "dist", "build"} for part in source.parts):
+            continue
+        content = source.read_text(encoding="utf-8", errors="replace")
+        for line_no, line in enumerate(content.splitlines(), 1):
+            if legacy_link.search(line):
+                stale.append(f"{source.relative_to(ROOT)}:{line_no}")
+assert not stale, "Obsolete GitHub source links after migration: " + ", ".join(stale)
+
 assert (ROOT / "site/project-notes.json").is_file()
 legacy = {str(n) for n in [*range(1, 9), *range(10, 23), *range(24, 31)]}
 assert all(not (ROOT / name).exists() for name in legacy | {"hero-liquid-glass"})
