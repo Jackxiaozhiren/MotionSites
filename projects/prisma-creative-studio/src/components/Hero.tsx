@@ -1,24 +1,34 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import WordsPullUp from './WordsPullUp';
 
 export default function Hero() {
+  const reducedMotion = useReducedMotion();
+  const [videoFailed, setVideoFailed] = useState(false);
+
   return (
     <section className="h-screen p-4 md:p-6">
       <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden">
-        {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
-            type="video/mp4"
-          />
-        </video>
+        {/* This CSS fallback remains readable without external media access. */}
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-br from-[#422b57] via-[#4a3755] to-[#191526]" />
+        {!reducedMotion && !videoFailed && (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+            preload="none"
+            onError={() => setVideoFailed(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source
+              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+              type="video/mp4"
+            />
+          </video>
+        )}
 
         {/* Noise Overlay */}
         <div className="noise-overlay absolute inset-0 opacity-[0.7] mix-blend-overlay pointer-events-none" />

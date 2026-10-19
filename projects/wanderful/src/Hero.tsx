@@ -128,7 +128,7 @@ export default function Hero() {
           <span className="text-white/55"> Each getaway is tailored, seamless, and wholly yours.</span>
         </p>
 
-        <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/22"
+        <a href="https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/wanderful"
           target="_blank" rel="noopener noreferrer"
           className="bg-white text-black text-[15px] font-medium rounded-full px-8 py-3.5 transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_0_32px_4px_rgba(255,255,255,0.2)]">
           Explore concept source ↗
