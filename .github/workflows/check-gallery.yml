@@ -30,3 +30,4 @@ jobs:
           node --check scripts/summarize_lighthouse.mjs
           node --check scripts/render_social_card.mjs
           node --check scripts/capture_previews.mjs
+          node --check scripts/check_media_fallbacks.mjs
