@@ -1,3 +1,4 @@
+import { useDecorativeMedia } from './useDecorativeMedia'
 import { useState } from 'react'
 import { ChevronDown, Infinity, Menu, X } from 'lucide-react'
 import './index.css'
@@ -13,18 +14,21 @@ const navLinks = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { showVideo, onVideoError } = useDecorativeMedia()
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-black">
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-tr from-[#0e1422] via-[#223d44] to-black">
       {/* Background Video */}
-      <video
+      {showVideo && <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted
         loop
         playsInline
         src={BG_VIDEO}
-      />
+        preload="metadata"
+        onError={onVideoError}
+      />}
 
       {/* Overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10" />
