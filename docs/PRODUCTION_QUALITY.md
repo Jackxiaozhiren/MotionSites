@@ -4,7 +4,7 @@ The earlier [local Lighthouse baseline](QUALITY_AUDIT.md) reported CI-hosted sta
 
 ## How to read the production reports
 
-[Production Website Quality Audit](../.github/workflows/production-quality.yml) runs after changes to its scripts, on manual dispatch and on changes merged to `main` that affect the audit. It has two independent jobs.
+[Production Website Quality Audit](../.github/workflows/production-quality.yml) runs after changes to its scripts, on manual dispatch, on changes merged to `main` that affect the audit, **and after a successful `Publish MotionSites Gallery` workflow finishes on `main`**. The post-deploy trigger avoids accidentally measuring the previous website version before Pages has finished publishing. Failed or non-main deployments skip the jobs. It has two independent jobs.
 
 ### 1) Three Lighthouse samples for each public page
 
