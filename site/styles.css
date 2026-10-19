@@ -122,3 +122,8 @@ button[hidden]{display:none!important}
   .demo-dialog-footer{gap:14px;justify-content:flex-start}
   .demo-dialog-help{font-size:12px}
 }
+
+/* Preview starts only on user request; give slow real demos visible feedback. */
+.demo-loading{font-size:13px;color:#dac8f5;border-left:2px solid #bca2ed;
+  margin:0;padding:6px 11px;background:#21182c}
+.demo-loading[hidden]{display:none}

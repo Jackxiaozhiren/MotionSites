@@ -97,11 +97,12 @@ try {
   // An actual demo is embedded only on an explicit request. Check the native
   // dialog lifecycle so opening multiple previews never leaves running frames.
   let demoLoads = 0;
-  await page.route('**/demos/axion-studio/', route => {
+  await page.route('**/demos/axion-studio/', async route => {
     demoLoads += 1;
+    await new Promise(resolve => setTimeout(resolve, 650));
     return route.fulfill({
       status: 200, contentType: 'text/html',
-      body: '<!doctype html><title>Fixture Demo</title><main id="inline-sample">Real demo document</main>',
+      body: '<!doctype html><title>Fixture Demo</title><main id="inline-sample">A genuine interactive demo is now ready for the visitor to explore.</main>',
     });
   });
   assert.equal(demoLoads, 0, 'Demo must not load before a visitor opens it');
@@ -109,9 +110,11 @@ try {
   assert.equal(await inlineButton.count(), 1);
   assert.equal(await page.locator('#demo-frame').getAttribute('src'), null);
   await inlineButton.click();
+  assert.equal(await page.locator('#demo-loading').isVisible(), true);
   assert.equal(await page.locator('#demo-dialog').evaluate(node => node.open), true);
   assert.match(await page.locator('#demo-frame').getAttribute('src'), /^demos\/axion-studio\/$/);
   await page.frameLocator('#demo-frame').locator('#inline-sample').waitFor();
+  await page.locator('#demo-loading').waitFor({ state: 'hidden', timeout: 5000 });
   assert.equal(demoLoads, 1);
 
   assert.equal(await page.locator('#demo-dialog-title').innerText(), 'Axion Studio');

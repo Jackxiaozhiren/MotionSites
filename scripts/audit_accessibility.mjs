@@ -55,7 +55,7 @@ try {
         }));
         await page.route('**/demos/axion-studio/', route => route.fulfill({
           status: 200, contentType: 'text/html',
-          body: '<!doctype html><html lang="en"><head><title>Embedded demo fixture</title></head><body><h1>Demo</h1></body></html>',
+          body: '<!doctype html><html lang="en"><head><title>Embedded demo fixture</title></head><body><h1>A real interactive demo is now loaded and ready to explore.</h1></body></html>',
         }));
       } else {
         await page.route('**/previews/manifest.json', route => route.fulfill({ status: 404, body: 'Not yet published' }));
