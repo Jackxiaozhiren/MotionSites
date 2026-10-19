@@ -22,7 +22,7 @@ Project source directories were reorganized into `projects/<readable-slug>/` to 
 | 14 | securify | `15/` | `projects/securify/` |
 | 15 | CINEMATIC | `16/` | `projects/cinematic/` |
 | 16 | LinkFlow | `17/` | `projects/linkflow/` |
-| 17 | Motion Sites 18 | `18/` | `projects/motion-sites-18/` |
+| 17 | Prosthetics Landing Page | `18/` | `projects/prosthetics-landing-page/` |
 | 18 | RIVR | `19/` | `projects/rivr/` |
 | 19 | Nexora | `20/` | `projects/nexora/` |
 | 20 | Axion Studio | `21/` | `projects/axion-studio/` |

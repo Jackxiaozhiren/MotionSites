@@ -14,7 +14,7 @@ import { chromium } from 'playwright';
 const root = resolve(import.meta.dirname, '..');
 const site = join(root, 'site');
 const catalog = JSON.parse(await fs.readFile(join(site, 'projects.json'), 'utf8'));
-const oldSlugs = new Map([[1,'jack-portfolio'],[3,'prisma-landing'],[20,'axion-studio'],[22,'wanderful'],[28,'foundation']]);
+const oldSlugs = new Map([[1,'jack-portfolio'],[3,'prisma-landing'],[17,'motion-sites-18'],[20,'axion-studio'],[22,'wanderful'],[28,'foundation']]);
 const targets = catalog.map(p => ({
   id:p.id, title:p.title, dir:p.path, slug:oldSlugs.get(p.id) || p.path.split('/').at(-1),
 }));

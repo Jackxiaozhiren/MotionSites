@@ -119,7 +119,7 @@ MotionSites 不是单一网站或组件库，而是一个收录 **30 个独立�
 | 14 | **securify** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/securify) |
 | 15 | **CINEMATIC** | React · Tailwind · Vite | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/cinematic) |
 | 16 | **LinkFlow** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/linkflow) |
-| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/motion-sites-18) |
+| 17 | **Prosthetics Landing Page** | React · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prosthetics-landing-page) |
 | 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/rivr) |
 | 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/nexora) |
 | 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [查看 ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) |
