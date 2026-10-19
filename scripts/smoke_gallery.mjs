@@ -38,13 +38,21 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   // First verify graceful behavior when no preview manifest is published.
-  await page.route('**/previews/manifest.json', route =>
-    route.fulfill({ status: 404, body: 'not published' }));
+  await page.route('**/previews/manifest.json', async route => {
+    // Hold the manifest request open to ensure the UI does not claim a source-only
+    // state before it knows whether verified live demos have been published.
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    await route.fulfill({ status: 404, body: 'not published' });
+  });
   await page.goto(origin + '/', { waitUntil: 'load' });
   await page.locator('#grid .card').first().waitFor();
   assert.equal(await page.locator('#grid .card').count(), 30);
-  assert.equal(await page.locator('.project-badge--neutral').count(), 30);
-  log('30 source-only cards without a deployed demo manifest');
+  assert.equal(await page.locator('.project-badge--neutral').first().innerText(), 'Checking demo…');
+  await page.waitForFunction(() => {
+    const badges = [...document.querySelectorAll('.project-badge--neutral')];
+    return badges.length === 30 && badges.every(badge => badge.textContent.trim() === 'Source only');
+  });
+  log('30 source-only cards without a manifest; loading state avoids premature labels');
 
   await page.locator('button[data-tag="GSAP"]').click();
   assert.equal(await page.locator('#grid .card').count(), 2);
@@ -86,7 +94,7 @@ try {
   await page.unroute('**/previews/manifest.json');
   await page.route('**/previews/manifest.json', route =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
-      captures: [{ id: 20, image: 'previews/axion-studio.jpg', demo: 'demos/axion-studio/' }],
+      captures: [{ id: 20, image: 'previews/missing-test-fixture.jpg', demo: 'demos/axion-studio/' }],
     }) }));
   await page.goto(origin + '/?demos=1');
   await page.locator('#grid .card').first().waitFor();
@@ -150,7 +158,7 @@ try {
   await page.unroute('**/previews/manifest.json');
   await page.route('**/previews/manifest.json', route =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({
-      captures: [{ id: 20, image: 'previews/axion-studio.jpg', demo: 'demos/axion-studio/' }],
+      captures: [{ id: 20, image: 'previews/missing-test-fixture.jpg', demo: 'demos/axion-studio/' }],
     }) }));
   await page.goto(origin + '/?demos=1');
   await page.locator('button[data-preview-id="20"]').click();

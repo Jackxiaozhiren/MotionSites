@@ -5,8 +5,10 @@
  * Canonical sources live under projects/<slug> rather than numbered folders.
  */
 import { spawn } from 'node:child_process';
+import { createReadStream } from 'node:fs';
+import { createServer } from 'node:http';
 import { promises as fs } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { extname, resolve, join, sep } from 'node:path';
 import { chromium } from 'playwright';
 
 const root = resolve(import.meta.dirname, '..');
@@ -18,8 +20,22 @@ const targets = catalog.map(p => ({
 }));
 const slugs = targets.map(t=>t.slug);
 if (new Set(slugs).size !== slugs.length || targets.length!==30) throw Error('Invalid unique target list');
-const demoRoot=join(site,'demos'), previewRoot=join(site,'previews');
-await fs.mkdir(demoRoot,{recursive:true}); await fs.mkdir(previewRoot,{recursive:true});
+const demoRoot = join(site, 'demos');
+const previewRoot = join(site, 'previews');
+const projectRoot = resolve(root, 'projects');
+const safeSlug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+for (const target of targets) {
+  const project = resolve(root, target.dir);
+  const output = resolve(demoRoot, target.slug);
+  if (!target.dir.startsWith('projects/') ||
+      !project.startsWith(projectRoot + sep) ||
+      !safeSlug.test(target.slug) ||
+      !output.startsWith(demoRoot + sep)) {
+    throw new Error('Unsafe project or demo path for project ' + target.id);
+  }
+}
+await fs.mkdir(demoRoot, { recursive: true });
+await fs.mkdir(previewRoot, { recursive: true });
 
 function command(cmd,args,cwd,timeout=190000){
   return new Promise((resolve,reject)=>{
@@ -32,16 +48,123 @@ function command(cmd,args,cwd,timeout=190000){
     child.on('close',code=>{if(!settled){settled=true;clearTimeout(timer);code===0?resolve():reject(Error(cmd+' '+args.join(' ')+' exited '+code+'\n'+logs))}});
   });
 }
-function wait(ms){return new Promise(r=>setTimeout(r,ms))}
-async function ready(url){
-  for(let i=0;i<65;i++){try{const r=await fetch(url);if(r.ok)return;}catch{} await wait(300)}
-  throw Error('Local demo failed to respond: '+url);
+function wait(ms) { return new Promise(resolveWait => setTimeout(resolveWait, ms)); }
+
+async function ready(url) {
+  for (let attempt = 0; attempt < 65; attempt++) {
+    try {
+      const response = await fetch(url);
+      if (response.ok) return;
+    } catch { /* The server may still be starting. */ }
+    await wait(300);
+  }
+  throw new Error('Local demo failed to respond: ' + url);
 }
 
-const server=spawn('python3',['-m','http.server','4189','--bind','127.0.0.1','--directory',site],{cwd:root,stdio:'ignore'});
-let browser;const captured=[],problems=[];
-try{
-  await ready('http://127.0.0.1:4189/');
+// Serve files in-process instead of resolving a server executable through PATH.
+// Resolve real paths and support byte ranges for local video backgrounds.
+async function startStaticServer(directory) {
+  const rootDir = await fs.realpath(directory);
+  const contentTypes = new Map([
+    ['.html', 'text/html; charset=utf-8'], ['.js', 'text/javascript; charset=utf-8'],
+    ['.mjs', 'text/javascript; charset=utf-8'], ['.css', 'text/css; charset=utf-8'],
+    ['.json', 'application/json; charset=utf-8'], ['.svg', 'image/svg+xml'],
+    ['.jpg', 'image/jpeg'], ['.jpeg', 'image/jpeg'], ['.png', 'image/png'],
+    ['.gif', 'image/gif'], ['.webp', 'image/webp'], ['.avif', 'image/avif'],
+    ['.ico', 'image/x-icon'], ['.woff', 'font/woff'], ['.woff2', 'font/woff2'],
+    ['.ttf', 'font/ttf'], ['.otf', 'font/otf'], ['.mp4', 'video/mp4'],
+    ['.webm', 'video/webm'], ['.m4v', 'video/mp4'], ['.glb', 'model/gltf-binary'],
+    ['.gltf', 'model/gltf+json'], ['.bin', 'application/octet-stream'],
+  ]);
+  const server = createServer(async (request, response) => {
+    try {
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        response.writeHead(405, { Allow: 'GET, HEAD' });
+        response.end('Method not allowed');
+        return;
+      }
+      const pathname = decodeURIComponent(new URL(request.url || '/', 'http://localhost').pathname);
+      let file = resolve(rootDir, '.' + pathname);
+      if (file !== rootDir && !file.startsWith(rootDir + sep)) {
+        response.writeHead(403);
+        response.end('Forbidden');
+        return;
+      }
+      let info = await fs.stat(file);
+      if (info.isDirectory()) file = join(file, 'index.html');
+      file = await fs.realpath(file);
+      if (file !== rootDir && !file.startsWith(rootDir + sep)) {
+        response.writeHead(403);
+        response.end('Forbidden');
+        return;
+      }
+      info = await fs.stat(file);
+      const size = info.size;
+      let start = 0;
+      let end = size - 1;
+      let statusCode = 200;
+      const headers = {
+        'Content-Type': contentTypes.get(extname(file).toLowerCase()) || 'application/octet-stream',
+        'Accept-Ranges': 'bytes',
+        'Cache-Control': 'no-store',
+      };
+      if (request.headers.range) {
+        const match = /^bytes=(\d*)-(\d*)$/.exec(request.headers.range);
+        if (!match || size === 0) {
+          response.writeHead(416, { 'Content-Range': 'bytes */' + size });
+          response.end();
+          return;
+        }
+        if (match[1] === '') {
+          const suffix = Number(match[2]);
+          start = Math.max(0, size - suffix);
+        } else {
+          start = Number(match[1]);
+          end = match[2] === '' ? size - 1 : Math.min(Number(match[2]), size - 1);
+        }
+        if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) ||
+            start < 0 || start >= size || end < start) {
+          response.writeHead(416, { 'Content-Range': 'bytes */' + size });
+          response.end();
+          return;
+        }
+        statusCode = 206;
+        headers['Content-Range'] = 'bytes ' + start + '-' + end + '/' + size;
+      }
+      headers['Content-Length'] = String(size === 0 ? 0 : end - start + 1);
+      response.writeHead(statusCode, headers);
+      if (request.method === 'HEAD' || size === 0) {
+        response.end();
+        return;
+      }
+      const stream = createReadStream(file, { start, end });
+      stream.on('error', () => response.destroy());
+      stream.pipe(response);
+    } catch (error) {
+      const statusCode = error.code === 'ENOENT' ? 404 : error.code === 'EACCES' ? 403 : 500;
+      if (!response.headersSent) response.writeHead(statusCode, { 'Content-Type': 'text/plain; charset=utf-8' });
+      response.end(statusCode === 404 ? 'Not found' : statusCode === 403 ? 'Forbidden' : 'Internal server error');
+    }
+  });
+  await new Promise((resolveListen, rejectListen) => {
+    server.once('error', rejectListen);
+    server.listen(0, '127.0.0.1', () => {
+      server.off('error', rejectListen);
+      resolveListen();
+    });
+  });
+  return server;
+}
+
+const server = await startStaticServer(site);
+const address = server.address();
+if (!address || typeof address === 'string') throw new Error('Could not determine local server address');
+const origin = 'http://127.0.0.1:' + address.port;
+let browser;
+const captured = [];
+const problems = [];
+try {
+  await ready(origin + '/');
   browser=await chromium.launch({headless:true,...(process.env.CHROME_PATH?{executablePath:process.env.CHROME_PATH}:{})});
   let index=0;
   const workers=Array.from({length:Math.min(4,targets.length)},()=> (async()=>{
@@ -59,7 +182,7 @@ try{
         }else{
           await fs.cp(project,output,{recursive:true,filter:p=> !p.split('/').some(part=>['node_modules','dist','.git'].includes(part))});
         }
-        const url='http://127.0.0.1:4189/demos/'+target.slug+'/';
+        const url = origin + '/demos/' + target.slug + '/';
         await ready(url);
         const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1,reducedMotion:'reduce'});
         try{
@@ -71,11 +194,13 @@ try{
             brokenImages:[...document.images].filter(img=>img.complete&&img.naturalWidth===0).length,
             title:document.title,
           }));
-          if(!response?.ok() || data.chars<35 || errors.length) throw Error('Browser content gate: '+JSON.stringify({status:response?.status(),...data,pageErrors:errors}));
+          if (!response?.ok() || data.chars < 35 || errors.length) {
+            throw new Error('Browser content gate: ' + JSON.stringify({ status: response?.status(), ...data, pageErrors: errors }));
+          }
           const screenshot=join(previewRoot,target.slug+'.jpg');
           await page.screenshot({path:screenshot,type:'jpeg',quality:82,timeout:15000});
           const bytes=(await fs.stat(screenshot)).size;
-          if(bytes<8000)throw Error('Screenshot unexpectedly small: '+bytes);
+          if (bytes < 8000) throw new Error('Screenshot unexpectedly small: ' + bytes);
           captured.push({id:target.id,image:'previews/'+target.slug+'.jpg',demo:'demos/'+target.slug+'/'});
           console.log('Verified',target.id,target.slug,'text chars',data.chars,'jpg',bytes,'broken img',data.brokenImages);
         }finally{await page.close()}
@@ -89,9 +214,11 @@ try{
     }
   })());
   await Promise.all(workers);
-}finally{if(browser)await browser.close();server.kill();}
+ } finally {
+  if (browser) await browser.close();
+  await new Promise(resolveClose => server.close(resolveClose));
+}
 captured.sort((a,b)=>a.id-b.id);
 await fs.writeFile(join(previewRoot,'manifest.json'),JSON.stringify({captures:captured},null,2)+'\n');
-await fs.writeFile('/tmp/motionsites-build-report.json',JSON.stringify({total:targets.length,passed:captured.length,failed:problems.length,problems},null,2)+'\n');
-console.log('Published preview candidates:',captured.length,'/',targets.length);
+console.log('Build report:', JSON.stringify({ total: targets.length, passed: captured.length, failed: problems.length, problems }));
 if(captured.length!==targets.length)process.exitCode=1;
