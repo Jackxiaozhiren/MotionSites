@@ -12,6 +12,8 @@ export default function Hero() {
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" style={{ background: 'radial-gradient(circle at 52% 40%, #19332b 0%, #0b1717 46%, #000000 95%)' }}>
       {/* Background Video */}
       <video
+          aria-hidden="true"
+          preload="none"
         autoPlay
         loop
         muted
@@ -21,6 +23,7 @@ export default function Hero() {
         <source
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4"
           type="video/mp4"
+            media="(prefers-reduced-motion: no-preference)"
         />
       </video>
 
