@@ -93,7 +93,7 @@ const summary = {
   horizontalOverflow:items.filter(x=>(x.horizontalOverflowPx||0)>2).length,
   pagesWithScriptErrors:tally('scriptErrors'), pagesWithBrokenImages:tally('brokenImageElements'),
   pagesWithMediaErrors:tally('mediaErrors'),
-  pagesWithFailedExternalRequests:items.filter(x=>Object.keys(x.failedRequestsByHost).length).length,
+  pagesWithFailedRequests:items.filter(x=>Object.keys(x.failedRequestsByHost).length).length,
 };
 await mkdir(output,{recursive:true});
 await writeFile(resolve(output,'all-demos.json'),JSON.stringify({summary,items},null,2)+'\n');
