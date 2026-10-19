@@ -168,6 +168,8 @@ The featured GSAP/Motion demos are progressively being hardened for reduced-moti
 **External resources require separate verification:** some projects load video, GIF, font or image assets from third-party services, including [motionsites.ai](https://motionsites.ai/). Their presence in the source does not establish redistribution rights or any affiliation with the referenced service. See [asset provenance audit](docs/ASSET_PROVENANCE_AUDIT.md) and the [automated URL-inventory workflow](.github/workflows/asset-inventory.yml). The repository does **not** currently provide a blanket license for third-party artwork or source.
 
 
+**Production quality reports:** The [production-URL quality audit](docs/PRODUCTION_QUALITY.md) measures three synthetic Lighthouse samples on published Pages URLs and inspects all 30 deployed demos at mobile width. Its Actions artifacts separate HTTP/JavaScript/image findings from licensing and physical-device accessibility; no field-performance scores are asserted.
+
 **Measured quality baseline:** [Accessibility and Lighthouse Baseline](docs/QUALITY_AUDIT.md) runs axe-core WCAG A/AA scans for desktop/mobile gallery and project guides, plus synthetic Lighthouse scores in GitHub Actions. View the CI artifact for real test results; scores depend on browser/settings and should not be presented as real-user metrics. Human keyboard, mobile and asset-rights review are still required.
 
 ## 🚀 Quick start

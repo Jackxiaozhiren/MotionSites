@@ -1,0 +1,73 @@
+name: Production Website Quality Audit
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit_public_demos.mjs'
+      - 'scripts/summarize_production_lighthouse.mjs'
+      - 'lighthouserc.production.cjs'
+      - '.github/workflows/production-quality.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/audit_public_demos.mjs'
+      - 'scripts/summarize_production_lighthouse.mjs'
+      - 'lighthouserc.production.cjs'
+      - '.github/workflows/production-quality.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  production-lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Lighthouse CI and Chromium
+        run: |
+          npm install --no-save --ignore-scripts --no-fund --no-audit playwright@1.56.1 @lhci/cli@0.15.1
+          npx playwright install --with-deps chromium
+      - name: Measure three Lighthouse samples per public URL
+        run: |
+          export CHROME_PATH="$(node -p "require('playwright').chromium.executablePath()")"
+          npx lhci collect --config=lighthouserc.production.cjs
+          npx lhci upload --config=lighthouserc.production.cjs
+          node scripts/summarize_production_lighthouse.mjs
+      - name: Keep raw production performance reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-lighthouse-3-runs
+          path: |
+            artifacts/production-lighthouse/
+            .lighthouseci/
+          if-no-files-found: warn
+          retention-days: 30
+
+  audit-published-demos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium
+        run: |
+          npm install --no-save --ignore-scripts --no-fund --no-audit playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Audit all 30 public project pages at mobile width
+        run: node scripts/audit_public_demos.mjs
+      - name: Keep source-safe demo observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-demo-audit
+          path: artifacts/production-browser/all-demos.json
+          if-no-files-found: warn
+          retention-days: 30
