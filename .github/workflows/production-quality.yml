@@ -15,12 +15,16 @@ on:
       - 'lighthouserc.production.cjs'
       - '.github/workflows/production-quality.yml'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Publish MotionSites Gallery']
+    types: [completed]
 
 permissions:
   contents: read
 
 jobs:
   production-lighthouse:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -50,6 +54,7 @@ jobs:
           retention-days: 30
 
   audit-published-demos:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
