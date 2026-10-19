@@ -39,7 +39,7 @@ try {
         id:project.id, title:project.title, demo:capture.demo, viewport:'390x844',
         status:null, textLength:0, horizontalOverflowPx:null,
         scriptErrors:0, brokenImageElements:0, mediaErrors:0,
-        failedRequestsByHost:{}, failedHttpByHost:{}, notes:[],
+        failedRequestsByHost:{}, failedHttpByHost:{}, failedHttpPaths:[], notes:[],
       };
       const context = await browser.newContext({
         viewport:{width:390,height:844}, reducedMotion:'reduce',
@@ -53,14 +53,30 @@ try {
       });
       page.on('response', response => {
         if (response.status() >= 400) {
-          const hostname = new URL(response.url()).hostname;
+          const url = new URL(response.url());
+          const hostname = url.hostname;
           item.failedHttpByHost[hostname] = (item.failedHttpByHost[hostname]||0)+1;
+          // Record only this site's relative asset path; never persist external
+          // URL paths or query strings that could contain sensitive tokens.
+          if (url.origin === new URL(origin).origin) {
+            const basePath = new URL(origin).pathname;
+            const relativePath = url.pathname.startsWith(basePath)
+              ? url.pathname.slice(basePath.length)
+              : url.pathname.replace(/^\\//, '');
+            item.failedHttpPaths.push(relativePath + ' HTTP ' + response.status());
+          }
         }
       });
       try {
         const response = await page.goto(origin+capture.demo, {waitUntil:'domcontentloaded',timeout:22000});
         item.status = response?.status() ?? null;
-        await page.waitForTimeout(1400);
+        // Wait for SPA content instead of assuming hydration finishes in 1.4s.
+        // The bounded wait still flags pages that never render readable content.
+        await page.waitForFunction(
+          () => (document.body?.innerText?.trim().length || 0) >= 20,
+          null,
+          { timeout: 8000, polling: 200 },
+        ).catch(() => {});
         const state=await page.evaluate(() => ({
           textLength:document.body?.innerText?.trim().length||0,
           horizontalOverflowPx:Math.max(0,document.documentElement.scrollWidth-innerWidth),
@@ -69,6 +85,7 @@ try {
         }));
         Object.assign(item,state);
         if (item.status!==200 || item.textLength<20) item.notes.push('Structural page or text loading problem');
+        if (item.failedHttpPaths.length) item.notes.push('Same-origin HTTP errors: ' + item.failedHttpPaths.join(', '));
         if (item.horizontalOverflowPx>2) item.notes.push('Potential horizontal overflow on 390px');
         if (item.scriptErrors) item.notes.push('JavaScript runtime errors observed');
         if (item.brokenImageElements) item.notes.push('Broken image elements observed');
@@ -94,6 +111,7 @@ const summary = {
   pagesWithScriptErrors:tally('scriptErrors'), pagesWithBrokenImages:tally('brokenImageElements'),
   pagesWithMediaErrors:tally('mediaErrors'),
   pagesWithFailedRequests:items.filter(x=>Object.keys(x.failedRequestsByHost).length).length,
+  pagesWithSameOriginHttpErrors:items.filter(x=>x.failedHttpPaths.length).length,
 };
 await mkdir(output,{recursive:true});
 await writeFile(resolve(output,'all-demos.json'),JSON.stringify({summary,items},null,2)+'\n');
