@@ -10,6 +10,8 @@ export default function Hero() {
       <section className="relative w-full max-w-[1536px] h-full rounded-[1.5rem] md:rounded-[3rem] overflow-hidden shadow-none flex flex-col items-center group" style={{ background: 'linear-gradient(125deg, #dceaf1 0%, #bed8e3 48%, #c9e0e7 100%)' }}>
         {/* Video Background */}
         <video
+          aria-hidden="true"
+          preload="none"
           autoPlay
           muted
           loop
@@ -19,6 +21,7 @@ export default function Hero() {
           <source
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260428_193507_4286c423-2fd9-4efd-92bd-91a939453fc1.mp4"
             type="video/mp4"
+            media="(prefers-reduced-motion: no-preference)"
           />
         </video>
 

@@ -27,13 +27,16 @@ function App() {
     <div className="relative flex h-screen w-screen flex-col overflow-hidden font-[Inter]" style={{ background: 'radial-gradient(circle at 57% 35%, #453951 0%, #1b1929 40%, #07080c 100%)' }}>
       {/* Background video — fullscreen, fixed */}
       <video
+        aria-hidden="true"
+        preload="none"
         className="absolute inset-0 z-0 h-full w-full object-cover"
         autoPlay
         loop
         muted
         playsInline
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4"
-      />
+      >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)" />
+      </video>
 
       {/* Bottom blur overlay — pure blur, NO dark tint */}
       <div

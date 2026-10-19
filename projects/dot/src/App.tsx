@@ -86,6 +86,8 @@ function Hero() {
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
+          aria-hidden="true"
+          preload="none"
           autoPlay
           loop
           muted
@@ -95,6 +97,7 @@ function Hero() {
           <source
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260427_054418_a6d194f0-ac86-4df9-abe5-ded73e596d7c.mp4"
             type="video/mp4"
+            media="(prefers-reduced-motion: no-preference)"
           />
         </video>
         <div className="absolute inset-0 bg-white/5" />
