@@ -144,7 +144,7 @@ button[hidden]{display:none!important}
   background:#16111e;transition:opacity .35s ease}
 .live-layer.is-ready{opacity:1}
 .live-layer iframe{display:block;position:absolute;top:0;left:0;border:0;
-  width:1000px;height:640px;max-width:none;
+  width:var(--preview-base-width,1000px);height:800px;max-width:none;
   transform-origin:top left;transform:scale(var(--preview-scale,.5));
   pointer-events:none}
 .live-pill{position:absolute;right:12px;top:12px;padding:5px 9px;
