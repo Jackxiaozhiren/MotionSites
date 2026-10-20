@@ -54,6 +54,7 @@ try {
   await page.goto(origin+'?demos=1',{waitUntil:'load'});
   await page.waitForFunction(()=>document.querySelectorAll('#grid .card').length===1);
   assert.equal(demoLoads,0,'iframe loaded before explicit user action');
+  await page.locator('#live-previews').uncheck();
   const opener=page.locator('button[data-preview-id="20"]');
   assert.equal(await opener.count(),1);
   assert.equal(await page.locator('#demo-frame').getAttribute('src'),null);
