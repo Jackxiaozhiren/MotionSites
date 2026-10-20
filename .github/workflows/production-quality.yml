@@ -70,6 +70,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Audit all 30 public project pages at mobile width
         run: node scripts/audit_public_demos.mjs
+      - name: Confirm Google Chrome Stable for H264 playback
+        run: google-chrome --version
       - name: Observe public video progress and fallbacks
         run: node scripts/audit_decorative_video_playback.mjs
       - name: Keep source-safe demo observations
