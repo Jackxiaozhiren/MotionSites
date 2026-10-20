@@ -17,8 +17,7 @@
   let cards = [];
   let scheduled = false;
   let observer;
-  const BASE_WIDTH = 1000;
-  const BASE_HEIGHT = 640;
+  const BASE_HEIGHT = 800;
   const STEP_MS = 90;
 
   function permitted() {
@@ -56,7 +55,10 @@
 
   function resize(state) {
     const width = state.card.getBoundingClientRect().width;
-    if (width > 0) state.layer.style.setProperty('--preview-scale', String(width / BASE_WIDTH));
+    const baseWidth = innerWidth < 720 ? 430 : 1000;
+    state.frame.width = String(baseWidth);
+    state.layer.style.setProperty('--preview-base-width', baseWidth + 'px');
+    if (width > 0) state.layer.style.setProperty('--preview-scale', String(width / baseWidth));
   }
 
   function scrollable(frame) {
@@ -131,7 +133,7 @@
     frame.tabIndex = -1;
     frame.loading = 'eager';
     frame.referrerPolicy = 'strict-origin-when-cross-origin';
-    frame.width = String(BASE_WIDTH);
+    frame.width = String(innerWidth < 720 ? 430 : 1000);
     frame.height = String(BASE_HEIGHT);
     const pill = document.createElement('span');
     pill.className = 'live-pill';
