@@ -36,6 +36,25 @@ try {
       reducedMotion: 'no-preference',
     });
     const page = await context.newPage();
+    // Capture media error details before the React fallback removes <video>.
+    // Persist media error codes and hostnames, never full external source URLs.
+    await page.addInitScript(() => {
+      window.__motionMediaErrors = [];
+      document.addEventListener('error', event => {
+        const video = event.target;
+        if (!(video instanceof HTMLVideoElement)) return;
+        let hostname = null;
+        try {
+          hostname = new URL(video.currentSrc || video.src).hostname;
+        } catch { /* Video may have no src when an error occurs. */ }
+        window.__motionMediaErrors.push({
+          code: video.error?.code ?? null,
+          readyState: video.readyState,
+          networkState: video.networkState,
+          hostname,
+        });
+      }, true);
+    });
     const exceptions = [];
     const failedHosts = {};
     page.on('pageerror', error => exceptions.push(error.name));
@@ -59,6 +78,7 @@ try {
         frameWidth: video?.videoWidth ?? null,
         textLength: document.body?.innerText?.trim().length ?? 0,
         horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - innerWidth),
+        mediaErrorEvents: window.__motionMediaErrors ?? [],
       };
     }, seconds);
 
