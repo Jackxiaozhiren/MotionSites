@@ -71,7 +71,7 @@
       let span = 40;
       for (const element of others) {
         const range = element.scrollHeight - element.clientHeight;
-        if (range > span && getComputedStyle(element).overflowY !== 'hidden') {
+        if (range > span && frame.contentWindow.getComputedStyle(element).overflowY !== 'hidden') {
           span = range;
           best = element;
         }
@@ -92,6 +92,13 @@
       const delta = Math.min(180, now - state.lastTime);
       state.lastTime = now;
       if (state.holdUntil > now) return;
+      if (state.restart) {
+        state.y = 0;
+        state.restart = false;
+        state.holdUntil = now + 950;
+        target.scrollTop = 0;
+        return;
+      }
       if (state.target !== target) {
         state.target = target;
         state.y = 0;
@@ -103,11 +110,6 @@
         state.y = range;
         state.holdUntil = now + 1800;
         state.restart = true;
-      }
-      if (state.restart && now >= state.holdUntil) {
-        state.y = 0;
-        state.restart = false;
-        state.holdUntil = now + 950;
       }
       target.scrollTop = state.y;
     } catch {
