@@ -24,6 +24,12 @@
 
 ---
 
+## Source, attribution, and reuse
+
+MotionSites curates multiple independently authored demos and assets. Before adapting a project, consult [source and asset credits](CREDITS.md), the [asset provenance audit](docs/ASSET_PROVENANCE_AUDIT.md), and each project's own licensing terms. **There is currently no repository-wide LICENSE file**; public visibility should not be mistaken for blanket permission to reuse designs, third-party images, fonts, or other assets.
+
+For contributors, see [the showcase guide](docs/SHOWCASE_GUIDE.md) and [contribution guidelines](CONTRIBUTING.md).
+
 ## 🌐 Explore the interactive gallery
 
 > **New source layout:** All 30 independent projects now have readable directories under [`projects/`](projects/), such as [`projects/axion-studio/`](projects/axion-studio/) and [`projects/mindloop/`](projects/mindloop/). If you previously bookmarked a numeric folder path, consult the [old → new directory map](docs/PROJECT_DIRECTORY_MIGRATION.md).
