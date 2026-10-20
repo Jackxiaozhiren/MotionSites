@@ -114,6 +114,8 @@ try {
     });
   });
   assert.equal(demoLoads, 0, 'Demo must not load before a visitor opens it');
+  // The modal test is separate from autoplaying card previews.
+  await page.locator('#live-previews').uncheck();
   const inlineButton = page.locator('button[data-preview-id="20"]');
   assert.equal(await inlineButton.count(), 1);
   assert.equal(await page.locator('#demo-frame').getAttribute('src'), null);

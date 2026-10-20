@@ -23,8 +23,10 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check site/app.js
+          node --check site/live-previews.js
           node --check site/project.js
           node --check scripts/smoke_gallery.mjs
+          node --check scripts/test_live_card_previews.mjs
           node --check scripts/smoke_webkit_gallery.mjs
           node --check scripts/check_live_gallery.mjs
           node --check scripts/audit_accessibility.mjs

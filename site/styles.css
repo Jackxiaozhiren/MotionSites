@@ -127,3 +127,34 @@ button[hidden]{display:none!important}
 .demo-loading{font-size:13px;color:#dac8f5;border-left:2px solid #bca2ed;
   margin:0;padding:6px 11px;background:#21182c}
 .demo-loading[hidden]{display:none}
+
+
+/* Live cards show the actual site while visible, not a video or fake animation.
+ * The iframe itself is noninteractive; clicking still opens the full website. */
+.live-previews-control{display:inline-flex;align-items:center;gap:9px;color:#e6d9f6;
+  font-size:13px;font-weight:700;cursor:pointer}
+.live-previews-control input{width:17px;height:17px;min-width:0;accent-color:#d5c5ff}
+.live-previews-control input:disabled{cursor:not-allowed;opacity:.55}
+#live-preview-note{font-size:12px;color:#b5a8c6;margin:-5px 0 18px}
+.grid.live-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.live-grid .cover{height:290px}
+.card:has(> .live-layer){position:relative}
+.live-layer{position:absolute;top:0;left:0;right:0;height:290px;
+  overflow:hidden;pointer-events:none;z-index:1;opacity:0;
+  background:#16111e;transition:opacity .35s ease}
+.live-layer.is-ready{opacity:1}
+.live-layer iframe{display:block;position:absolute;top:0;left:0;border:0;
+  width:var(--preview-base-width,1000px);height:800px;max-width:none;
+  transform-origin:top left;transform:scale(var(--preview-scale,.5));
+  pointer-events:none}
+.live-pill{position:absolute;right:12px;top:12px;padding:5px 9px;
+  border:1px solid #ffffff66;background:#100d1dcc;color:#fff;
+  border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.1em;
+  box-shadow:0 2px 12px #0008}
+@media(max-width:720px){
+  .grid.live-grid{grid-template-columns:1fr}
+  .live-grid .cover,.live-layer{height:245px}
+}
+@media(prefers-reduced-motion:reduce){
+  .live-layer{display:none!important}
+}

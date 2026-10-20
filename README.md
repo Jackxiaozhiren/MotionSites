@@ -180,6 +180,10 @@ The featured GSAP/Motion demos are progressively being hardened for reduced-moti
 
 **Measured quality baseline:** [Accessibility and Lighthouse Baseline](docs/QUALITY_AUDIT.md) runs axe-core WCAG A/AA scans for desktop/mobile gallery and project guides, plus synthetic Lighthouse scores in GitHub Actions. View the CI artifact for real test results; scores depend on browser/settings and should not be presented as real-user metrics. Human keyboard, mobile and asset-rights review are still required.
 
+### Live gallery previews
+
+Scroll the gallery and **the actual published website automatically animates and scrolls within each visible card**—no need to open 30 separate pages. Two live frames can run on desktop and one on mobile; previews are removed when they leave the viewport to limit CPU, bandwidth and memory. All screenshots remain visible until the real preview has loaded, and the *Auto-scroll live previews* checkbox switches to screenshot-only browsing. Reduced-motion and data-saving preferences suspend automatic iframes. Use **Preview here** or **Full demo** to interact with the actual project. External assets and videos remain subject to source availability and permissions, not covered by live functionality.
+
 ## 🚀 Quick start
 
 Each subproject is self-contained. For most React / Vite projects:
