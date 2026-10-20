@@ -68,3 +68,15 @@ The first normal-motion 30-demo scan identified two media-element errors: **Axio
 The public audit independently counts **`pagesWithMediaFallbackErrors`** alongside currently broken media elements; otherwise unmounting an errored video could misleadingly turn a real asset failure into a clean report. The marker is not a marketing or UI failure indicator; it is a diagnostic that allows maintainers to see that a fallback occurred. A 1.2-second synthetic video observation can also miss transient failures or slow streams.
 
 The captured-video regression tests simulate blocked remote media for **nine** projects (the original seven plus Axion Studio and Wanderful), assert that their text remains present and no uncaught exception occurs, and specifically check the two explicit fallback markers. No video is copied, mirrored, or relicensed.
+
+## Normal-motion decorative video progress (October 2026)
+
+The main mobile audit records video-element errors and fallback states after a short snapshot; this can miss playback that starts later. A focused **public Pages video progression probe** now visits Axion Studio (ID 20) and Wanderful (ID 22) at 390×844 under normal motion, takes snapshots at 0, 3 and 6.5 seconds after hydration, and records:
+
+- HTMLVideoElement `currentTime`, `readyState`, error code and frame dimensions when a video exists;
+- whether the existing `data-video-fallback="error"` marker shows a graceful CSS background fallback;
+- readable content, horizontal overflow, runtime errors, and failed request **hostnames only**.
+
+Results are published as `decorative-video-playback.json` in the production-demo-audit artifact. The probe distinguishes `playback-progress-observed`, `media-error-handled-by-fallback`, and `playback-not-confirmed-within-window`. Only unreadable pages, overflow and JavaScript exceptions fail the job; transient external video unavailability remains a recorded finding.
+
+A passing time-progression check **does not prove** smooth frames, content licensing, iPhone/Safari compatibility, permanent CDN availability, or real-user performance. In a separate, independent Mac Chrome 155 spot check on October 20, Wanderful progressed from 0 to 8.5 seconds and Axion from 0 to 5.9 seconds over approximately 7.5 seconds, with no failed requests; the third-party video URL also returned an HTTP 206 range response and H.264 metadata. These are observations at that time, not permission to copy the video.
