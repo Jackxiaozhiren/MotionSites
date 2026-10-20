@@ -41,7 +41,7 @@ try {
         id:project.id, title:project.title, demo:capture.demo, viewport:'390x844', motion,
         status:null, textLength:0, horizontalOverflowPx:null,
         scriptErrors:0, brokenImageElements:0, mediaErrors:0,
-        videoElements:0, mediaPlayingElements:0,
+        mediaFallbackErrors:0, videoElements:0, mediaPlayingElements:0,
         failedRequestsByHost:{}, failedHttpByHost:{}, failedHttpPaths:[], notes:[],
       };
       const context = await browser.newContext({
@@ -88,6 +88,7 @@ try {
           horizontalOverflowPx:Math.max(0,document.documentElement.scrollWidth-innerWidth),
           brokenImageElements:[...document.images].filter(img=>img.complete && img.naturalWidth===0).length,
           mediaErrors:[...document.querySelectorAll('video,audio')].filter(node=>node.error).length,
+          mediaFallbackErrors:document.querySelectorAll('[data-video-fallback="error"]').length,
           videoElements:document.querySelectorAll('video').length,
           mediaPlayingElements:[...document.querySelectorAll('video,audio')].filter(node=>!node.paused && node.readyState >= 2).length,
         }));
@@ -97,6 +98,7 @@ try {
         if (item.horizontalOverflowPx>2) item.notes.push('Potential horizontal overflow on 390px');
         if (item.scriptErrors) item.notes.push('JavaScript runtime errors observed');
         if (item.brokenImageElements) item.notes.push('Broken image elements observed');
+        if (item.mediaFallbackErrors) item.notes.push('Decorative video fallback activated');
       } catch (error) {
         item.notes.push(error.name === 'TimeoutError' ? 'Navigation timeout' : 'Browser navigation or inspection failed');
       } finally {
@@ -123,6 +125,7 @@ function summarize(mode) {
     pagesWithScriptErrors: tally('scriptErrors'),
     pagesWithBrokenImages: tally('brokenImageElements'),
     pagesWithMediaErrors: tally('mediaErrors'),
+    pagesWithMediaFallbackErrors: tally('mediaFallbackErrors'),
     pagesWithFailedRequests: observations.filter(item => Object.keys(item.failedRequestsByHost || {}).length).length,
     pagesWithSameOriginHttpErrors: observations.filter(item => (item.failedHttpPaths || []).length).length,
     pagesWithVideoElements: tally('videoElements'),
@@ -140,7 +143,7 @@ await writeFile(resolve(output,'all-demos.json'),JSON.stringify({
 
 const metrics = [
   'navigated200', 'structuralProblems', 'horizontalOverflow', 'pagesWithScriptErrors',
-  'pagesWithBrokenImages', 'pagesWithMediaErrors', 'pagesWithFailedRequests',
+  'pagesWithBrokenImages', 'pagesWithMediaErrors', 'pagesWithMediaFallbackErrors', 'pagesWithFailedRequests',
   'pagesWithSameOriginHttpErrors', 'pagesWithVideoElements', 'pagesWithPlayingMediaAtSnapshot',
 ];
 const lines=[
