@@ -42,6 +42,7 @@
     const state = active.get(card);
     if (!state) return;
     clearInterval(state.timer);
+    clearTimeout(state.hydrateTimer);
     state.frame.onload = null;
     // Navigate away before removing the frame to stop remote media and RAFs.
     state.frame.removeAttribute('src');
@@ -143,17 +144,30 @@
     const state = {
       card, layer, frame, timer: null, loaded: false,
       lastTime: 0, y: 0, holdUntil: 0, restart: false, target: null,
+      hydrateTimer: null,
     };
     active.set(card, state);
     resize(state);
     frame.onload = () => {
-      if (!active.has(card)) return;
-      // A short hydration grace period prevents moving a blank SPA shell.
-      setTimeout(() => {
+      if (active.get(card) !== state) return;
+      // Keep the screenshot visible until the real React/HTML page hydrates.
+      // A network load event alone can fire on an empty SPA shell.
+      const started = performance.now();
+      function checkReady() {
         if (active.get(card) !== state) return;
-        state.loaded = true;
-        layer.classList.add('is-ready');
-      }, 700);
+        let readable = false;
+        try {
+          const doc = frame.contentDocument;
+          readable = !!doc?.body && (doc.body.innerText?.trim().length || 0) >= 20;
+        } catch { /* A demo may navigate to another origin. */ }
+        if (readable) {
+          state.loaded = true;
+          layer.classList.add('is-ready');
+        } else if (performance.now() - started < 10000) {
+          state.hydrateTimer = setTimeout(checkReady, 250);
+        }
+      }
+      state.hydrateTimer = setTimeout(checkReady, 350);
     };
     frame.src = path;
     state.timer = setInterval(() => advance(state), STEP_MS);
