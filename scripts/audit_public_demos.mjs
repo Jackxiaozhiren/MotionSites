@@ -136,7 +136,7 @@ await mkdir(output,{recursive:true});
 await writeFile(resolve(output,'all-demos.json'),JSON.stringify({
   methodology: '60 public Demo visits, 30 IDs in each motion mode; 390×844 Chromium with SPA hydration and a 1.2s media observation window.',
   summary, normalMotionSummary, items,
-},null,2)+'\\n'.replace('\\n','\n'));
+},null,2)+'\n');
 
 const metrics = [
   'navigated200', 'structuralProblems', 'horizontalOverflow', 'pagesWithScriptErrors',
@@ -154,7 +154,7 @@ const lines=[
   '',
   'Per-project error counts and failure hostnames: Actions artifact `production-demo-audit`.',
 ];
-const markdown=lines.join('\\n'.replace('\\n','\n'))+'\\n'.replace('\\n','\n');
+const markdown=lines.join('\n')+'\n';
 console.log(markdown);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown);
 if (summary.structuralProblems || normalMotionSummary.structuralProblems) {
