@@ -57,9 +57,19 @@
   function resize(state) {
     const width = state.card.getBoundingClientRect().width;
     const baseWidth = innerWidth < 720 ? 430 : 1000;
+    if (width <= 0) return;
+    const scale = width / baseWidth;
     state.frame.width = String(baseWidth);
     state.layer.style.setProperty('--preview-base-width', baseWidth + 'px');
-    if (width > 0) state.layer.style.setProperty('--preview-scale', String(width / baseWidth));
+    state.layer.style.setProperty('--preview-scale', String(scale));
+    // Only the top of an 800px iframe was previously visible through a 245px
+    // card: scrolling to document bottom would still hide the actual footer.
+    // Match the iframe viewport to the *unscaled* height of the cropped card,
+    // so the maximum scroll position really shows the end of the page.
+    const visibleHeight = state.layer.clientHeight;
+    if (visibleHeight > 0) {
+      state.frame.style.height = Math.ceil(visibleHeight / scale) + 'px';
+    }
   }
 
   function scrollable(frame) {

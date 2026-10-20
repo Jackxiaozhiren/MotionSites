@@ -58,3 +58,12 @@ The `Browser Smoke and Featured Demo Builds` PR workflow also runs `scripts/smok
 The test protects a specific real-world WebKit behavior: clicking a button with the pointer does not necessarily focus it on macOS, so native `<dialog>` can leave focus on `<body>` when closed. MotionSites explicitly remembers the trigger and refocuses it on the `close` event. The test does not rely on a published demo or third-party media; it runs on the PR's own local static gallery source with a same-origin fixture.
 
 This is **Playwright WebKit**, not the Safari desktop application and not an iPhone. Testing macOS Safari 27 requires enabling Safari's Developer → Allow Remote Automation preference or human manual review; the setting has not been changed automatically. Browser-engine coverage does not establish full WCAG conformance or rights to third-party assets.
+
+
+## Live gallery: actual footer visibility
+
+`site/live-previews.js` scales each real demo to its card width. The iframe's document viewport height must also match the card's **visible crop height divided by its scale**. If an embedded iframe remained 800px high behind a 245–290px crop, `scrollTop = scrollHeight - clientHeight` would reach the internal scroll limit while still keeping the final part of the page **below the card's visible area**.
+
+The Chromium and macOS WebKit fixture test `scripts/test_live_card_previews.mjs` now checks the full user-visible contract: the card and transformed iframe heights match on mobile and desktop, and the actual document footer comes into view after automatic scrolling. As before, at most one mobile/two desktop demo iframes are active, and reduced motion turns autoplay off.
+
+Single-screen websites naturally have no vertical scrolling; their CSS/canvas/video effects remain visible in the card. Some examples use custom fixed-position scroll experiences that need separate per-demo validation. This check proves real DOM scrolling for the controlled browser fixture, not that every independent demo implements ordinary document scrolling or that outside media are licensed.
