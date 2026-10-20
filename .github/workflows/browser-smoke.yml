@@ -9,6 +9,7 @@ on:
       - 'projects/foundation-new-digital-epoch/**'
       - 'scripts/smoke_gallery.mjs'
       - 'scripts/smoke_webkit_gallery.mjs'
+      - 'scripts/test_live_card_previews.mjs'
       - 'scripts/check_live_gallery.mjs'
       - 'scripts/render_social_card.mjs'
       - 'assets/motionsites-social-card.svg'
@@ -33,6 +34,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Run gallery and guide smoke tests
         run: node scripts/smoke_gallery.mjs
+      - name: Verify viewport-driven live scroll previews
+        run: node scripts/test_live_card_previews.mjs
       - name: Exercise production preview lifecycle
         run: node scripts/check_live_gallery.mjs
       - name: Render rights-independent social preview JPG
@@ -58,6 +61,10 @@ jobs:
           npx playwright install webkit
       - name: Test preview dialog focus and 390px guide in WebKit
         run: node scripts/smoke_webkit_gallery.mjs
+      - name: Verify live auto-scroll and low-motion fallback in WebKit
+        env:
+          MOTIONSITES_TEST_ENGINE: webkit
+        run: node scripts/test_live_card_previews.mjs
 
   featured-build:
     runs-on: ubuntu-latest
