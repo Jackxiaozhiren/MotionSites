@@ -69,7 +69,11 @@ try {
             'Preview iframe should not load on gallery entry');
           assert.equal(frameRequests.length, 0, 'A demo was requested before user interaction');
 
-          await page.locator('#live-previews').uncheck();
+          // On PRs the public Pages site can still be the previous release,
+          // before the live-previews toggle exists. After deployment it is present.
+          if (await page.locator('#live-previews').count()) {
+            await page.locator('#live-previews').uncheck();
+          }
           await page.locator('button[data-preview-id="20"]').click();
           assert.equal(await page.locator('#demo-dialog').evaluate(node => node.open), true);
           assert.equal(await page.locator('#demo-frame').getAttribute('src'), axion.demo);
