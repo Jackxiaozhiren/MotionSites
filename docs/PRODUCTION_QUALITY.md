@@ -19,19 +19,19 @@ It collects **three** Lighthouse runs per page, with a common GitHub Actions Chr
 
 ### 2) Public mobile-width audit of 30 demos
 
-`scripts/audit_public_demos.mjs` fetches the actual `projects.json` and deployed `previews/manifest.json`, requires all 30 IDs, and opens each published Demo in Chromium at **390×844** with **reduced motion** enabled.
+`scripts/audit_public_demos.mjs` fetches the actual `projects.json` and deployed `previews/manifest.json`, requires all 30 IDs, and opens each published Demo twice in Chromium at **390×844**: once with **reduced motion** and once with **normal motion** (`no-preference`). This produces 60 observations so decorative-video behavior can be compared under both settings.
 
 For each project it records:
 
 - HTTP document status and visible text length;
 - horizontal overflow in CSS pixels;
 - uncaught JavaScript exceptions;
-- broken `img` elements or HTML media errors;
+- broken `img` elements or HTML media errors;\n- the count of video elements and the count of media elements actively playing with decoded data at a bounded snapshot (these are **not** proof of visible/audible playback);
 - failed network requests grouped by **hostname**, without writing full external media URLs or query credentials.
 
 A structural failure (non-200 page or unreadable content) fails the job. Other observations are **reported, not silently treated as proof of quality**—some experimental sites intentionally scroll sideways, and remote resources may fail independently of the source project.
 
-The `production-demo-audit` artifact contains the full per-project JSON. Read it before adjusting styles or relabeling any Demo as verified. Browser snapshots alone do **not** prove original media ownership, license, video playback on phones or accessibility with VoiceOver.
+The `production-demo-audit` artifact contains the full per-project JSON, with `summary` preserving reduced-motion reporting and `normalMotionSummary` reporting normal motion separately. The Actions summary compares both modes side by side. Read it before adjusting styles or relabeling any Demo as verified. Browser snapshots alone do **not** prove original media ownership, license, video playback on phones or accessibility with VoiceOver.
 
 ## Running and interpreting checks
 
@@ -51,3 +51,10 @@ The following source demos have been updated in a focused branch to **not mount 
 CI runs `scripts/check_media_fallbacks.mjs` on the freshly built demos after `scripts/capture_previews.mjs` and checks that reduced-motion visitors do not request decorative videos and that blocked remote media does not cause a JavaScript exception or remove the page's text content.
 
 **Scope boundaries:** This only establishes a deterministic fallback for these projects. It does not determine whether media has been licensed, whether autoplay works on iOS Safari, whether the original media server is reliable, or whether every user should experience identical motion. For reusable media, obtain asset rights and attribution evidence separately.
+
+
+## 2026-10-20: dual-mode media regression coverage
+
+For normal-motion mode the same production script now collects a second complete set of 30 observations; it does **not** require zero remote-media errors. External CDN availability, user gesture autoplay rules, mobile browser policies and media ownership are outside what a single synthetic run can guarantee. A remote video may be loading slowly at the snapshot, or may have encountered a cross-origin error. Reports distinguish these findings from page readability, navigation and JavaScript stability.
+
+The public mobile run is complemented by a separate, read-only **Mac Chrome** headless spot check when Remote Desktop Commander is online. Mac Chrome and GitHub Actions Chromium are different environments; do not claim Safari has been tested merely because Safari is installed on the Mac. For true Safari and iPhone/Android coverage, use actual device/browser test runs and record their versions and results.
