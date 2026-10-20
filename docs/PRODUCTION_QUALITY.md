@@ -51,3 +51,9 @@ The following source demos have been updated in a focused branch to **not mount 
 CI runs `scripts/check_media_fallbacks.mjs` on the freshly built demos after `scripts/capture_previews.mjs` and checks that reduced-motion visitors do not request decorative videos and that blocked remote media does not cause a JavaScript exception or remove the page's text content.
 
 **Scope boundaries:** This only establishes a deterministic fallback for these projects. It does not determine whether media has been licensed, whether autoplay works on iOS Safari, whether the original media server is reliable, or whether every user should experience identical motion. For reusable media, obtain asset rights and attribution evidence separately.
+
+## Two motion settings (October 2026)
+
+The production workflow now runs the same **30-site mobile audit twice**. The original `reduce` pass checks accessibility-aware static fallbacks. A separate `no-preference` pass leaves ordinary animation enabled and reports failed video/media elements and requests grouped by host. The reports are saved separately as `all-demos.json` and `all-demos-normal-motion.json` in the `production-demo-audit` Actions artifact.
+
+Both passes fail only for unreadable or non-200 pages. Video errors, slow third-party media and horizontal scrolling remain observations requiring source and browser investigation, not automatic evidence of copyright status or a total page failure. Normal-motion inspection is still a single synthetic Chromium viewport, **not** Safari, iPhone or real-user field data.
