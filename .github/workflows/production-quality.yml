@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/audit_public_demos.mjs'
+      - 'scripts/audit_decorative_video_playback.mjs'
       - 'scripts/summarize_production_lighthouse.mjs'
       - 'lighthouserc.production.cjs'
       - '.github/workflows/production-quality.yml'
@@ -11,6 +12,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/audit_public_demos.mjs'
+      - 'scripts/audit_decorative_video_playback.mjs'
       - 'scripts/summarize_production_lighthouse.mjs'
       - 'lighthouserc.production.cjs'
       - '.github/workflows/production-quality.yml'
@@ -68,11 +70,17 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Audit all 30 public project pages at mobile width
         run: node scripts/audit_public_demos.mjs
+      - name: Confirm Google Chrome Stable for H264 playback
+        run: google-chrome --version
+      - name: Observe public video progress and fallbacks
+        run: node scripts/audit_decorative_video_playback.mjs
       - name: Keep source-safe demo observations
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: production-demo-audit
-          path: artifacts/production-browser/all-demos.json
+          path: |
+            artifacts/production-browser/all-demos.json
+            artifacts/production-browser/decorative-video-playback.json
           if-no-files-found: warn
           retention-days: 30
