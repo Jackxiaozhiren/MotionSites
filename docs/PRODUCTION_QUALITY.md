@@ -26,7 +26,8 @@ For each project it records:
 - HTTP document status and visible text length;
 - horizontal overflow in CSS pixels;
 - uncaught JavaScript exceptions;
-- broken `img` elements or HTML media errors;\n- the count of video elements and the count of media elements actively playing with decoded data at a bounded snapshot (these are **not** proof of visible/audible playback);
+- broken `img` elements or HTML media errors;
+- the count of video elements and the count of media elements actively playing with decoded data at a bounded snapshot (these are **not** proof of visible/audible playback);
 - failed network requests grouped by **hostname**, without writing full external media URLs or query credentials.
 
 A structural failure (non-200 page or unreadable content) fails the job. Other observations are **reported, not silently treated as proof of quality**—some experimental sites intentionally scroll sideways, and remote resources may fail independently of the source project.
