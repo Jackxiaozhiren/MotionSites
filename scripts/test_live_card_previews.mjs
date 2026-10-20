@@ -46,7 +46,7 @@ try {
       status:200,contentType:'text/html',
       body:`<!doctype html><html lang="en"><head><title>Scrolling fixture</title>
         <style>html{scroll-behavior:auto}body{margin:0;background:#123;color:white}
-        main{height:2600px;display:flex;flex-direction:column;justify-content:space-between}</style>
+        main{height:1350px;display:flex;flex-direction:column;justify-content:space-between}</style>
         </head><body><main><h1>Motion preview at top</h1>
         <footer>Motion preview at the bottom of a long sample project</footer></main>
         </body></html>`,
@@ -67,14 +67,48 @@ try {
     return !!frame?.contentDocument?.body &&
       frame.contentDocument.scrollingElement?.scrollTop > 30;
   },null,{timeout:7500});
-  const scroll = await first.locator('iframe').evaluate(frame => ({
-    top:frame.contentDocument.scrollingElement.scrollTop,
-    height:frame.contentDocument.scrollingElement.scrollHeight,
-  }));
-  assert.ok(scroll.top>30 && scroll.height>1800,JSON.stringify(scroll));
+  const scroll = await first.locator('iframe').evaluate(frame => {
+    const layer = frame.closest('.live-layer');
+    const rect = frame.getBoundingClientRect();
+    return {
+      top:frame.contentDocument.scrollingElement.scrollTop,
+      height:frame.contentDocument.scrollingElement.scrollHeight,
+      frameVisibleHeight:rect.height,
+      cardVisibleHeight:layer.getBoundingClientRect().height,
+    };
+  });
+  assert.ok(scroll.top>30 && scroll.height>1200,JSON.stringify(scroll));
+  assert.ok(Math.abs(scroll.frameVisibleHeight-scroll.cardVisibleHeight)<2,
+    'Scaled iframe viewport must fill the card crop: '+JSON.stringify(scroll));
   assert.ok(await page.locator('.live-layer iframe').count()<=1,
     '390px mobile must run at most one iframe');
-  console.log('PASS '+engine.name()+': actual visible iframe scrolls down automatically');
+
+  // Reaching the DOM scroll limit is not enough: the actual footer must
+  // become visible through the cropped live card instead of hiding beneath it.
+  await page.waitForFunction(() => {
+    const frame=document.querySelector('.card[data-demo="demos/axion-studio/"] .live-layer iframe');
+    const doc=frame?.contentDocument;
+    const footer=doc?.querySelector('footer');
+    if (!footer) return false;
+    const bounds=footer.getBoundingClientRect();
+    const viewport=frame.getBoundingClientRect().height;
+    const layer=frame.closest('.live-layer').getBoundingClientRect().height;
+    return bounds.bottom <= doc.documentElement.clientHeight + 3 &&
+      Math.abs(viewport-layer) < 2;
+  }, null, {timeout:11000});
+  console.log('PASS '+engine.name()+': mobile frame scrolls until its real footer is visible');
+
+  await page.setViewportSize({width:1440,height:900});
+  await first.scrollIntoViewIfNeeded();
+  await page.waitForFunction(() => {
+    const frame=document.querySelector('.card[data-demo="demos/axion-studio/"] .live-layer iframe');
+    if (!frame) return false;
+    const crop=frame.closest('.live-layer').getBoundingClientRect().height;
+    return Math.abs(frame.getBoundingClientRect().height - crop)<2;
+  },null,{timeout:7500});
+  assert.ok(await page.locator('.live-layer iframe').count()<=2,
+    'Desktop must run at most two iframes');
+  console.log('PASS '+engine.name()+': desktop frame scales to the visible card crop');
 
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForFunction(()=>document.querySelectorAll('.live-layer iframe').length===0,
