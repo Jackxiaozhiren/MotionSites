@@ -20,6 +20,9 @@ const demoSource = $('#demo-source');
 const demoClose = $('#demo-close');
 const demoLoading = $('#demo-loading');
 let demoWatch = null;
+// WebKit does not necessarily focus a button on pointer click, so native
+// <dialog> focus restoration may fall back to <body>. Remember the opener.
+let demoTrigger = null;
 const reset = $('#reset-filters');
 const share = $('#share-view');
 const shareStatus = $('#share-status');
@@ -177,6 +180,7 @@ grid.addEventListener('click', event => {
   demoFull.href = capture.demo;
   demoSource.href = sourceURL(project);
   demoFrame.title = 'Interactive preview of ' + project.title;
+  demoTrigger = trigger;
   demoDialog.showModal();
   // Assign src after showing the dialog so hidden frames do not prefetch demos.
   demoFrame.src = capture.demo;
@@ -188,6 +192,10 @@ demoDialog.addEventListener('close', () => {
   clearInterval(demoWatch);
   demoLoading.hidden = true;
   demoFrame.removeAttribute('src');
+  // Restore keyboard location consistently after pointer and keyboard flows,
+  // including WebKit/Safari where mouse-clicked buttons need not be focused.
+  if (demoTrigger?.isConnected) demoTrigger.focus({ preventScroll: true });
+  demoTrigger = null;
 });
 demoDialog.addEventListener('click', event => {
   // Native dialog provides focus containment, Escape handling and a backdrop.
