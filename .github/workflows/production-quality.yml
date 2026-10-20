@@ -46,7 +46,7 @@ jobs:
           node scripts/summarize_production_lighthouse.mjs
       - name: Keep raw production performance reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: production-lighthouse-3-runs
           path: |
@@ -76,7 +76,7 @@ jobs:
         run: node scripts/audit_decorative_video_playback.mjs
       - name: Keep source-safe demo observations
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: production-demo-audit
           path: |
