@@ -1,5 +1,5 @@
 /**
- * Regression checks for the seven previously reported media-error demos.
+ * Regression checks for nine demos with decorative remote media.
  * Run after scripts/capture_previews.mjs builds site/demos in CI.
  * Neither remote assets nor their licenses are copied or assumed.
  */
@@ -13,7 +13,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'http://127.0.0.1:4196/';
 const projects = [
   'aethera', 'vex', 'asme-motion', 'securify', 'linkflow',
-  'axion-studio-subproject', 'equilibrium',
+  'axion-studio-subproject', 'equilibrium', 'axion-studio', 'wanderful',
 ];
 const server = spawn('python3', ['-m', 'http.server', '4196', '--bind', '127.0.0.1',
   '--directory', resolve(root, 'site')], { stdio: 'ignore' });
@@ -64,7 +64,15 @@ try {
     });
     try {
       await failedPage.goto(origin+'demos/'+slug+'/',{waitUntil:'domcontentloaded',timeout:20000});
-      await failedPage.waitForTimeout(450);
+      if (slug === 'axion-studio' || slug === 'wanderful') {
+        // Both projects expose an explicit media error state so our public
+        // quality audit does not confuse removing failed media with success.
+        await failedPage.locator('[data-video-fallback="error"]').waitFor({state:'attached',timeout:7000});
+        assert.equal(await failedPage.locator('video').count(),0,
+          slug+' failed video element was not removed');
+      } else {
+        await failedPage.waitForTimeout(450);
+      }
       assert.ok(await failedPage.locator('body').innerText().then(s=>s.trim().length>=30),
         slug+' lost page content after remote media failure');
       assert.deepEqual(failureErrors,[],slug+' threw when media was blocked');
