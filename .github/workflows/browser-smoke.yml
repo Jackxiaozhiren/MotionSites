@@ -8,6 +8,7 @@ on:
       - 'projects/wanderful/**'
       - 'projects/foundation-new-digital-epoch/**'
       - 'scripts/smoke_gallery.mjs'
+      - 'scripts/smoke_webkit_gallery.mjs'
       - 'scripts/check_live_gallery.mjs'
       - 'scripts/render_social_card.mjs'
       - 'assets/motionsites-social-card.svg'
@@ -42,6 +43,21 @@ jobs:
           name: motionsites-social-preview
           path: artifacts/motionsites-social-preview.jpg
           retention-days: 30
+
+  gallery-webkit:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright WebKit for macOS
+        run: |
+          npm install --no-save --ignore-scripts --no-audit --no-fund playwright@1.56.1
+          npx playwright install webkit
+      - name: Test preview dialog focus and 390px guide in WebKit
+        run: node scripts/smoke_webkit_gallery.mjs
 
   featured-build:
     runs-on: ubuntu-latest

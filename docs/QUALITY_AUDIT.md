@@ -50,3 +50,11 @@ Browser checks do not certify accessibility; human review and specific third-par
 The same script is also invoked from the pull-request browser-smoke workflow to confirm that the **currently deployed baseline** still behaves as expected. A PR run against the live site is **not** a preview deployment of the proposed code. The Pages workflow runs it again **after** each release, making it a deployed-site regression gate.
 
 These checks still do not prove that third-party videos, embedded images, media licenses, all device/browser combinations or Core Web Vitals meet production requirements.
+
+## macOS WebKit preview-focus regression
+
+The `Browser Smoke and Featured Demo Builds` PR workflow also runs `scripts/smoke_webkit_gallery.mjs` on a macOS runner with Playwright WebKit. It verifies the 390px gallery and representative project guide, the opt-in iframe preview, dialog cleanup, and **focus restoration to the preview opener on both pointer- and keyboard-initiated close**.
+
+The test protects a specific real-world WebKit behavior: clicking a button with the pointer does not necessarily focus it on macOS, so native `<dialog>` can leave focus on `<body>` when closed. MotionSites explicitly remembers the trigger and refocuses it on the `close` event. The test does not rely on a published demo or third-party media; it runs on the PR's own local static gallery source with a same-origin fixture.
+
+This is **Playwright WebKit**, not the Safari desktop application and not an iPhone. Testing macOS Safari 27 requires enabling Safari's Developer → Allow Remote Automation preference or human manual review; the setting has not been changed automatically. Browser-engine coverage does not establish full WCAG conformance or rights to third-party assets.
