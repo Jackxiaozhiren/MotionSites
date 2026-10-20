@@ -84,8 +84,10 @@ try {
   await first.scrollIntoViewIfNeeded();
   await first.locator('.live-layer iframe').waitFor();
   await page.locator('#live-previews').uncheck();
+  await page.waitForFunction(() =>
+    document.querySelectorAll('.live-layer iframe').length === 0 &&
+    !document.querySelector('#grid').classList.contains('live-grid'));
   assert.equal(await page.locator('.live-layer iframe').count(),0);
-  assert.equal(await page.locator('.grid.live-grid').count(),0);
   console.log('PASS '+engine.name()+': manual screenshot mode stops all demos');
   await page.locator('#live-previews').check();
   await first.scrollIntoViewIfNeeded();
