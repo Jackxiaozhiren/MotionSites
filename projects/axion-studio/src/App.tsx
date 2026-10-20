@@ -202,18 +202,19 @@ function App() {
         ref={videoBgRef}
         className="fixed top-0 left-0 w-full h-full z-0 scale-[1.08] origin-center bg-gradient-to-br from-[#152f42] via-[#121e35] to-black"
         aria-hidden="true"
+        data-video-fallback={mediaFailed ? 'error' : reducedMotion ? 'reduced' : 'none'}
       >
-        <video
+        {!reducedMotion && !mediaFailed && <video
           ref={videoRef}
-          src={reducedMotion || mediaFailed ? undefined : VIDEO_SRC}
+          src={VIDEO_SRC}
           muted
           playsInline
           preload="metadata"
           onError={() => setMediaFailed(true)}
           crossOrigin="anonymous"
           className="w-full h-full object-cover"
-          style={{ display: reducedMotion || mediaFailed || framesReady ? 'none' : 'block' }}
-        />
+          style={{ display: framesReady ? 'none' : 'block' }}
+        />}
         <canvas
           ref={displayCanvasRef}
           className="w-full h-full object-cover"

@@ -59,3 +59,12 @@ CI runs `scripts/check_media_fallbacks.mjs` on the freshly built demos after `sc
 For normal-motion mode the same production script now collects a second complete set of 30 observations; it does **not** require zero remote-media errors. External CDN availability, user gesture autoplay rules, mobile browser policies and media ownership are outside what a single synthetic run can guarantee. A remote video may be loading slowly at the snapshot, or may have encountered a cross-origin error. Reports distinguish these findings from page readability, navigation and JavaScript stability.
 
 The public mobile run is complemented by a separate, read-only **Mac Chrome** headless spot check when Remote Desktop Commander is online. Mac Chrome and GitHub Actions Chromium are different environments; do not claim Safari has been tested merely because Safari is installed on the Mac. For true Safari and iPhone/Android coverage, use actual device/browser test runs and record their versions and results.
+
+
+## 2026-10-20: preserve evidence when videos fail
+
+The first normal-motion 30-demo scan identified two media-element errors: **Axion Studio (ID 20)** and **Wanderful (ID 22)**. Each uses an externally hosted decorative video and already has an original CSS gradient behind it. The focused change unmounts failed videos rather than leaving broken elements in place. Both projects now expose an explicit `data-video-fallback="error"` marker on the background wrapper while the page remains readable.
+
+The public audit independently counts **`pagesWithMediaFallbackErrors`** alongside currently broken media elements; otherwise unmounting an errored video could misleadingly turn a real asset failure into a clean report. The marker is not a marketing or UI failure indicator; it is a diagnostic that allows maintainers to see that a fallback occurred. A 1.2-second synthetic video observation can also miss transient failures or slow streams.
+
+The captured-video regression tests simulate blocked remote media for **nine** projects (the original seven plus Axion Studio and Wanderful), assert that their text remains present and no uncaught exception occurs, and specifically check the two explicit fallback markers. No video is copied, mirrored, or relicensed.

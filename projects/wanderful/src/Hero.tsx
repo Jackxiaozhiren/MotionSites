@@ -19,6 +19,7 @@ function useReducedMotion() {
 export default function Hero() {
   const videoWrapperRef = useRef<HTMLDivElement>(null)
   const [mounted, setMounted] = useState(false)
+  const [mediaFailed, setMediaFailed] = useState(false)
   const reducedMotion = useReducedMotion()
 
   useEffect(() => {
@@ -53,13 +54,14 @@ export default function Hero() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden relative" style={{ fontFamily: "'Inter', sans-serif" }}>
       {/* Video Background */}
-      <div ref={videoWrapperRef} aria-hidden="true" className="fixed inset-0 z-0 origin-center scale-[1.08] bg-gradient-to-br from-[#0d2030] via-[#21465b] to-[#101520]">
-        {!reducedMotion && <video
+      <div ref={videoWrapperRef} aria-hidden="true" data-video-fallback={mediaFailed ? 'error' : reducedMotion ? 'reduced' : 'none'} className="fixed inset-0 z-0 origin-center scale-[1.08] bg-gradient-to-br from-[#0d2030] via-[#21465b] to-[#101520]">
+        {!reducedMotion && !mediaFailed && <video
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
+          onError={() => setMediaFailed(true)}
           onLoadedMetadata={event => { event.currentTarget.playbackRate = 1.25 }}
           className="w-full h-full object-cover"
           src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260510_060007_60275ce7-030c-4668-a160-8f364ec537d3.mp4"
