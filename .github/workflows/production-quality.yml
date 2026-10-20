@@ -68,11 +68,17 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Audit all 30 public project pages at mobile width
         run: node scripts/audit_public_demos.mjs
+      - name: Audit normal-motion playback and page health
+        env:
+          MOTIONSITES_MOTION: no-preference
+        run: node scripts/audit_public_demos.mjs
       - name: Keep source-safe demo observations
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: production-demo-audit
-          path: artifacts/production-browser/all-demos.json
+          path: |
+            artifacts/production-browser/all-demos.json
+            artifacts/production-browser/all-demos-normal-motion.json
           if-no-files-found: warn
           retention-days: 30
