@@ -20,11 +20,11 @@ if (!response.ok) throw Error('Public manifest unavailable: HTTP ' + response.st
 const manifest = await response.json();
 assert.ok(Array.isArray(manifest.captures), 'Missing published capture list');
 const captures = new Map(manifest.captures.map(item => [item.id, item]));
-const browser = await chromium.launch({
-  headless: true,
-  ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}),
-});
+// Playwright's bundled Chromium may omit proprietary H.264 decoding.
+// Match real users with the Google Chrome Stable channel installed on GitHub runners.
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const observations = [];
+const chromeVersion = browser.version();
 try {
   for (const target of targets) {
     const capture = captures.get(target.id);
@@ -79,6 +79,9 @@ try {
         textLength: document.body?.innerText?.trim().length ?? 0,
         horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - innerWidth),
         mediaErrorEvents: window.__motionMediaErrors ?? [],
+        h264CodecSupport: document.createElement('video').canPlayType(
+          'video/mp4; codecs="avc1.4D401F"'),
+
       };
     }, seconds);
 
@@ -132,7 +135,8 @@ const output = resolve('artifacts/production-browser');
 await mkdir(output, { recursive: true });
 await writeFile(resolve(output, 'decorative-video-playback.json'),
   JSON.stringify({
-    scope: 'Real public Pages URLs, 390x844 normal-motion Chromium, 6.5s observation after hydration',
+    scope: 'Real public Pages URLs, 390x844 normal-motion Google Chrome Stable, 6.5s observation after hydration',
+    browser: { channel: 'chrome', version: chromeVersion },
     caveat: 'Time progression is a browser playback indicator, not visual quality, rights, field CWV or physical Safari proof.',
     observations,
   }, null, 2) + '\n');
