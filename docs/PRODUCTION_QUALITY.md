@@ -71,7 +71,7 @@ The captured-video regression tests simulate blocked remote media for **nine** p
 
 ## Normal-motion decorative video progress (October 2026)
 
-The main mobile audit records video-element errors and fallback states after a short snapshot; this can miss playback that starts later. A focused **public Pages video progression probe** now visits Axion Studio (ID 20) and Wanderful (ID 22) at 390×844 under normal motion, takes snapshots at 0, 3 and 6.5 seconds after hydration, and records:
+The main mobile audit records video-element errors and fallback states after a short snapshot; this can miss playback that starts later. The focused probe intentionally uses **Google Chrome Stable**, not Playwright's bundled Chromium: bundled Chromium builds may lack proprietary H.264 decoding and report media error code 4 even when the same MP4 plays correctly in Chrome. The probe also records the browser version and `canPlayType` answer for H.264. A focused **public Pages video progression probe** now visits Axion Studio (ID 20) and Wanderful (ID 22) at 390×844 under normal motion, takes snapshots at 0, 3 and 6.5 seconds after hydration, and records:
 
 - HTMLVideoElement `currentTime`, `readyState`, error code and frame dimensions when a video exists;
 - whether the existing `data-video-fallback="error"` marker shows a graceful CSS background fallback;
