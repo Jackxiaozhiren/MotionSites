@@ -123,7 +123,7 @@ function render() {
       ? `<button type="button" class="open open--preview" data-preview-id="${project.id}">Preview here ↗<span class="sr-only"> — ${escapeHTML(project.title)}</span></button>
         <a class="open open--demo" target="_blank" rel="noopener noreferrer" href="${capture.demo}">Full demo ↗</a>`
       : '';
-    return `<article class="card">
+    return `<article class="card" data-demo="${capture ? capture.demo : ''}">
       <a class="cover-link" target="_blank" rel="noopener noreferrer" href="${link}">${cover}</a>
       <div class="info">
         <div class="card-eyebrow"><span class="num">PROJECT ${pad(project.id)}</span>${badge}</div>
