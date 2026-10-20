@@ -9,6 +9,7 @@ import { chromium } from 'playwright';
 import { mkdir, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
+const motionMode = process.env.MOTIONSITES_MOTION === 'no-preference' ? 'no-preference' : 'reduce';
 const origin = 'https://jackxiaozhiren.github.io/MotionSites/';
 const output = resolve('artifacts/production-browser');
 const responseJSON = async path => {
@@ -36,13 +37,13 @@ try {
         continue;
       }
       const item = {
-        id:project.id, title:project.title, demo:capture.demo, viewport:'390x844',
+        id:project.id, title:project.title, demo:capture.demo, viewport:'390x844', motionMode,
         status:null, textLength:0, horizontalOverflowPx:null,
         scriptErrors:0, brokenImageElements:0, mediaErrors:0,
         failedRequestsByHost:{}, failedHttpByHost:{}, failedHttpPaths:[], notes:[],
       };
       const context = await browser.newContext({
-        viewport:{width:390,height:844}, reducedMotion:'reduce',
+        viewport:{width:390,height:844}, reducedMotion:motionMode,
       });
       const page = await context.newPage();
       page.on('pageerror', () => item.scriptErrors++);
@@ -103,7 +104,7 @@ try {
 items.sort((a,b)=>a.id-b.id);
 const tally = key => items.filter(x=>(x[key]||0)>0).length;
 const summary = {
-  scope:'Published URLs, 390×844 reduced-motion Chromium, one navigation per demo',
+  scope:'Published URLs, 390×844 '+motionMode+' Chromium, one navigation per demo',
   caveat:'Automated snapshot: dynamic content, external media, licensing, browser diversity, and real mobile hardware require further review.',
   total:items.length, navigated200:items.filter(x=>x.status===200).length,
   structuralProblems:items.filter(x=>x.status!==200 || x.textLength<20).length,
@@ -114,16 +115,16 @@ const summary = {
   pagesWithSameOriginHttpErrors:items.filter(x=>x.failedHttpPaths.length).length,
 };
 await mkdir(output,{recursive:true});
-await writeFile(resolve(output,'all-demos.json'),JSON.stringify({summary,items},null,2)+'\n');
+await writeFile(resolve(output, motionMode === 'reduce' ? 'all-demos.json' : 'all-demos-normal-motion.json'),JSON.stringify({summary,items},null,2)+'\n');
 const lines=[
-  '## Public 30-demo mobile browser audit',
+  '## Public 30-demo mobile browser audit ('+motionMode+')',
   '',
-  '**Real published URLs in GitHub Actions Chromium, 390×844 with reduced motion. This is not manual iOS/Safari, a license determination or a field performance test.**',
+  '**Real published URLs in GitHub Actions Chromium, 390×844, motion setting '+motionMode+'. This is not manual iOS/Safari, a license determination or a field performance test.**',
   '',
   '| Metric | Count |','|---|---:|',
   ...Object.entries(summary).filter(([k,v])=>typeof v==='number').map(([key,value])=>'| '+key+' | '+value+' |'),
   '',
-  'Full per-demo observations (hostnames only, no external URL tokens): Actions artifact `production-demo-audit`.',
+  'Full per-demo observations (hostnames only, no external URL tokens): Actions artifact for this motion setting.',
 ];
 const markdown=lines.join('\n')+'\n';
 console.log(markdown);
