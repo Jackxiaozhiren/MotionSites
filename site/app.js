@@ -263,6 +263,18 @@ async function loadCaptures() {
         typeof item.image === 'string' && /^previews\/[a-z0-9-]+\.jpg$/.test(item.image) &&
         typeof item.demo === 'string' && /^demos\/[a-z0-9-]+\/$/.test(item.demo))
       .map(item => [item.id, item]));
+    // Hero photos must be real screenshots confirmed by the same published
+    // manifest as the gallery. Until verified (or if offline), keep the
+    // authored typographic panels, not broken-image icons or stock imagery.
+    document.querySelectorAll('.stage-shot img[data-feature-id]').forEach(image => {
+      const capture = captures.get(Number(image.dataset.featureId));
+      if (!capture) return;
+      image.addEventListener('load', () =>
+        image.closest('.stage-shot')?.classList.add('is-loaded'), { once: true });
+      image.addEventListener('error', () =>
+        image.closest('.stage-shot')?.classList.add('is-unavailable'), { once: true });
+      image.src = capture.image;
+    });
   } catch {
     // Source gallery still works when demo captures have not been deployed.
     status.textContent = 'Live demos are temporarily unavailable; all source projects remain accessible.';
