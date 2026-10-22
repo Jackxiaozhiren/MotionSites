@@ -41,7 +41,7 @@ jobs:
       - name: Render rights-independent social preview JPG
         run: node scripts/render_social_card.mjs
       - name: Upload social preview for GitHub Settings
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: motionsites-social-preview
           path: artifacts/motionsites-social-preview.jpg

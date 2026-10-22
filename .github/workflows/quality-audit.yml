@@ -38,7 +38,7 @@ jobs:
         run: node scripts/audit_accessibility.mjs
       - name: Upload accessibility findings
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: axe-accessibility-results
           path: artifacts/accessibility/axe-results.json
@@ -65,7 +65,7 @@ jobs:
           node scripts/summarize_lighthouse.mjs
       - name: Upload Lighthouse HTML/JSON results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: lighthouse-baseline
           path: |

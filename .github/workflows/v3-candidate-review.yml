@@ -35,7 +35,7 @@ jobs:
         run: node scripts/review_v3_candidate.mjs ${{ matrix.candidate }}
       - name: Keep actual screenshots and audit evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: v3-candidate-${{ matrix.candidate }}
           path: artifacts/v3-candidates/${{ matrix.candidate }}/
