@@ -57,6 +57,13 @@ try {
     'Hero must not request screenshots before the published manifest verifies them');
   assert.equal(await page.locator('.hero-stage .stage-placeholder').count(), 3,
     'Authored typographic artwork should replace unverified screenshots');
+  assert.equal(await page.locator('.feature-focus-card').count(), 2);
+  assert.equal(await page.locator('.feature-focus-media img[src]').count(), 0,
+    'Extra editorial features must not load unverified photos');
+  assert.equal(await page.locator('.feature-focus-card a[href^="demos/"]').count(), 2,
+    'Featured studies must link to real demos');
+  assert.equal(await page.locator('#reading-progress').count(), 1);
+  assert.equal(await page.locator('#back-to-top').isVisible(), false);
   assert.equal(await page.locator('.orb').count(), 0,
     'The old generic placeholder orb must not be shown in the new hero');
   log('editorial hero has named real-project links and honest screenshot fallbacks');
@@ -110,6 +117,8 @@ try {
   assert.match(await page.locator('.open--demo').getAttribute('href'), /demos\/axion-studio/);
   assert.equal(await page.locator('.stage-shot img[src]').count(), 0,
     'A one-project manifest must not mark unlisted hero screenshots as verified');
+  assert.equal(await page.locator('.feature-focus-media img[src]').count(), 1,
+    'Only a verified featured project should load its true screenshot');
   log('published manifest correctly enables a verified demo link');
 
   // Card previews may load automatically. Turn them off and await teardown
@@ -172,6 +181,17 @@ try {
   assert.equal(metrics.featuredPanels, 3, 'Hero should feature three real site previews');
   assert.equal(metrics.editorialHero, true);
   assert.equal(metrics.stageTransition, '0s', 'Reduced motion disables decorative transitions');
+  assert.equal(await page.locator('.feature-focus-card').first()
+    .evaluate(el => getComputedStyle(el).transitionDuration), '0s');
+  assert.equal(await page.locator('nav').evaluate(el => getComputedStyle(el).position), 'sticky');
+  await page.evaluate(() => scrollTo(0, 1400));
+  await page.locator('#back-to-top').waitFor({state:'visible'});
+  const railTransform = await page.locator('#reading-progress')
+    .evaluate(el => getComputedStyle(el).transform);
+  assert.notEqual(railTransform, 'matrix(0, 0, 0, 1, 0, 0)');
+  await page.locator('#back-to-top').click();
+  await page.waitForFunction(() => scrollY < 5);
+  log('sticky reading-progress rail and keyboard-focusable return-to-top');
 
   // Mobile dialog should remain inside the viewport and respond to Close.
   await page.unroute('**/previews/manifest.json');
