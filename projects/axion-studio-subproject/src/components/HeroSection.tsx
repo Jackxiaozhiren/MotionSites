@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Clock, Menu, X, ArrowRight } from 'lucide-react';
 import { Shader, Swirl, ChromaFlow, FlutedGlass, FilmGrain } from 'shaders/react';
 import { useBeijingClock } from '../hooks/useLondonClock';
@@ -7,12 +7,39 @@ import TextRollButton from './TextRollButton';
 export default function HeroSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const beijingTime = useBeijingClock();
+  const [reducedMotion, setReducedMotion] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const syncPreference = () => setReducedMotion(media.matches);
+    media.addEventListener('change', syncPreference);
+    return () => media.removeEventListener('change', syncPreference);
+  }, []);
+
+  // The shader is decorative, but its multi-pass GPU background is expensive.
+  // Render it at 75% resolution in the full demo, or 60% in an embedded
+  // thumbnail where it is scaled down again. Scale up ONLY the background:
+  // navigation, text and buttons remain pixel-sharp and fully interactive.
+  const embedded = typeof window !== 'undefined' && window.parent !== window;
+  const shaderResolution = embedded ? 0.6 : 0.75;
 
   return (
     <section className="relative h-screen bg-[#EFEFEF] overflow-hidden">
       {/* Shader Overlay */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
-        <Shader disableTelemetry className="w-full h-full">
+      <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-br from-[#f9f9f9] via-[#fff0e7] to-[#eacbbb]">
+        {!reducedMotion && <Shader
+          disableTelemetry
+          className="w-full h-full"
+          style={{
+            width: `${shaderResolution * 100}%`,
+            height: `${shaderResolution * 100}%`,
+            transform: `scale(${1 / shaderResolution})`,
+            transformOrigin: 'top left',
+          }}
+        >
           <Swirl colorA="#ffffff" colorB="#f0f0f0" detail={1.7} />
           <ChromaFlow
             baseColor="#ffffff"
@@ -36,7 +63,7 @@ export default function HeroSection() {
             speed={0.15}
           />
           <FilmGrain strength={0.05} />
-        </Shader>
+        </Shader>}
       </div>
 
       {/* Navigation */}

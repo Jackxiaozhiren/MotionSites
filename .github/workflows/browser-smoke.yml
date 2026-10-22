@@ -5,6 +5,8 @@ on:
     paths:
       - 'site/**'
       - 'projects/axion-studio/**'
+      - 'projects/axion-studio-subproject/**'
+      - 'scripts/test_axion_subproject_shader.mjs'
       - 'projects/wanderful/**'
       - 'projects/foundation-new-digital-epoch/**'
       - 'scripts/smoke_gallery.mjs'
@@ -36,6 +38,11 @@ jobs:
         run: node scripts/smoke_gallery.mjs
       - name: Verify viewport-driven live scroll previews
         run: node scripts/test_live_card_previews.mjs
+      - name: Build and test Axion subproject motion and shader sizing
+        run: |
+          npm --prefix projects/axion-studio-subproject install --ignore-scripts --no-audit --no-fund --no-package-lock
+          npm --prefix projects/axion-studio-subproject run build
+          node scripts/test_axion_subproject_shader.mjs
       - name: Exercise production preview lifecycle
         run: node scripts/check_live_gallery.mjs
       - name: Render rights-independent social preview JPG
