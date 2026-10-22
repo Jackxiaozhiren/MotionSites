@@ -32,6 +32,10 @@ For contributors, see [the showcase guide](docs/SHOWCASE_GUIDE.md) and [contribu
 
 ## 🌐 Explore the interactive gallery
 
+The second editorial pass adds a **Selected Moments** section featuring verified snapshots of Axion Studio and Wanderful, sticky exhibition navigation with a lightweight reading-progress rail, a keyboard-friendly back-to-top link and a clearer primary action on each work. These panels use the same published screenshot manifest and do **not** create extra live iframes. Embedded animations, scroll continuity, reduced-motion, data-saving, search/filter/shareable URLs and source guides remain intact.
+
+
+
 > **New source layout:** All 30 independent projects now have readable directories under [`projects/`](projects/), such as [`projects/axion-studio/`](projects/axion-studio/) and [`projects/mindloop/`](projects/mindloop/). If you previously bookmarked a numeric folder path, consult the [old → new directory map](docs/PROJECT_DIRECTORY_MIGRATION.md).
 
 
