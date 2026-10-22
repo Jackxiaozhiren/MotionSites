@@ -18,7 +18,8 @@
   let scheduled = false;
   let observer;
   const BASE_HEIGHT = 800;
-  const STEP_MS = 90;
+  const SCROLL_INTERVAL = 32; // smooth ~30fps instead of jumpy 90ms intervals
+  let animationFrame = 0;
 
   function permitted() {
     return toggle.checked && !reduced.matches &&
@@ -41,7 +42,6 @@
   function stop(card) {
     const state = active.get(card);
     if (!state) return;
-    clearInterval(state.timer);
     clearTimeout(state.hydrateTimer);
     state.frame.onload = null;
     // Navigate away before removing the frame to stop remote media and RAFs.
@@ -57,7 +57,9 @@
   function resize(state) {
     const width = state.card.getBoundingClientRect().width;
     const baseWidth = innerWidth < 720 ? 430 : 1000;
-    if (width <= 0) return;
+    if (width <= 0 || (state.lastWidth === width && state.baseWidth === baseWidth)) return;
+    state.lastWidth = width;
+    state.baseWidth = baseWidth;
     const scale = width / baseWidth;
     state.frame.width = String(baseWidth);
     state.layer.style.setProperty('--preview-base-width', baseWidth + 'px');
@@ -93,14 +95,13 @@
     } catch { return null; }
   }
 
-  function advance(state) {
-    if (!state.frame.isConnected || !state.loaded || !permitted()) return;
+  function advance(state, now) {
+    if (!state.visible || !state.frame.isConnected || !state.loaded || !permitted()) return;
     try {
       const target = scrollable(state.frame);
       if (!target) return;
       const range = Math.max(0, target.scrollHeight - target.clientHeight);
       if (range < 40) return; // Some designs are intentionally one screen.
-      const now = performance.now();
       if (!state.lastTime) state.lastTime = now;
       const delta = Math.min(180, now - state.lastTime);
       state.lastTime = now;
@@ -150,9 +151,15 @@
     pill.className = 'live-pill';
     pill.textContent = 'LIVE · AUTO SCROLL';
     layer.append(frame, pill);
+    // The real iframe receives native desktop hover/mousemove animation events.
+    // On touch screens it remains inert so vertical swipe always scrolls gallery.
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      layer.classList.add('live-layer--pointer');
+    }
     card.append(layer);
     const state = {
-      card, layer, frame, timer: null, loaded: false,
+      card, layer, frame, loaded: false, visible: false,
+      lastWidth: 0, baseWidth: 0, lastTick: 0,
       lastTime: 0, y: 0, holdUntil: 0, restart: false, target: null,
       hydrateTimer: null,
     };
@@ -160,6 +167,23 @@
     resize(state);
     frame.onload = () => {
       if (active.get(card) !== state) return;
+      // Forward pointer wheel gestures to the gallery, instead of trapping
+      // visitors inside an embedded demo. Hover and cursor effects stay native.
+      try {
+        const doc = frame.contentDocument;
+        doc?.addEventListener('wheel', event => {
+          if (event.ctrlKey) return; // Preserve browser zoom gestures.
+          event.preventDefault();
+          const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1;
+          scrollBy({ top: event.deltaY * unit, left: event.deltaX * unit });
+        }, { capture: true, passive: false });
+        // Keep live previews non-navigating. Full interactions belong to the
+        // explicit Preview here / Full demo links on the enclosing card.
+        doc?.addEventListener('click', event => {
+          if (event.target?.closest?.('a[href], area[href]')) event.preventDefault();
+        }, true);
+        doc?.addEventListener('submit', event => event.preventDefault(), true);
+      } catch { /* Only accessible for same-origin published demos. */ }
       // Keep the screenshot visible until the real React/HTML page hydrates.
       // A network load event alone can fire on an empty SPA shell.
       const started = performance.now();
@@ -180,34 +204,60 @@
       state.hydrateTimer = setTimeout(checkReady, 350);
     };
     frame.src = path;
-    state.timer = setInterval(() => advance(state), STEP_MS);
+    // All visible cards are updated by one shared requestAnimationFrame loop.
   }
 
   function refresh() {
     scheduled = false;
     describeState();
-    for (const card of active.keys()) {
-      if (!card.isConnected || !permitted() || !card.dataset.demo) stop(card);
+    if (!permitted()) {
+      stopAll();
+      return;
     }
-    if (!permitted()) return;
-    const screenHeight = innerHeight || 800;
-    const eligible = cards.filter(card => {
-      if (!card.dataset.demo || !card.isConnected) return false;
-      const r = card.getBoundingClientRect();
-      const visible = Math.max(0, Math.min(r.bottom, screenHeight) - Math.max(r.top, 0));
-      return visible >= Math.min(r.height * .35, 170);
-    }).sort((a, b) => {
-      const ra = a.getBoundingClientRect();
-      const rb = b.getBoundingClientRect();
-      return Math.abs((ra.top + ra.bottom)/2 - screenHeight/2) -
-        Math.abs((rb.top + rb.bottom)/2 - screenHeight/2);
-    }).slice(0, innerWidth < 720 ? 1 : 2);
-    for (const card of active.keys()) if (!eligible.includes(card)) stop(card);
-    for (const card of eligible) {
-      start(card);
-      const state = active.get(card);
-      if (state) resize(state);
+
+    const height = innerHeight || 800;
+    const maxFrames = innerWidth < 720 ? 2 : 3;
+    // Keep a small neighboring buffer alive during normal scroll reversals;
+    // previously an arbitrary 35% card threshold unloaded while still visible.
+    const warmMargin = Math.min(600, Math.round(height * .7));
+    const candidates = cards.map(card => {
+      const cover = card.querySelector('.cover');
+      const r = (cover || card).getBoundingClientRect();
+      const visible = r.bottom > 0 && r.top < height;
+      const near = r.bottom > -warmMargin && r.top < height + warmMargin;
+      const distance = Math.abs((r.top + r.bottom) / 2 - height / 2);
+      return { card, near, visible, distance };
+    }).filter(item => item.near && item.card.dataset.demo);
+    candidates.sort((a, b) =>
+      Number(b.visible) - Number(a.visible) || a.distance - b.distance);
+    const chosen = candidates.slice(0, maxFrames);
+    const keep = new Set(chosen.map(item => item.card));
+
+    for (const card of active.keys()) if (!keep.has(card) || !card.isConnected) stop(card);
+    for (const item of chosen) {
+      start(item.card);
+      const state = active.get(item.card);
+      if (!state) continue;
+      if (state.visible !== item.visible) {
+        state.visible = item.visible;
+        state.lastTime = 0; // Avoid fast-forwarding after scrolling back.
+      }
+      resize(state);
     }
+  }
+
+  function tick(now) {
+    if (!permitted()) {
+      if (active.size) stopAll();
+    } else {
+      for (const state of active.values()) {
+        if (state.visible && now - state.lastTick >= SCROLL_INTERVAL) {
+          state.lastTick = now;
+          advance(state, now);
+        }
+      }
+    }
+    animationFrame = requestAnimationFrame(tick);
   }
 
   function schedule() {
@@ -243,6 +293,10 @@
   });
   addEventListener('scroll', schedule, { passive: true });
   addEventListener('resize', schedule, { passive: true });
-  addEventListener('pagehide', stopAll);
+  addEventListener('pagehide', () => {
+    stopAll();
+    cancelAnimationFrame(animationFrame);
+  });
   rebuild();
+  animationFrame = requestAnimationFrame(tick);
 })();
