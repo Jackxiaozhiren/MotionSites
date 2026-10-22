@@ -36,6 +36,10 @@ try {
   await page.route('**/previews/manifest.json', route => route.fulfill({
     status:200,contentType:'application/json',
     body:JSON.stringify({captures:[
+      // The first six cards supply adjacent rows for ranking stress tests.
+      ...Array.from({length:6}, (_, i) => ({
+        id:i+1,image:'previews/test-'+(i+1)+'.jpg',demo:'demos/test-'+(i+1)+'/',
+      })),
       {id:20,image:'previews/axion-studio.jpg',demo:'demos/axion-studio/'},
       {id:22,image:'previews/wanderful.jpg',demo:'demos/wanderful/'},
     ]}),
@@ -136,6 +140,40 @@ try {
   assert.ok(await page.locator('.live-layer iframe').count()<=3,
     'Desktop must run at most three nearby iframes');
   console.log('PASS '+engine.name()+': desktop frame scales to the visible card crop');
+
+  // Regression: without an active-frame preference, tiny reversals at a row
+  // boundary repeatedly destroy two competing React iframe instances.
+  // Discover a real 3-frame selection boundary rather than hardcode pixels,
+  // so this works across Chromium/WebKit and varying font metrics.
+  const gridTop = await page.locator('#grid').evaluate(el =>
+    el.getBoundingClientRect().top + scrollY);
+  let boundary = null;
+  let previousSelection = null;
+  for (let y = Math.max(0, Math.round(gridTop) - 600); y < gridTop + 1300; y += 20) {
+    await page.evaluate(y => window.scrollTo({top:y,behavior:'instant'}), y);
+    await page.waitForTimeout(45);
+    const selection = await page.locator('.live-layer iframe').evaluateAll(frames =>
+      frames.map(frame => frame.getAttribute('src')).sort().join(','));
+    if (previousSelection && previousSelection !== selection &&
+        previousSelection.split(',').length === 3 && selection.split(',').length === 3) {
+      boundary = y;
+      break;
+    }
+    previousSelection = selection;
+  }
+  assert.ok(boundary !== null, 'Fixture must expose an adjacent-row ranking boundary');
+  const requestsAtBoundary = requests;
+  for (let i = 0; i < 12; i++) {
+    await page.evaluate(y => window.scrollTo({top:y,behavior:'instant'}),
+      boundary + (i % 2 ? -10 : 10));
+    await page.waitForTimeout(70);
+  }
+  assert.ok(requests - requestsAtBoundary <= 2,
+    'Short row-boundary reversals must not reload running iframes: ' +
+    JSON.stringify({before:requestsAtBoundary,after:requests}));
+  assert.ok(await page.locator('.live-layer iframe').count() <= 3,
+    'Hysteresis may not exceed the desktop iframe budget');
+  console.log('PASS '+engine.name()+': boundary jitter preserves iframe instances');
 
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForFunction(()=>document.querySelectorAll('.live-layer iframe').length===0,

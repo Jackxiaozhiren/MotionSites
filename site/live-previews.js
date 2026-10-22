@@ -19,6 +19,10 @@
   let observer;
   const BASE_HEIGHT = 800;
   const SCROLL_INTERVAL = 32; // smooth ~30fps instead of jumpy 90ms intervals
+  // Keep an already-running demo when two equally visible cards swap rank
+  // by a few pixels. Recreating a React iframe drops its animation state and
+  // can replay hundreds of asset requests during small scroll reversals.
+  const ACTIVE_DISTANCE_BONUS = 120;
   let animationFrame = 0;
 
   function permitted() {
@@ -244,8 +248,13 @@
       const distance = Math.abs((r.top + r.bottom) / 2 - height / 2);
       return { card, near, visible, distance };
     }).filter(item => item.near && item.card.dataset.demo);
+    // Prioritize actually visible cards, but favor an existing iframe within
+    // each visibility tier until a newcomer is meaningfully closer. This
+    // creates a hysteresis band without relaxing the strict frame cap.
     candidates.sort((a, b) =>
-      Number(b.visible) - Number(a.visible) || a.distance - b.distance);
+      Number(b.visible) - Number(a.visible) ||
+      (a.distance - (active.has(a.card) ? ACTIVE_DISTANCE_BONUS : 0)) -
+      (b.distance - (active.has(b.card) ? ACTIVE_DISTANCE_BONUS : 0)));
     const chosen = candidates.slice(0, maxFrames);
     const keep = new Set(chosen.map(item => item.card));
 

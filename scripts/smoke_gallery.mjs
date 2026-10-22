@@ -102,8 +102,12 @@ try {
   assert.match(await page.locator('.open--demo').getAttribute('href'), /demos\/axion-studio/);
   log('published manifest correctly enables a verified demo link');
 
-  // An actual demo is embedded only on an explicit request. Check the native
-  // dialog lifecycle so opening multiple previews never leaves running frames.
+  // Card previews may load automatically. Turn them off and await teardown
+  // *before* installing the request counter for the separate modal test.
+  // Otherwise an in-flight card request is mistaken for a second modal load.
+  await page.locator('#live-previews').uncheck();
+  await page.waitForFunction(() => document.querySelectorAll('.live-layer iframe').length === 0);
+  // The explicit modal never leaves a frame running after Close or Escape.
   let demoLoads = 0;
   await page.route('**/demos/axion-studio/', async route => {
     demoLoads += 1;
@@ -115,7 +119,6 @@ try {
   });
   assert.equal(demoLoads, 0, 'Demo must not load before a visitor opens it');
   // The modal test is separate from autoplaying card previews.
-  await page.locator('#live-previews').uncheck();
   const inlineButton = page.locator('button[data-preview-id="20"]');
   assert.equal(await inlineButton.count(), 1);
   assert.equal(await page.locator('#demo-frame').getAttribute('src'), null);
