@@ -36,7 +36,9 @@ For contributors, see [the showcase guide](docs/SHOWCASE_GUIDE.md) and [contribu
 
 
 
-A **searchable, filterable, motion-inspired gallery** is included in [`site/`](site/): browse all 30 projects by technology, find a concept quickly, and open each project's source on GitHub.
+The [`site/`](site/) Gallery now has an **editorial exhibition-style visual identity**, with an original typographic hero, premium card layout and a featured montage made from **three verified real website screenshots** (Prisma, Jack and Foundation). Screenshots only load after the published capture manifest confirms them; if a capture is missing, designed text panels take over. All 30 cards retain automatic, viewport-bounded real website previews, filtering, search, reduced-motion support and source links. The redesign uses no additional third-party font files or image licenses.
+
+Browse by technology, or open each project's source directly from a card.
 
 **[🌐 Explore the live gallery](https://jackxiaozhiren.github.io/MotionSites/)** · [Preview locally](docs/GALLERY_DEPLOY.md) · [How to publish](docs/GALLERY_DEPLOY.md#publish-to-github-pages)
 
