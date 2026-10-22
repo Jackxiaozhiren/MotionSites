@@ -10,7 +10,7 @@ import { chromium } from 'playwright';
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dir = resolve(repo, 'projects/axion-studio-subproject');
 const origin = 'http://127.0.0.1:4287/';
-const server = spawn('npm', ['run', 'dev', '--', '--host', '127.0.0.1', '--port', '4287', '--strictPort'], {
+const server = spawn(process.execPath, [resolve(dir, 'node_modules/vite/bin/vite.js'), '--host', '127.0.0.1', '--port', '4287', '--strictPort'], {
   cwd: dir,
   stdio: 'ignore',
 });
