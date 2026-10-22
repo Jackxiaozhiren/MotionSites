@@ -52,6 +52,8 @@
 
   function stopAll() {
     for (const card of active.keys()) stop(card);
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+    animationFrame = 0;
   }
 
   function resize(state) {
@@ -192,7 +194,13 @@
         let readable = false;
         try {
           const doc = frame.contentDocument;
-          readable = !!doc?.body && (doc.body.innerText?.trim().length || 0) >= 20;
+          // Canvas/WebGL/vector-only projects may have almost no text.
+          // Wait for hydrated visual content rather than treating them as blank.
+          const content = doc?.body;
+          const text = content?.innerText?.trim().length || 0;
+          const visuals = content?.querySelectorAll('canvas,svg,img,video').length || 0;
+          const nodes = content?.querySelectorAll('*').length || 0;
+          readable = !!content && (text >= 20 || (visuals > 0 && nodes >= 8));
         } catch { /* A demo may navigate to another origin. */ }
         if (readable) {
           state.loaded = true;
@@ -204,7 +212,8 @@
       state.hydrateTimer = setTimeout(checkReady, 350);
     };
     frame.src = path;
-    // All visible cards are updated by one shared requestAnimationFrame loop.
+    // One shared loop, only while live previews exist; no idle CPU polling.
+    if (!animationFrame) animationFrame = requestAnimationFrame(tick);
   }
 
   function refresh() {
@@ -248,16 +257,16 @@
 
   function tick(now) {
     if (!permitted()) {
-      if (active.size) stopAll();
-    } else {
-      for (const state of active.values()) {
-        if (state.visible && now - state.lastTick >= SCROLL_INTERVAL) {
-          state.lastTick = now;
-          advance(state, now);
-        }
+      stopAll();
+      return;
+    }
+    for (const state of active.values()) {
+      if (state.visible && now - state.lastTick >= SCROLL_INTERVAL) {
+        state.lastTick = now;
+        advance(state, now);
       }
     }
-    animationFrame = requestAnimationFrame(tick);
+    animationFrame = active.size ? requestAnimationFrame(tick) : 0;
   }
 
   function schedule() {
@@ -298,5 +307,4 @@
     cancelAnimationFrame(animationFrame);
   });
   rebuild();
-  animationFrame = requestAnimationFrame(tick);
 })();
