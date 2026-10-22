@@ -48,7 +48,7 @@ jobs:
         with:
           path: site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
       - name: Verify publicly deployed gallery and guides
         env:
           MOTIONSITES_PAGE_URL: ${{ steps.deployment.outputs.page_url }}
