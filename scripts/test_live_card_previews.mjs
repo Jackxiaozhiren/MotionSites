@@ -40,12 +40,19 @@ try {
       ...Array.from({length:6}, (_, i) => ({
         id:i+1,image:'previews/test-'+(i+1)+'.jpg',demo:'demos/test-'+(i+1)+'/',
       })),
+      {id:2,image:'previews/mainframe.jpg',demo:'demos/mainframe/'},
       {id:20,image:'previews/axion-studio.jpg',demo:'demos/axion-studio/'},
       {id:22,image:'previews/wanderful.jpg',demo:'demos/wanderful/'},
     ]}),
   }));
   await page.route('**/demos/*/', route => {
     requests++;
+    if (route.request().url().endsWith('/demos/mainframe/')) {
+      return route.fulfill({
+        status: 200, contentType: 'text/html',
+        body: '<!doctype html><html><body><main><h1>One screen, but animation can keep running</h1></main></body></html>',
+      });
+    }
     return route.fulfill({
       status:200,contentType:'text/html',
       body:`<!doctype html><html lang="en"><head><title>Scrolling fixture</title>
@@ -174,6 +181,38 @@ try {
   assert.ok(await page.locator('.live-layer iframe').count() <= 3,
     'Hysteresis may not exceed the desktop iframe budget');
   console.log('PASS '+engine.name()+': boundary jitter preserves iframe instances');
+
+  // A single-screen live demo must not search its DOM at 30fps just to
+  // rediscover that there is no scroll container. It must still start
+  // auto-scrolling if asynchronous content later expands the page.
+  const oneScreen = page.locator('.card[data-demo="demos/mainframe/"]');
+  await page.locator('#search').fill('Mainframe');
+  await oneScreen.scrollIntoViewIfNeeded();
+  const oneScreenFrame = oneScreen.locator('iframe');
+  await oneScreenFrame.waitFor({ state: 'attached', timeout: 10000 });
+  await page.waitForFunction(() =>
+    document.querySelector('.card[data-demo="demos/mainframe/"] .live-layer')?.classList.contains('is-ready'));
+  await oneScreenFrame.evaluate(frame => {
+    const doc = frame.contentDocument;
+    const original = doc.querySelectorAll.bind(doc);
+    doc.__scrollSelectorCalls = 0;
+    doc.querySelectorAll = selector => {
+      if (selector === 'main,[class*="scroll"],[data-scroll-container]') {
+        doc.__scrollSelectorCalls++;
+      }
+      return original(selector);
+    };
+  });
+  await page.waitForTimeout(1200);
+  const probes = await oneScreenFrame.evaluate(frame => frame.contentDocument.__scrollSelectorCalls);
+  assert.ok(probes <= 5, 'Single-screen scrolling scan ran too frequently: '+probes);
+  await oneScreenFrame.evaluate(frame => { frame.contentDocument.body.style.height = '2000px'; });
+  await page.waitForFunction(() => {
+    const frame = document.querySelector('.card[data-demo="demos/mainframe/"] iframe');
+    return frame?.contentDocument?.scrollingElement?.scrollTop > 20;
+  }, null, { timeout: 3500 });
+  console.log('PASS '+engine.name()+': single-screen scans throttled, late content resumes scrolling');
+  await page.locator('#search').fill('');
 
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
   await page.waitForFunction(()=>document.querySelectorAll('.live-layer iframe').length===0,
