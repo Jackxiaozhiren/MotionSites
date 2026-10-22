@@ -19,6 +19,10 @@
 
 ## 🌐 可交互作品画廊
 
+Gallery 第二轮视觉精修新增 **Selected Moments 精选作品展区**，使用 Axion Studio 与 Wanderful 经发布清单验证的真实网页截图；增加粘性导航、轻量阅读进度、键盘可操作的返回顶部入口，并强化作品卡片的主要预览按钮。精选展区不会额外启动 iframe，原有实时动效、自动滚动、减少动态效果、省流量、搜索筛选与源码说明功能全部保留。
+
+
+
 > **源码目录已规范化：** 30 个独立项目统一放在 [`projects/`](projects/) 中，使用网页名称命名，如 [`projects/axion-studio/`](projects/axion-studio/) 和 [`projects/mindloop/`](projects/mindloop/)。原数字目录的对应关系请查阅 [旧路径 → 新路径对照表](docs/PROJECT_DIRECTORY_MIGRATION.md)。
 
 
