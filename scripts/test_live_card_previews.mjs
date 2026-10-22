@@ -46,9 +46,12 @@ try {
       status:200,contentType:'text/html',
       body:`<!doctype html><html lang="en"><head><title>Scrolling fixture</title>
         <style>html{scroll-behavior:auto}body{margin:0;background:#123;color:white}
-        main{height:1350px;display:flex;flex-direction:column;justify-content:space-between}</style>
+        main{height:1350px;display:flex;flex-direction:column;justify-content:space-between}
+        #hover-target{position:fixed;top:70px;left:20px;height:70px;width:140px;background:rgb(150,0,0)}
+        #hover-target:hover{background:rgb(0,150,0)}</style>
         </head><body><main><h1>Motion preview at top</h1>
         <footer>Motion preview at the bottom of a long sample project</footer></main>
+        <div id="hover-target">Hover animation</div>
         </body></html>`,
     });
   });
@@ -56,9 +59,9 @@ try {
   await page.goto(origin, {waitUntil:'load'});
   await page.waitForFunction(() => document.querySelectorAll('#grid .card').length === 30);
   assert.equal(await page.locator('#live-previews').isChecked(), true);
-  assert.equal(await page.locator('.live-layer iframe').count(), 0,
-    'Do not prefetch 30 demos on page entry');
-  assert.equal(requests,0);
+  assert.ok(await page.locator('.live-layer iframe').count() <= 2,
+    'Never prefetch more than two nearby mobile iframes');
+  assert.ok(requests <= 2, 'Do not eagerly fetch all 30 demos');
   const first = page.locator('.card[data-demo="demos/axion-studio/"]');
   await first.scrollIntoViewIfNeeded();
   await first.locator('.live-layer iframe').waitFor({timeout:10000});
@@ -80,8 +83,8 @@ try {
   assert.ok(scroll.top>30 && scroll.height>1200,JSON.stringify(scroll));
   assert.ok(Math.abs(scroll.frameVisibleHeight-scroll.cardVisibleHeight)<2,
     'Scaled iframe viewport must fill the card crop: '+JSON.stringify(scroll));
-  assert.ok(await page.locator('.live-layer iframe').count()<=1,
-    '390px mobile must run at most one iframe');
+  assert.ok(await page.locator('.live-layer iframe').count()<=2,
+    '390px mobile must run at most two nearby iframes');
 
   // Reaching the DOM scroll limit is not enough: the actual footer must
   // become visible through the cropped live card instead of hiding beneath it.
@@ -98,6 +101,30 @@ try {
   }, null, {timeout:11000});
   console.log('PASS '+engine.name()+': mobile frame scrolls until its real footer is visible');
 
+  // Short scroll reversals no longer destroy and rebuild the iframe.
+  // Regression: the old 35% intersection threshold often unloaded it.
+  const originalFrame = await first.locator('iframe').elementHandle();
+  const beforeRequests = requests;
+  await page.evaluate(() => scrollBy(0,60));
+  await page.waitForTimeout(250);
+  await page.evaluate(() => scrollBy(0,-60));
+  await page.waitForTimeout(250);
+  assert.ok(await first.locator('iframe').evaluate((el, original) => el === original,
+    originalFrame),'Brief scroll reversals must preserve the iframe');
+  assert.equal(requests,beforeRequests,'Brief scroll reversals must not re-fetch demo');
+  console.log('PASS '+engine.name()+': near-viewport scrolling keeps iframe alive');
+
+  if (await page.evaluate(() => matchMedia('(hover: hover) and (pointer: fine)').matches)) {
+    const hover = first.frameLocator('iframe').locator('#hover-target');
+    await hover.hover({timeout:5000});
+    const color=await hover.evaluate(el=>getComputedStyle(el).backgroundColor);
+    assert.equal(color,'rgb(0, 150, 0)','Native CSS hover must work within live iframe');
+    const outerBefore=await page.evaluate(()=>scrollY);
+    await page.mouse.wheel(0,145);
+    await page.waitForFunction(before=>scrollY>before+25,outerBefore,{timeout:5000});
+    console.log('PASS '+engine.name()+': hover works; wheel scrolls parent gallery');
+  }
+
   await page.setViewportSize({width:1440,height:900});
   await first.scrollIntoViewIfNeeded();
   await page.waitForFunction(() => {
@@ -106,8 +133,8 @@ try {
     const crop=frame.closest('.live-layer').getBoundingClientRect().height;
     return Math.abs(frame.getBoundingClientRect().height - crop)<2;
   },null,{timeout:7500});
-  assert.ok(await page.locator('.live-layer iframe').count()<=2,
-    'Desktop must run at most two iframes');
+  assert.ok(await page.locator('.live-layer iframe').count()<=3,
+    'Desktop must run at most three nearby iframes');
   console.log('PASS '+engine.name()+': desktop frame scales to the visible card crop');
 
   await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
