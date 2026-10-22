@@ -76,10 +76,17 @@
     }
   }
 
-  function scrollable(frame) {
+  function scrollable(state) {
     try {
+      const frame = state.frame;
       const doc = frame.contentDocument;
       if (!doc?.body) return null;
+      // Don't query complex React/GSAP trees at 30fps when the scrolling
+      // element is unchanged. Re-discover only if the old root was replaced.
+      if (state.target?.isConnected &&
+          state.target.scrollHeight > state.target.clientHeight + 40) {
+        return state.target;
+      }
       const root = doc.scrollingElement || doc.documentElement;
       if (root.scrollHeight > root.clientHeight + 40) return root;
       // Some experiments lock body scroll and use a dedicated scroll wrapper.
@@ -100,7 +107,7 @@
   function advance(state, now) {
     if (!state.visible || !state.frame.isConnected || !state.loaded || !permitted()) return;
     try {
-      const target = scrollable(state.frame);
+      const target = scrollable(state);
       if (!target) return;
       const range = Math.max(0, target.scrollHeight - target.clientHeight);
       if (range < 40) return; // Some designs are intentionally one screen.
