@@ -145,7 +145,7 @@ button[hidden]{display:none!important}
 .live-layer.is-ready{opacity:1}
 /* Real desktop cursor events reach the embedded site (hover-driven motion).
    Wheel gestures are forwarded to the parent Gallery by live-previews.js. */
-.live-layer--pointer iframe{pointer-events:auto}
+.live-layer.live-layer--pointer iframe{pointer-events:auto}
 .live-grid .card:hover{transform:none} /* Avoid repaints of running nested sites. */
 .live-layer{contain:layout paint;backface-visibility:hidden}
 .live-layer iframe{backface-visibility:hidden}
