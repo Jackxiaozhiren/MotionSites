@@ -52,6 +52,14 @@ try {
     const badges = [...document.querySelectorAll('.project-badge--neutral')];
     return badges.length === 30 && badges.every(badge => badge.textContent.trim() === 'Source only');
   });
+  assert.equal(await page.locator('.hero-stage .stage-shot').count(), 3);
+  assert.equal(await page.locator('.hero-stage .stage-shot img[src]').count(), 0,
+    'Hero must not request screenshots before the published manifest verifies them');
+  assert.equal(await page.locator('.hero-stage .stage-placeholder').count(), 3,
+    'Authored typographic artwork should replace unverified screenshots');
+  assert.equal(await page.locator('.orb').count(), 0,
+    'The old generic placeholder orb must not be shown in the new hero');
+  log('editorial hero has named real-project links and honest screenshot fallbacks');
   log('30 source-only cards without a manifest; loading state avoids premature labels');
 
   await page.locator('button[data-tag="GSAP"]').click();
@@ -100,6 +108,8 @@ try {
   await page.locator('#grid .card').first().waitFor();
   assert.equal(await page.locator('#grid .card').count(), 1);
   assert.match(await page.locator('.open--demo').getAttribute('href'), /demos\/axion-studio/);
+  assert.equal(await page.locator('.stage-shot img[src]').count(), 0,
+    'A one-project manifest must not mark unlisted hero screenshots as verified');
   log('published manifest correctly enables a verified demo link');
 
   // Card previews may load automatically. Turn them off and await teardown
@@ -154,10 +164,14 @@ try {
   const metrics = await page.evaluate(() => ({
     viewport: innerWidth,
     documentWidth: document.documentElement.scrollWidth,
-    orbAnimation: getComputedStyle(document.querySelector('.orb')).animationName,
+    editorialHero: Boolean(document.querySelector('.hero-stage .stage-shot')),
+    featuredPanels: document.querySelectorAll('.hero-stage .stage-shot').length,
+    stageTransition: getComputedStyle(document.querySelector('.stage-shot')).transitionDuration,
   }));
   assert.ok(metrics.documentWidth <= metrics.viewport + 2, JSON.stringify(metrics));
-  assert.equal(metrics.orbAnimation, 'none');
+  assert.equal(metrics.featuredPanels, 3, 'Hero should feature three real site previews');
+  assert.equal(metrics.editorialHero, true);
+  assert.equal(metrics.stageTransition, '0s', 'Reduced motion disables decorative transitions');
 
   // Mobile dialog should remain inside the viewport and respond to Close.
   await page.unroute('**/previews/manifest.json');
