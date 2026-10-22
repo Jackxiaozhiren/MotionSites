@@ -563,3 +563,19 @@ footer a:hover{color:var(--acid)}
   font-size:inherit;letter-spacing:inherit;color:var(--acid)
 }
 .stage-shot>span:not(.stage-placeholder){z-index:3}
+
+/* Source guide continuity — accessible contrast, code and breadcrumbs. */
+.detail-breadcrumb{color:#aebba7;font-size:12px;font-weight:750;letter-spacing:.1em;text-transform:uppercase}
+.detail-breadcrumb a,.detail-inline-link{color:var(--acid)}
+.detail-hero h1{font-weight:650;line-height:1;letter-spacing:-.075em}
+.detail-concept{background:linear-gradient(135deg,#263825,#131a16)}
+.detail-concept:before{border-color:#d9fb7d40}
+.detail-concept span,.detail-visual-note{color:#c9d7bf}
+.detail-panel{border-radius:2px}
+.detail-panel h2{font-weight:630}
+.detail-file-links a,.detail-command{color:#d7efc4}
+.detail-command{background:#151b13;border-color:#465942;border-radius:2px}
+.detail-button{border-radius:2px;background:var(--acid);color:#192516}
+.detail-button:hover{background:#e9ffb5}
+#detail-status{color:#d2e1c6}
+@media(max-width:600px){.detail-hero h1{font-size:clamp(40px,11vw,66px)}}
