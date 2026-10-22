@@ -19,6 +19,10 @@
   let observer;
   const BASE_HEIGHT = 800;
   const SCROLL_INTERVAL = 32; // smooth ~30fps instead of jumpy 90ms intervals
+  // Single-screen demos have nothing to auto-scroll. Recheck periodically so
+  // lazy/dynamic content can still become scrollable without scanning huge
+  // React trees at every 30fps tick.
+  const NO_SCROLL_RECHECK_MS = 700;
   // Keep an already-running demo when two equally visible cards swap rank
   // by a few pixels. Recreating a React iframe drops its animation state and
   // can replay hundreds of asset requests during small scroll reversals.
@@ -111,10 +115,16 @@
   function advance(state, now) {
     if (!state.visible || !state.frame.isConnected || !state.loaded || !permitted()) return;
     try {
+      // Once an iframe proves single-screen, avoid repeating a potentially
+      // expensive selector/layout scan on every animation frame.
+      if (now < state.nextScrollProbe) return;
       const target = scrollable(state);
-      if (!target) return;
-      const range = Math.max(0, target.scrollHeight - target.clientHeight);
-      if (range < 40) return; // Some designs are intentionally one screen.
+      const range = target ? Math.max(0, target.scrollHeight - target.clientHeight) : 0;
+      if (range < 40) {
+        state.nextScrollProbe = now + NO_SCROLL_RECHECK_MS;
+        return;
+      }
+      state.nextScrollProbe = 0;
       if (!state.lastTime) state.lastTime = now;
       const delta = Math.min(180, now - state.lastTime);
       state.lastTime = now;
@@ -174,7 +184,7 @@
       card, layer, frame, loaded: false, visible: false,
       lastWidth: 0, baseWidth: 0, lastTick: 0,
       lastTime: 0, y: 0, holdUntil: 0, restart: false, target: null,
-      hydrateTimer: null,
+      nextScrollProbe: 0, hydrateTimer: null,
     };
     active.set(card, state);
     resize(state);
@@ -266,6 +276,7 @@
       if (state.visible !== item.visible) {
         state.visible = item.visible;
         state.lastTime = 0; // Avoid fast-forwarding after scrolling back.
+        state.nextScrollProbe = 0; // Recheck immediately when returning.
       }
       resize(state);
     }
