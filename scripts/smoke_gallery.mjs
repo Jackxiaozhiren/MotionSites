@@ -154,10 +154,14 @@ try {
   const metrics = await page.evaluate(() => ({
     viewport: innerWidth,
     documentWidth: document.documentElement.scrollWidth,
-    orbAnimation: getComputedStyle(document.querySelector('.orb')).animationName,
+    editorialHero: Boolean(document.querySelector('.hero-stage .stage-shot')),
+    featuredPanels: document.querySelectorAll('.hero-stage .stage-shot').length,
+    stageTransition: getComputedStyle(document.querySelector('.stage-shot')).transitionDuration,
   }));
   assert.ok(metrics.documentWidth <= metrics.viewport + 2, JSON.stringify(metrics));
-  assert.equal(metrics.orbAnimation, 'none');
+  assert.equal(metrics.featuredPanels, 3, 'Hero should feature three real site previews');
+  assert.equal(metrics.editorialHero, true);
+  assert.equal(metrics.stageTransition, '0s', 'Reduced motion disables decorative transitions');
 
   // Mobile dialog should remain inside the viewport and respond to Close.
   await page.unroute('**/previews/manifest.json');
