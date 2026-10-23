@@ -145,7 +145,7 @@ Start with a few different styles and animation stacks:
 | 14 | **securify** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/securify) |
 | 15 | **CINEMATIC** | React · Tailwind · Vite | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/cinematic) |
 | 16 | **LinkFlow** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/linkflow) |
-| 17 | **Motion Sites 18** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/motion-sites-18) |
+| 17 | **Prosthetics Landing Page** | React · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/prosthetics-landing-page) |
 | 18 | **RIVR** | React · Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/rivr) |
 | 19 | **Nexora** | React · Framer Motion · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/nexora) |
 | 20 | **Axion Studio** | React · GSAP · Tailwind · Vite · TS | [Open ↗](https://github.com/Jackxiaozhiren/MotionSites/tree/main/projects/axion-studio) |

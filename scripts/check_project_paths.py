@@ -13,7 +13,7 @@ EXPECTED = [
 "jack-3d-creator", "mainframe", "prisma-creative-studio", "velorah",
 "password-manager", "aethera", "venture-space-travel", "vex", "forma",
 "asme", "orbis-nft", "vaultshield", "asme-motion", "securify", "cinematic",
-"linkflow", "motion-sites-18", "rivr", "nexora", "axion-studio",
+"linkflow", "prosthetics-landing-page", "rivr", "nexora", "axion-studio",
 "axion-studio-subproject", "wanderful", "mindloop", "equilibrium", "xero",
 "duolingo-style-guide", "newsletter-design", "foundation-new-digital-epoch",
 "dot", "hero-liquid-glass",
